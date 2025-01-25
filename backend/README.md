@@ -1,5 +1,5 @@
 # Sienimetsa-backend
-Backend project for the "Software Project 2" course application. This backend project manages mushroom and customer data. It functions as the backend for the application's frontend.
+Backend project for the "Software Project 2 " course application. This backend project manages mushroom and customer data. It functions as the backend for the application's frontend.
 # Features
 (To be added later)
 # Admin Features
