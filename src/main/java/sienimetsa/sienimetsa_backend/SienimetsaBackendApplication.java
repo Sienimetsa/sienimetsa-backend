@@ -4,11 +4,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
 import sienimetsa.sienimetsa_backend.domain.FindingRepository;
 import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
-
+import sienimetsa.sienimetsa_backend.domain.User;
+import sienimetsa.sienimetsa_backend.domain.UserRepository;
 import sienimetsa.sienimetsa_backend.domain.Appuser;
 import sienimetsa.sienimetsa_backend.domain.Finding;
 import sienimetsa.sienimetsa_backend.domain.Mushroom;
@@ -23,6 +25,7 @@ public class SienimetsaBackendApplication {
 	@Bean
 	public CommandLineRunner demo ( 
 		AppuserRepository appuserRepository, 
+		UserRepository userRepository,
 		MushroomRepository mushroomRepository, 
 		FindingRepository findingRepository){
 
@@ -44,6 +47,17 @@ public class SienimetsaBackendApplication {
 			appuserRepository.save(appuser1);
 			appuserRepository.save(appuser2);
 
+	     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodedAdminPassword = encoder.encode("admin");
+        String encodedUserPassword = encoder.encode("user");
+
+        // Create users with encoded passwords
+        User user1 = new User("admin", encodedAdminPassword, "ADMIN");
+        User user2 = new User("user", encodedUserPassword, "USER");
+
+        userRepository.save(user1);
+        userRepository.save(user2);
+			
 			Mushroom mushroom1 = new Mushroom(
 				"Amanita muscaria",
 				"High", 
