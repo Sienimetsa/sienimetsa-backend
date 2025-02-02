@@ -52,8 +52,8 @@ public class SienimetsaBackendApplication {
         String encodedUserPassword = encoder.encode("user");
 
         // Create users with encoded passwords
-        User user1 = new User("admin", encodedAdminPassword, "ADMIN");
-        User user2 = new User("user", encodedUserPassword, "USER");
+        User user1 = new User("admin", encodedAdminPassword );
+        User user2 = new User("user", encodedUserPassword );
 
         userRepository.save(user1);
         userRepository.save(user2);
