@@ -1,6 +1,5 @@
 package sienimetsa.sienimetsa_backend.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,23 +11,25 @@ import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
 
 @Service
 public class AppuserDetailServiceImpl implements UserDetailsService {
-    @Autowired 
-    AppuserRepository repository;
+    
+    private final AppuserRepository repository;
+
+    public AppuserDetailServiceImpl(AppuserRepository repository) {
+        this.repository = repository;
+    }
     
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Appuser curruser = repository.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Appuser curruser = repository.findByEmail(email);
         
         if (curruser == null) {
-            throw new UsernameNotFoundException("User not found with username: " + username);
+            throw new UsernameNotFoundException("User not found with email: " + email); 
         }
         
-        UserDetails appuser = new org.springframework.security.core.userdetails.User(
-                username, 
+        return new org.springframework.security.core.userdetails.User(
+                curruser.getEmail(), 
                 curruser.getPasswordHash(),
                 AuthorityUtils.NO_AUTHORITIES
         );
-        
-        return appuser;
     }
 }
