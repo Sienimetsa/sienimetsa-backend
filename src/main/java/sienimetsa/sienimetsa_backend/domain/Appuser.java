@@ -17,7 +17,7 @@ public class Appuser {
     private String username;
 
     @Column(name = "passwordhash")
-    private String passwordhash;
+    private String passwordHash;
 
     @Column(name = "phone")
     private String phone;
@@ -31,9 +31,9 @@ public class Appuser {
     public Appuser() {
     }
 
-    public Appuser(String username, String passwordhash, String phone, String email, String country) {
+    public Appuser(String username, String passwordHash, String phone, String email, String country) {
         this.username = username;
-        this.passwordhash = passwordhash;
+        this.passwordHash = passwordHash;
         this.phone = phone;
         this.email = email;
         this.country = country;
@@ -56,11 +56,11 @@ public class Appuser {
     }
 
     public String getPasswordHash() {
-        return passwordhash;
+        return passwordHash;
     }
 
-    public void setPassword(String passwordhash) {
-        this.passwordhash = passwordhash;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public String getPhone() {
@@ -89,7 +89,7 @@ public class Appuser {
 
     @Override
     public String toString() {
-        return "Appuser [u_Id=" + u_Id + ", username=" + username + ", password=" + passwordhash + ", phone=" + phone
+        return "Appuser [u_Id=" + u_Id + ", username=" + username + ", password=" + passwordHash + ", phone=" + phone
                 + ", email=" + email + ", country=" + country + "]";
     }
 }

@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import sienimetsa.sienimetsa_backend.web.AppuserDetailServiceImpl;
+import sienimetsa.sienimetsa_backend.web.AppuserLoginServiceImpl;
 import sienimetsa.sienimetsa_backend.web.UserDetailServiceImpl;
 
 @Configuration
@@ -22,11 +22,11 @@ import sienimetsa.sienimetsa_backend.web.UserDetailServiceImpl;
 public class SecurityConfig {
 
     private final UserDetailServiceImpl userDetailsService; // Service for loading backend user details.
-    private final AppuserDetailServiceImpl appuserDetailsService; // Service for loading mobile user details.
+    private final AppuserLoginServiceImpl appuserDetailsService; // Service for loading mobile user details.
 
     
      // Constructor injection for UserDetailServiceImpl and AppuserDetailServiceImpl.
-    public SecurityConfig(UserDetailServiceImpl userDetailsService, AppuserDetailServiceImpl appuserDetailsService) {
+    public SecurityConfig(UserDetailServiceImpl userDetailsService, AppuserLoginServiceImpl appuserDetailsService) {
         this.userDetailsService = userDetailsService;
         this.appuserDetailsService = appuserDetailsService;
     }
