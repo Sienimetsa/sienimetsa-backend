@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mushroom library</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="container" style="padding: 5%;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>Mushroom library</h1>
+            <a href="/frontpage" class="btn btn-primary">Back to Front-Page</a>
+        </div>
+        <div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Toxicity-level</th>
+                        <th>Color</th>
+                        <th>Gills</th>
+                        <th>Cap</th>
+                        <th>Taste</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="mushroom : ${mushrooms}">
+                        <td th:text="${mushroom.mname}"></td>
+                        <td th:text="${mushroom.toxicity_level}"></td>
+                        <td th:text="${mushroom.color}"></td>
+                        <td th:text="${mushroom.gills}"></td>
+                        <td th:text="${mushroom.cap}"></td>
+                        <td th:text="${mushroom.taste}"></td>
+                    </tr>
+                </tbody>                
+            </table>
+        </div>
+    </div>
+</body>
+</html>
