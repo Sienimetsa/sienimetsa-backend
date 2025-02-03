@@ -16,4 +16,16 @@ public class WebController {
     public String index() {
         return "index";
     }
+    @GetMapping("/frontpage")
+    public String frontpage() {
+        return "frontpage";
+    }
+    @GetMapping("/users")
+    public String users() {
+        return "users";
+    }
+    @GetMapping("/mushrooms")
+    public String mushrooms() {
+        return "mushrooms";
+    }
 }

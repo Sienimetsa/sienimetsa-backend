@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
-                        .defaultSuccessUrl("/index", true)
+                        .defaultSuccessUrl("/frontpage", true)
                         .permitAll())
                 .logout(logout -> logout
                         .logoutUrl("/logout")
