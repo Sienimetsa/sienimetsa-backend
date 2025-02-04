@@ -45,11 +45,11 @@ public class Finding {
         this.notes = notes;
     }
 
-    public Long getF_id() {
+    public Long getF_Id() {
         return f_id;
     }
 
-    public void setF_id(Long f_id) {
+    public void setF_Id(Long f_id) {
         this.f_id = f_id;
     }
 
