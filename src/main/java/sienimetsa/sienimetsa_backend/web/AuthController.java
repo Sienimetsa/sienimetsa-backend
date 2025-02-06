@@ -30,13 +30,17 @@ public class AuthController {
         try {
             authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
-
+    
             String token = jwtUtil.generateToken(authRequest.getEmail());
-
+    
             return ResponseEntity.ok(new AuthResponse(token));
         } catch (AuthenticationException e) {
+            // Log the exception for debugging purposes
+            e.printStackTrace();
             return ResponseEntity.status(401).body("Authentication failed: Invalid credentials");
         } catch (Exception e) {
+            // Log the exception for debugging purposes
+            e.printStackTrace();
             return ResponseEntity.status(500).body("An error occurred during authentication");
         }
     }
