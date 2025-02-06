@@ -26,7 +26,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 curruser.getUsername(),
                 curruser.getPasswordHash(),
-                AuthorityUtils.NO_AUTHORITIES // No roles assigned
+                curruser.getUsername().equals("admin")
+                ? AuthorityUtils.createAuthorityList("ROLE_ADMIN")
+                : AuthorityUtils.NO_AUTHORITIES
         );
     }
 }

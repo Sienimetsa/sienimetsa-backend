@@ -63,8 +63,9 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/css/**", "/login", "/h2-console/**").permitAll()
-                .anyRequest().authenticated())
+            .requestMatchers("/css/**", "/login", "/h2-console/**").permitAll()
+            .requestMatchers("/frontpage", "/users", "/mushrooms").hasRole("ADMIN")
+            .anyRequest().authenticated())
             .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
             .formLogin(formLogin -> formLogin
                 .loginPage("/login")
