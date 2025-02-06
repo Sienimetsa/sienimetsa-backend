@@ -92,7 +92,15 @@ public class SecurityConfig {
     @Bean
     public DaoAuthenticationProvider backendAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(appuserDetailsService);
+        provider.setUserDetailsService(appuserDetailsService); // For mobile users
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
+    }
+
+    @Bean
+    public DaoAuthenticationProvider frontendAuthenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService); // For non-mobile users
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
@@ -100,7 +108,7 @@ public class SecurityConfig {
     @Primary
     @Bean
     public AuthenticationManager authenticationManager() {
-        return new ProviderManager(List.of(backendAuthenticationProvider()));
+        return new ProviderManager(List.of(backendAuthenticationProvider(), frontendAuthenticationProvider()));
     }
 
     @Bean
