@@ -25,9 +25,9 @@ public class SecurityTests {
     }
 
     @Test
-    public void userCanAccessPage() throws Exception {
+    public void userCanNotAccessPage() throws Exception {
         mockMvc.perform(get("/frontpage")
                .with(SecurityMockMvcRequestPostProcessors.user("user").roles("USER")))
-               .andExpect(status().isOk());
+               .andExpect(status().isForbidden());
     }
 }
