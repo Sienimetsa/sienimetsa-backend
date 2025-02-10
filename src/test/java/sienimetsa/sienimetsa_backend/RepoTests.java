@@ -34,7 +34,8 @@ public class RepoTests {
         assertNotNull(appuserRepository.save(appuser));
 
         // Read
-        assertNotNull(appuserRepository.findById(appuser.getU_Id()));
+        assertNotNull(appuserRepository.findById(appuser.getU_id()));
+
 
         // Update
         appuser.setCountry("Guatemala");
@@ -43,7 +44,7 @@ public class RepoTests {
 
         // Delete
         appuserRepository.delete(appuser);
-        assertFalse(appuserRepository.findById(appuser.getU_Id()).isPresent());
+        assertFalse(appuserRepository.findById(appuser.getU_id()).isPresent());
     }
 
     @Test

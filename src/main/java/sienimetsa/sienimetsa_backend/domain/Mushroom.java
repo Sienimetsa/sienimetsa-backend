@@ -11,7 +11,7 @@ public class Mushroom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long m_Id;
+    private Long m_id;
 
     @Column(name = "mname")
     private String mname;
@@ -44,11 +44,11 @@ public class Mushroom {
     }
 
     public Long getM_Id() {
-        return m_Id;
+        return m_id;
     }
 
-    public void setM_Id(Long m_Id) {
-        this.m_Id = m_Id;
+    public void setM_Id(Long m_id) {
+        this.m_id = m_id;
     }
 
     public String getMname() {
@@ -101,7 +101,7 @@ public class Mushroom {
 
     @Override
     public String toString() {
-        return "Mushroom [m_Id=" + m_Id + ", mname=" + mname + ", toxicity_level=" + toxicity_level + ", color="
+        return "Mushroom [m_Id=" + m_id + ", mname=" + mname + ", toxicity_level=" + toxicity_level + ", color="
                 + color + ", gills=" + gills + ", cap=" + cap + ", taste=" + taste + "]";
     }
 

@@ -1,8 +1,10 @@
 package sienimetsa.sienimetsa_backend.jwt;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -10,9 +12,14 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    // Secret key for JWT signing (this should ideally come from properties or environment variables)
-    private final String jwtSecret = "YourSecretKeyForJWTGenerationYourSecretKeyForJWTGeneration"; // Ensure key length is sufficient
+    // Secret key for JWT signing (read from environment variable)
+    private final String jwtSecret;
     private final long jwtExpirationMs = 86400000; // 24 hours expiration time for the token
+
+    @Autowired
+    public JwtUtil(Dotenv dotenv) {
+        this.jwtSecret = dotenv.get("JWT_SECRET");
+    }
 
     // Generate the JWT token based on the email
     public String generateToken(String email) {
@@ -36,12 +43,12 @@ public class JwtUtil {
             return true;
         } catch (Exception e) {
             // Log error details (you may want to log the exception here)
+            System.out.println("Failed to validate JWT token: " + e.getMessage());
         }
         return false;
     }
 
     private Claims getClaims(String token) {
-        // Cast getPayload() to Claims as getBody() is deprecated
         return (Claims) Jwts.parser()
                 .verifyWith(Keys.hmacShaKeyFor(jwtSecret.getBytes()))
                 .build()
