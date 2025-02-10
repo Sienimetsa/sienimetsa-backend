@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" href="/css/styles.css">
+
+<a href="/frontpage" class="btn btn-primary">Back to Front-Page</a>
+<div>
+    mau
+</div>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Mushroom</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>Edit Mushroom Information</h1>
+    <form th:action="@{/mushrooms/edit/{id}(id=${mushroom.m_id})}" th:object="${mushroom}" method="post">
+        <div>
+            <label for="mname">Mushroom Name:</label>
+            <input type="text" id="mname" th:field="*{mname}" placeholder="Enter mushroom name" required>
+        </div>
+        <div>
+            <label for="toxicity_level">Toxicity Level:</label>
+            <input type="text" id="toxicity_level" th:field="*{toxicity_level}" placeholder="Enter toxicity level"
+                required>
+        </div>
+        <div>
+            <label for="color">Color:</label>
+            <input type="text" id="color" th:field="*{color}" placeholder="Enter mushroom color" required>
+        </div>
+        <div>
+            <label for="gills">Gills:</label>
+            <input type="text" id="gills" th:field="*{gills}" placeholder="Enter gills description" required>
+        </div>
+        <div>
+            <label for="cap">Cap:</label>
+            <input type="text" id="cap" th:field="*{cap}" placeholder="Enter cap description" required>
+        </div>
+        <div>
+            <label for="taste">Taste:</label>
+            <input type="text" id="taste" th:field="*{taste}" placeholder="Enter taste description" required>
+        </div>
+        <div>
+            <button type="submit">Save Changes</button>
+        </div>
+    </form>
+    <div>
+        <a href="/mushrooms">Back to Mushrooms List</a>
+    </div>
+</body>
+
+</html>
