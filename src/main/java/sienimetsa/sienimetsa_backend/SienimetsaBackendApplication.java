@@ -30,16 +30,19 @@ public class SienimetsaBackendApplication {
 		FindingRepository findingRepository){
 
 		return (args) -> {
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			String encodedPassword1 = encoder.encode("mehu");
+			String encodedPassword2 = encoder.encode("kuusi");
 			Appuser appuser1 = new Appuser(
 				"MehuLaatikko", 
-				"$2a$10$3Zz9Zz9Zz9Zz9Zz9Zz9Zu",
+				encodedPassword1,
 				"358401234567",
 				"real@email.com",
 				"Finland");
 
 			Appuser appuser2 = new Appuser(
 				"KuusenKäpy", 
-				"$2a$10$3Zz9Zz9Zz9Zz9Zz9Zz9Zu",
+				encodedPassword2,
 				"358401234567",
 				"test@lookout.com",
 				"Finland");
@@ -47,7 +50,7 @@ public class SienimetsaBackendApplication {
 			appuserRepository.save(appuser1);
 			appuserRepository.save(appuser2);
 
-	     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	
         String encodedAdminPassword = encoder.encode("admin");
         String encodedUserPassword = encoder.encode("user");
 

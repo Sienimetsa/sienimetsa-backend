@@ -36,6 +36,7 @@ public class RepoTests {
         // Read
         assertNotNull(appuserRepository.findById(appuser.getU_id()));
 
+
         // Update
         appuser.setCountry("Guatemala");
         Appuser updated = appuserRepository.save(appuser);

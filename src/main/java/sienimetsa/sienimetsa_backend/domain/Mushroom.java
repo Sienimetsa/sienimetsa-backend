@@ -55,7 +55,7 @@ public class Mushroom {
         return mname;
     }
 
-    public void setmname(String mname) {
+    public void setMname(String mname) {
         this.mname = mname;
     }
 
