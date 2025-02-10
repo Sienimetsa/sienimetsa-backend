@@ -11,7 +11,7 @@ public class Appuser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long u_Id;
+    private Long u_id;
 
     @Column(name = "username")
     private String username;
@@ -39,12 +39,12 @@ public class Appuser {
         this.country = country;
     }
 
-    public Long getU_Id() {
-        return u_Id;
+    public Long getU_id() {
+        return u_id;
     }
 
-    public void setU_Id(Long u_Id) {
-        this.u_Id = u_Id;
+    public void setU_id(Long u_id) {
+        this.u_id = u_id;
     }
 
     public String getUsername() {
@@ -89,7 +89,7 @@ public class Appuser {
 
     @Override
     public String toString() {
-        return "Appuser [u_Id=" + u_Id + ", username=" + username + ", password=" + passwordHash + ", phone=" + phone
+        return "Appuser [u_id=" + u_id + ", username=" + username + ", password=" + passwordHash + ", phone=" + phone
                 + ", email=" + email + ", country=" + country + "]";
     }
 }

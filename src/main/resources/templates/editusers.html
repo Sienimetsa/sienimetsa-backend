@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" 
+xmlns:th="http://www.thymeleaf.org">
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" /> 
+<link rel="stylesheet" href="/css/styles.css">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Users</title>
+</head>
+<body>
+    <h1>Edit user info</h1>
+    <form th:object="${appuser}" th:action="@{../saveu}" action="#" method="post">
+        <label for="u_id"></label>
+        <input type="hidden" id="id" th:field="*{u_id}" readonly="readonly" />
+
+        <label for="username">Username</label>
+        <input type="text" th:field="*{username}"/>
+        <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+
+        <label for="password">Password</label>
+        <input type="text" th:field="*{password}"/>
+        <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+
+        <label for="phone">Phone</label>
+        <input type="text" th:field="*{phone}" />
+        <div class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+
+        <label for="email">Email</label>
+        <input type="text" th:field="*{email}"/>
+        <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+
+        <label for="country">Country</label>
+        <input type="text" th:field="*{country}"/>
+        <div class="error" th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></div>
+
+        <input type="submit" value="Save"></input>
+    </form>
+    <a class="btn btn-primary btn-custom" href="/frontpage">Back to front-page</a>
+</body>
+</html> 
