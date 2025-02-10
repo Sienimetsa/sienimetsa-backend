@@ -1,10 +1,17 @@
 # Sienimetsa-backend
 Backend project for the "Software Project 2" course application. This backend project manages mushroom and customer data. It functions as the backend for the application's frontend.
 # Features
-(To be added later)
+
+# Security Features
+- Authentication system for customer and admin users with Password hashing 
+- Generates a JWT token upon successful authentication
+- Two Security Filter Chains for admin and customer for handiling endpoints
 # Admin Features
-- Customer data management
+- Customer data management 
 - Mushroom data management
+
+ (More feattures will be added later)
+ 
 # Requirements
 - Java 17
 - PostgreSQL database
