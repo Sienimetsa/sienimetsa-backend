@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Appuser {
@@ -14,18 +15,23 @@ public class Appuser {
     private Long u_id;
 
     @Column(name = "username")
+    @NotBlank(message = "Username is mandatory")
     private String username;
 
     @Column(name = "passwordhash")
+    @NotBlank(message = "Password is mandatory")
     private String passwordHash;
 
     @Column(name = "phone")
+    @NotBlank(message = "Phone number is mandatory")
     private String phone;
 
     @Column(name = "email")
+    @NotBlank(message = "Email is mandatory")
     private String email;
 
     @Column(name = "country")
+    @NotBlank(message = "Country is mandatory")
     private String country;
 
     public Appuser() {
