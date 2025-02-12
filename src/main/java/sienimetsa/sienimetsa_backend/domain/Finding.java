@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Finding {
@@ -26,9 +27,11 @@ public class Finding {
     private Mushroom mushroom;
 
     @Column(name = "f_time")
+    @NotBlank(message = "Finding time is mandatory")
     private LocalDateTime f_time;
 
     @Column(name = "city")
+    @NotBlank(message = "City is mandatory")
     private String city;
 
     @Column(name = "notes")
