@@ -27,7 +27,6 @@ public class Finding {
     private Mushroom mushroom;
 
     @Column(name = "f_time")
-    @NotBlank(message = "Finding time is mandatory")
     private LocalDateTime f_time;
 
     @Column(name = "city")
