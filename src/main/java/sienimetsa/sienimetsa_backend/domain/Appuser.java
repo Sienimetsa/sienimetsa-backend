@@ -2,6 +2,8 @@ package sienimetsa.sienimetsa_backend.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,6 +15,9 @@ public class Appuser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long u_id;
+
+    @Enumerated(EnumType.STRING)
+    private ProfileIcon profileicon;
 
     @Column(name = "username")
     @NotBlank(message = "Username is mandatory")
@@ -37,12 +42,21 @@ public class Appuser {
     public Appuser() {
     }
 
-    public Appuser(String username, String passwordHash, String phone, String email, String country) {
+    public Appuser(ProfileIcon profileIcon, String username, String passwordHash, String phone, String email, String country) {
+        this.profileicon = profileIcon;
         this.username = username;
         this.passwordHash = passwordHash;
         this.phone = phone;
         this.email = email;
         this.country = country;
+    }
+
+    public ProfileIcon getProfileicon() {
+        return profileicon;
+    }
+
+    public void setProfileicon(ProfileIcon profileicon) {
+        this.profileicon = profileicon;
     }
 
     public Long getU_id() {

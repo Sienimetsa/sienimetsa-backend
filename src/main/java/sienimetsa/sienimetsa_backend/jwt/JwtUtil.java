@@ -4,7 +4,6 @@ import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -16,7 +15,6 @@ public class JwtUtil {
     private final String jwtSecret;
     private final long jwtExpirationMs = 86400000; // 24 hours expiration time for the token
 
-    @Autowired
     public JwtUtil(Dotenv dotenv) {
         this.jwtSecret = dotenv.get("JWT_SECRET");
     }
