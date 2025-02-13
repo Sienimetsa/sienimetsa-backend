@@ -1,10 +1,12 @@
 package sienimetsa.sienimetsa_backend.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -33,6 +35,9 @@ public class Appuser {
     @Column(name = "country")
     @NotBlank(message = "Country is mandatory")
     private String country;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private AppuserProfile profile;
 
     public Appuser() {
     }
@@ -93,9 +98,19 @@ public class Appuser {
         this.country = country;
     }
 
+    public AppuserProfile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(AppuserProfile profile) {
+        this.profile = profile;
+        profile.setUser(this); 
+    }
+
     @Override
     public String toString() {
-        return "Appuser [u_id=" + u_id + ", username=" + username + ", password=" + passwordHash + ", phone=" + phone
-                + ", email=" + email + ", country=" + country + "]";
+        return "Appuser [u_id=" + u_id + ", username=" + username + ", password=" + passwordHash + 
+               ", phone=" + phone + ", email=" + email + ", country=" + country + 
+               ", profile=" + (profile != null ? profile.toString() : "No Profile") + "]";
     }
 }
