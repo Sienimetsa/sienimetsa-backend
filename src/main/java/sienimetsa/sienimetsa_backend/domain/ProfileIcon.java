@@ -1,15 +1,9 @@
 package sienimetsa.sienimetsa_backend.domain;
 
 public enum ProfileIcon {
-    KONSTA("assets/profileicons/Konsta.png");
-
-    private final String path;
-
-    ProfileIcon(String path) {
-        this.path = path;
-    }
-
-    public String getPath() {
-        return path;
-    }
+    pp1,
+    pp2,
+    pp3,
+    pp4,
+    pp5;
 }
