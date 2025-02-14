@@ -2,6 +2,8 @@ package sienimetsa.sienimetsa_backend.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,6 +14,9 @@ public class Mushroom {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long m_id;
+
+    @Enumerated(EnumType.STRING)
+    private Mushroompic mushroompic;
 
     @Column(name = "mname")
     private String mname;
@@ -34,7 +39,7 @@ public class Mushroom {
     public Mushroom() {
     }
 
-    public Mushroom(String mname, String toxicity_level, String color, String gills, String cap, String taste) {
+    public Mushroom(Mushroompic mushroompic, String mname, String toxicity_level, String color, String gills, String cap, String taste) {
         this.mname = mname;
         this.toxicity_level = toxicity_level;
         this.color = color;

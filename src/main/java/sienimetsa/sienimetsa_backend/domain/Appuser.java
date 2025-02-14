@@ -1,8 +1,12 @@
 package sienimetsa.sienimetsa_backend.domain;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.Collection;
@@ -14,6 +18,9 @@ public class Appuser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long u_id;
+
+    @Enumerated(EnumType.STRING)
+    private ProfileIcon profileicon;
 
     @Column(name = "username")
     @NotBlank(message = "Username is mandatory")
@@ -41,12 +48,21 @@ public class Appuser implements UserDetails {
     public Appuser() {
     }
 
-    public Appuser(String username, String passwordHash, String phone, String email, String country) {
+    public Appuser(ProfileIcon profileIcon, String username, String passwordHash, String phone, String email, String country) {
+        this.profileicon = profileIcon;
         this.username = username;
         this.passwordHash = passwordHash;
         this.phone = phone;
         this.email = email;
         this.country = country;
+    }
+
+    public ProfileIcon getProfileicon() {
+        return profileicon;
+    }
+
+    public void setProfileicon(ProfileIcon profileicon) {
+        this.profileicon = profileicon;
     }
 
     // Getters and setters
