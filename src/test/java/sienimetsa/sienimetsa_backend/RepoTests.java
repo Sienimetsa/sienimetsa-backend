@@ -26,7 +26,7 @@ public class RepoTests {
     public void testAppuserCRUD() {
         // Create
         Appuser appuser = new Appuser(
-            ProfileIcon.pp1,
+        
             "TestPesti", 
             "SaSa2025", 
             "123456789", 
@@ -87,7 +87,7 @@ public class RepoTests {
             "Bitter");
         mushroomRepository.save(mushroom);
         Appuser appuser = new Appuser(
-            ProfileIcon.pp1,
+          
             "TestPesti", 
             "SaSa2025", 
             "123456789", 

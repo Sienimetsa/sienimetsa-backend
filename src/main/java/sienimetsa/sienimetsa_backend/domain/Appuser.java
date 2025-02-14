@@ -12,6 +12,9 @@ import jakarta.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity
 public class Appuser implements UserDetails {
 
@@ -19,8 +22,6 @@ public class Appuser implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long u_id;
 
-    @Enumerated(EnumType.STRING)
-    private ProfileIcon profileicon;
 
     @Column(name = "username")
     @NotBlank(message = "Username is mandatory")
@@ -48,8 +49,8 @@ public class Appuser implements UserDetails {
     public Appuser() {
     }
 
-    public Appuser(ProfileIcon profileIcon, String username, String passwordHash, String phone, String email, String country) {
-        this.profileicon = profileIcon;
+    public Appuser( String username, String passwordHash, String phone, String email, String country) {
+  
         this.username = username;
         this.passwordHash = passwordHash;
         this.phone = phone;
@@ -57,13 +58,7 @@ public class Appuser implements UserDetails {
         this.country = country;
     }
 
-    public ProfileIcon getProfileicon() {
-        return profileicon;
-    }
-
-    public void setProfileicon(ProfileIcon profileicon) {
-        this.profileicon = profileicon;
-    }
+  
 
     // Getters and setters
     public Long getU_id() {
