@@ -1,7 +1,5 @@
 package sienimetsa.sienimetsa_backend.web;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +30,7 @@ public class AuthController {
     private AppuserProfileRepository profileRepository;
 
     @Autowired
-    private AppuserService appuserService; // ✅ Use merged service
+    private AppuserService appuserService; 
     
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -40,7 +38,7 @@ public class AuthController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    // ✅ Fixed Login Method
+  
     @PostMapping("/mobile/login")
     public ResponseEntity<?> login(@RequestBody MobileLoginRequestDTO authRequest) {
         Optional<Appuser> userOptional = appuserService.getUserByEmail(authRequest.getEmail());
@@ -53,7 +51,7 @@ public class AuthController {
         return ResponseEntity.ok(Collections.singletonMap("token", token));
     }
 
-    // ✅ Unchanged Signup Method
+  
     @PostMapping("/mobile/signup")
     public ResponseEntity<?> signup(@RequestBody MobileSignupRequestDTO signupRequest) {
         if (userRepository.existsByEmail(signupRequest.getEmail())) {
@@ -79,7 +77,7 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.CREATED).body(Collections.singletonMap("token", token));
     }
 
-    // ✅ Fixed @AuthenticationPrincipal Handling
+   
     @GetMapping("/mobile/profile")
     public ResponseEntity<?> getProfile(@AuthenticationPrincipal Appuser user) {
         if (user == null) {
@@ -102,7 +100,7 @@ public class AuthController {
         ));
     }
 
-    // ✅ Fixed Update Profile
+   
     @PutMapping("/mobile/updateProfile")
     public ResponseEntity<?> updateProfile(@RequestBody MobileProfileUpdateDTO request, @AuthenticationPrincipal Appuser user) {
         if (user == null) {

@@ -20,7 +20,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import sienimetsa.sienimetsa_backend.jwt.JwtAuthenticationFilter;
 import sienimetsa.sienimetsa_backend.web.AppuserService;
-import sienimetsa.sienimetsa_backend.web.AppuserSignUpServiceImpl;
 import sienimetsa.sienimetsa_backend.web.UserDetailServiceImpl;
 import sienimetsa.sienimetsa_backend.jwt.JwtUtil;
 
