@@ -38,9 +38,6 @@ public class Appuser implements UserDetails {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private AppuserProfile profile;
 
-    // Removed the duplicate getUsername() method
-    // You still have the getUsername() method from UserDetails implemented below
-
     public Appuser() {
     }
 
@@ -61,11 +58,10 @@ public class Appuser implements UserDetails {
         this.u_id = u_id;
     }
 
-    // Removed: public String getUsername()
-    // Keep this: Overridden method from UserDetails interface
+  
     @Override
     public String getUsername() {
-        return email; // This is used for authentication
+        return username; 
     }
 
     public void setUsername(String username) {
@@ -151,5 +147,3 @@ public class Appuser implements UserDetails {
                ", profile=" + (profile != null ? profile.toString() : "No Profile") + "]";
     }
 }
-
-
