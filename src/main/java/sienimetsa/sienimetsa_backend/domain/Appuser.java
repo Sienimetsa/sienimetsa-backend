@@ -1,16 +1,15 @@
 package sienimetsa.sienimetsa_backend.domain;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.Collection;
+import java.util.Collections;
+
 @Entity
-public class Appuser {
+public class Appuser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,6 +38,9 @@ public class Appuser {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private AppuserProfile profile;
 
+    // Removed the duplicate getUsername() method
+    // You still have the getUsername() method from UserDetails implemented below
+
     public Appuser() {
     }
 
@@ -50,6 +52,7 @@ public class Appuser {
         this.country = country;
     }
 
+    // Getters and setters
     public Long getU_id() {
         return u_id;
     }
@@ -58,8 +61,11 @@ public class Appuser {
         this.u_id = u_id;
     }
 
+    // Removed: public String getUsername()
+    // Keep this: Overridden method from UserDetails interface
+    @Override
     public String getUsername() {
-        return username;
+        return email; // This is used for authentication
     }
 
     public void setUsername(String username) {
@@ -107,6 +113,37 @@ public class Appuser {
         profile.setUser(this); 
     }
 
+    // Overriding methods from UserDetails interface
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.emptyList(); // If roles are implemented, you can return them here
+    }
+
+    @Override
+    public String getPassword() {
+        return passwordHash;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true; // You can implement account expiry logic if needed
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true; // You can implement account locking logic if needed
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true; // You can implement credentials expiry logic if needed
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true; // You can implement account enable/disable logic if needed
+    }
+
     @Override
     public String toString() {
         return "Appuser [u_id=" + u_id + ", username=" + username + ", password=" + passwordHash + 
@@ -114,3 +151,5 @@ public class Appuser {
                ", profile=" + (profile != null ? profile.toString() : "No Profile") + "]";
     }
 }
+
+
