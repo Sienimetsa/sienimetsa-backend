@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
 import sienimetsa.sienimetsa_backend.domain.FindingRepository;
 import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
+import sienimetsa.sienimetsa_backend.domain.Mushroompic;
 import sienimetsa.sienimetsa_backend.domain.User;
 import sienimetsa.sienimetsa_backend.domain.UserRepository;
 import sienimetsa.sienimetsa_backend.domain.Appuser;
@@ -65,6 +66,7 @@ public class SienimetsaBackendApplication {
         userRepository.save(user2);
 			
 			Mushroom mushroom1 = new Mushroom(
+				Mushroompic.mp1,
 				"Amanita muscaria",
 				"High", 
 				"Red", 
@@ -73,6 +75,7 @@ public class SienimetsaBackendApplication {
 				"Bitter");
 
 			Mushroom mushroom2 = new Mushroom(
+				Mushroompic.mp2,
 				"Boletus edulis",
 				"High", 
 				"Brown", 

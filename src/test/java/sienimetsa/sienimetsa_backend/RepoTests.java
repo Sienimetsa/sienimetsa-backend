@@ -52,6 +52,7 @@ public class RepoTests {
     public void testMushroomCRUD() {
         // Create
         Mushroom mushroom = new Mushroom(
+            Mushroompic.mp1,
             "Amanita muscaria",
             "High", 
             "Red", 
@@ -77,6 +78,7 @@ public class RepoTests {
     public void testFindingCRUD() {
         // Create
         Mushroom mushroom = new Mushroom(
+            Mushroompic.mp1,
             "Amanita muscaria",
             "High", 
             "Red", 
