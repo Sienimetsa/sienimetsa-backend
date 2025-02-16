@@ -19,9 +19,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import sienimetsa.sienimetsa_backend.jwt.JwtAuthenticationFilter;
+import sienimetsa.sienimetsa_backend.jwt.JwtUtil;
 import sienimetsa.sienimetsa_backend.web.AppuserService;
 import sienimetsa.sienimetsa_backend.web.UserDetailServiceImpl;
-import sienimetsa.sienimetsa_backend.jwt.JwtUtil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +44,8 @@ public class SecurityConfig {
     @Order(1)
     public SecurityFilterChain mobileSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-            .securityMatcher("/mobile/**")
+            // Include /api/profile/** in addition to /mobile/**
+            .securityMatcher("/mobile/**", "/api/profile/**")
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
@@ -63,9 +64,9 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
             .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers("/css/**", "/login", "/h2-console/**").permitAll()
-            .requestMatchers("/frontpage", "/users", "/mushrooms").hasRole("ADMIN")
-            .anyRequest().authenticated())
+                .requestMatchers("/css/**", "/login", "/h2-console/**").permitAll()
+                .requestMatchers("/", "/frontpage", "/users", "/mushrooms").hasRole("ADMIN")
+                .anyRequest().authenticated())
             .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
             .formLogin(formLogin -> formLogin
                 .loginPage("/login")
@@ -113,15 +114,14 @@ public class SecurityConfig {
     }
 
     @Bean
-public CorsConfigurationSource corsConfigurationSource() {
-    CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(Arrays.asList("http://localhost:8081"));  // Add your Expo Go URL here
-    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-    configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
-    configuration.setAllowCredentials(true);
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", configuration);
-    return source;
-}
-
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8081"));  // Add your Expo Go URL here
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 }
