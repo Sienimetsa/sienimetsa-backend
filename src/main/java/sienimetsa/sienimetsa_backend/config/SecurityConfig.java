@@ -19,7 +19,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import sienimetsa.sienimetsa_backend.jwt.JwtAuthenticationFilter;
-import sienimetsa.sienimetsa_backend.web.AppuserLoginServiceImpl;
+import sienimetsa.sienimetsa_backend.web.AppuserService;
 import sienimetsa.sienimetsa_backend.web.UserDetailServiceImpl;
 import sienimetsa.sienimetsa_backend.jwt.JwtUtil;
 
@@ -31,10 +31,10 @@ import java.util.List;
 public class SecurityConfig {
 
     private final UserDetailServiceImpl userDetailsService;
-    private final AppuserLoginServiceImpl appuserDetailsService;
+    private final AppuserService appuserDetailsService;
     private final JwtUtil jwtUtil;
 
-    public SecurityConfig(UserDetailServiceImpl userDetailsService, AppuserLoginServiceImpl appuserDetailsService, JwtUtil jwtUtil) {
+    public SecurityConfig(UserDetailServiceImpl userDetailsService, AppuserService appuserDetailsService, JwtUtil jwtUtil) {
         this.userDetailsService = userDetailsService;
         this.appuserDetailsService = appuserDetailsService;
         this.jwtUtil = jwtUtil;
@@ -93,7 +93,7 @@ public class SecurityConfig {
     @Bean
     public DaoAuthenticationProvider backendAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(appuserDetailsService); // For mobile users
+        provider.setUserDetailsService(userDetailsService); // For backend
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
@@ -101,7 +101,7 @@ public class SecurityConfig {
     @Bean
     public DaoAuthenticationProvider frontendAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService); // For non-mobile users
+        provider.setUserDetailsService(appuserDetailsService); // For mobile
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }

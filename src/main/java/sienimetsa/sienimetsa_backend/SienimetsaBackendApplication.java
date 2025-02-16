@@ -15,7 +15,7 @@ import sienimetsa.sienimetsa_backend.domain.UserRepository;
 import sienimetsa.sienimetsa_backend.domain.Appuser;
 import sienimetsa.sienimetsa_backend.domain.Finding;
 import sienimetsa.sienimetsa_backend.domain.Mushroom;
-import sienimetsa.sienimetsa_backend.domain.ProfileIcon;
+
 
 @SpringBootApplication
 public class SienimetsaBackendApplication {
@@ -36,7 +36,7 @@ public class SienimetsaBackendApplication {
 			String encodedPassword1 = encoder.encode("mehu");
 			String encodedPassword2 = encoder.encode("kuusi");
 			Appuser appuser1 = new Appuser(
-				ProfileIcon.pp1,
+			
 				"MehuLaatikko", 
 				encodedPassword1,
 				"358401234567",
@@ -44,7 +44,7 @@ public class SienimetsaBackendApplication {
 				"Finland");
 
 			Appuser appuser2 = new Appuser(
-				ProfileIcon.pp2,
+		
 				"KuusenKäpy", 
 				encodedPassword2,
 				"358401234567",

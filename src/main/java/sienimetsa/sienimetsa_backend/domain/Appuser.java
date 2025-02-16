@@ -3,23 +3,25 @@ package sienimetsa.sienimetsa_backend.domain;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.Collection;
+import java.util.Collections;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity
-public class Appuser {
+public class Appuser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long u_id;
 
-    @Enumerated(EnumType.STRING)
-    private ProfileIcon profileicon;
 
     @Column(name = "username")
     @NotBlank(message = "Username is mandatory")
@@ -47,8 +49,8 @@ public class Appuser {
     public Appuser() {
     }
 
-    public Appuser(ProfileIcon profileIcon, String username, String passwordHash, String phone, String email, String country) {
-        this.profileicon = profileIcon;
+    public Appuser( String username, String passwordHash, String phone, String email, String country) {
+  
         this.username = username;
         this.passwordHash = passwordHash;
         this.phone = phone;
@@ -56,14 +58,9 @@ public class Appuser {
         this.country = country;
     }
 
-    public ProfileIcon getProfileicon() {
-        return profileicon;
-    }
+  
 
-    public void setProfileicon(ProfileIcon profileicon) {
-        this.profileicon = profileicon;
-    }
-
+    // Getters and setters
     public Long getU_id() {
         return u_id;
     }
@@ -72,8 +69,10 @@ public class Appuser {
         this.u_id = u_id;
     }
 
+  
+    @Override
     public String getUsername() {
-        return username;
+        return username; 
     }
 
     public void setUsername(String username) {
@@ -119,6 +118,37 @@ public class Appuser {
     public void setProfile(AppuserProfile profile) {
         this.profile = profile;
         profile.setUser(this); 
+    }
+
+    // Overriding methods from UserDetails interface
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.emptyList(); // If roles are implemented, you can return them here
+    }
+
+    @Override
+    public String getPassword() {
+        return passwordHash;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true; // You can implement account expiry logic if needed
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true; // You can implement account locking logic if needed
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true; // You can implement credentials expiry logic if needed
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true; // You can implement account enable/disable logic if needed
     }
 
     @Override
