@@ -1,12 +1,11 @@
 package sienimetsa.sienimetsa_backend.domain;
 
-import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.Collection;
@@ -43,23 +42,28 @@ public class Appuser implements UserDetails {
     @NotBlank(message = "Country is mandatory")
     private String country;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private AppuserProfile profile;
+    @Column(name = "chat_color")
+    private String chatColor;
+
+    @Column(name = "profile_picture")
+    private String profilePicture;
+
 
     public Appuser() {
     }
 
-    public Appuser( String username, String passwordHash, String phone, String email, String country) {
+    public Appuser( String username, String passwordHash, String phone, String email, String country, String chatColor,String profilePicture) {
   
         this.username = username;
         this.passwordHash = passwordHash;
         this.phone = phone;
         this.email = email;
         this.country = country;
+        this.chatColor =chatColor;
+        this.profilePicture =profilePicture;
     }
 
   
-
     // Getters and setters
     public Long getU_id() {
         return u_id;
@@ -111,13 +115,20 @@ public class Appuser implements UserDetails {
         this.country = country;
     }
 
-    public AppuserProfile getProfile() {
-        return profile;
+    public String getChatColor() {
+        return chatColor;
     }
 
-    public void setProfile(AppuserProfile profile) {
-        this.profile = profile;
-        profile.setUser(this); 
+    public void setChatColor(String chatColor) {
+        this.chatColor = chatColor;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     // Overriding methods from UserDetails interface
@@ -155,6 +166,6 @@ public class Appuser implements UserDetails {
     public String toString() {
         return "Appuser [u_id=" + u_id + ", username=" + username + ", password=" + passwordHash + 
                ", phone=" + phone + ", email=" + email + ", country=" + country + 
-               ", profile=" + (profile != null ? profile.toString() : "No Profile") + "]";
+                "]";
     }
 }
