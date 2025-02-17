@@ -4,38 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User management</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="/css/styles.css" rel="stylesheet" type="text/css" />
+    <title>App users</title>
+
+    <script>
+        function confirmDelete(event) {
+            event.preventDefault();
+            const confirmation = confirm("Haluatko varmasti poistaa tämän tuotteen?");
+            if (confirmation) {
+                window.location.href = event.target.href;
+            }
+        };
+    </script>
 </head>
 
 <body>
-    <div class="container" style="padding: 5%;">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h1>User library</h1>
-            <a href="/frontpage" class="btn btn-primary">Back to Front-Page</a>
-            <a class="btn btn-primary btn-custom" href="/editusers">Edit users</a>
+    <div style="padding: 5%;">
+        <div style="display: flex; justify-content: flex-end;">
+            <a class="btn btn-primary btn-custom" href="/index">Takaisin etusivulle</a>
         </div>
         <div>
-            <table class="table table-bordered table-hover">
+            <h1>App users</h1>
+        </div>
+        <div style="padding-top: 2%;">
+            <table class="table pink-table table-hover" style="margin: 0 auto;">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Username</th>
                         <th>Phone</th>
                         <th>Email</th>
                         <th>Country</th>
+                        <th sec:authorize="hasAuthority('ADMIN')">Toiminnot</th>
                     </tr>
+                </thead>
                 <tbody>
-                    <tr th:each="appuser : ${appuser}">
+                    <tr th:each="appuser : ${appusers}">
+                        <td th:text="${appuser.u_id}"></td>
                         <td th:text="${appuser.username}"></td>
                         <td th:text="${appuser.phone}"></td>
                         <td th:text="${appuser.email}"></td>
                         <td th:text="${appuser.country}"></td>
+                        <td>
+                            <a class="btn btn-warning" th:href="@{/editusers/{id}(id=${appuser.u_id})}">Muokkaa</a>
+                            <a class="btn btn-danger" href="#" th:href="@{/deleteu/{id}(id=${appuser.u_id})}" onclick="confirmDelete(event)">Poista</a>
+                        </td>
                     </tr>
-                </tbody>  
-            </thead>              
+                </tbody>
             </table>
         </div>
     </div>
 </body>
+
 </html>
