@@ -12,7 +12,7 @@ import jakarta.persistence.Id;
 public class Mushroom {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long m_id;
 
     @Enumerated(EnumType.STRING)
