@@ -15,7 +15,7 @@ import jakarta.validation.constraints.NotBlank;
 public class Finding {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long f_id;
 
     @ManyToOne
