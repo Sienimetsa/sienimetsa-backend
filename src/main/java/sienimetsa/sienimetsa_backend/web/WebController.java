@@ -51,6 +51,12 @@ public class WebController {
         return "editusers";
     }
 
+    @GetMapping("/deleteu/{id}")
+    public String deleteAppuser(@PathVariable("id") Long u_id, Model model) {
+        urepository.deleteById(u_id);
+        return "redirect:/users";
+    }
+
     @PostMapping("/saveu")
     public String saveAppuser(@Valid @ModelAttribute Appuser appuser, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
