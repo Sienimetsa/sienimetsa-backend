@@ -68,7 +68,9 @@ public class WebController {
     }
       
     @GetMapping("/mushrooms")
-    public String mushrooms() {
+    public String mushrooms(Model model) {
+        model.addAttribute("mushroom", new Mushroom());  // Empty mushroom object
+        model.addAttribute("mushrooms", mrepository.findAll()); // List of all mushrooms
         return "mushrooms";
     }
     @GetMapping("/edit/{id}") //edit mushroom by id
