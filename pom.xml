@@ -79,6 +79,7 @@
 			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
 		</dependency>
 		<dependency>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
     <groupId>org.postgresql</groupId>
     <artifactId>postgresql</artifactId>
@@ -89,6 +90,12 @@
     		<artifactId>h2</artifactId>
     		<scope>runtime</scope>
 		</dependency>
+=======
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+    <scope>runtime</scope>
+</dependency>
+>>>>>>> Stashed changes
 				<dependency>
  			<groupId>org.springframework.boot</groupId>
  			<artifactId>spring-boot-starter-data-rest</artifactId>

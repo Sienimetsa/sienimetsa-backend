@@ -32,6 +32,11 @@ public class SienimetsaBackendApplication {
 		FindingRepository findingRepository){
 
 		return (args) -> {
+<<<<<<< Updated upstream
+=======
+	
+
+>>>>>>> Stashed changes
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			String encodedPassword1 = encoder.encode("mehu");
 			String encodedPassword2 = encoder.encode("kuusi");
@@ -102,6 +107,10 @@ public class SienimetsaBackendApplication {
 
 			findingRepository.save(finding1);
 			findingRepository.save(finding2);
+<<<<<<< Updated upstream
+=======
+			
+>>>>>>> Stashed changes
 		};
 	};
 
