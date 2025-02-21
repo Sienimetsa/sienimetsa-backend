@@ -28,11 +28,11 @@ public class Appuser implements UserDetails {
     @NotBlank(message = "Password is mandatory")
     private String passwordHash;
 
-    @Column(name = "phone")
+    @Column(name = "phone", unique = true)
     @NotBlank(message = "Phone number is mandatory")
     private String phone;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     @NotBlank(message = "Email is mandatory")
     private String email;
 
