@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.validation.Valid;
 import sienimetsa.sienimetsa_backend.domain.Appuser;
 import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
+import sienimetsa.sienimetsa_backend.domain.Finding;
+import sienimetsa.sienimetsa_backend.domain.FindingRepository;
 import sienimetsa.sienimetsa_backend.domain.Mushroom;
 import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
 
@@ -23,6 +25,8 @@ public class WebController {
 
     @Autowired
     private AppuserRepository urepository;
+    @Autowired
+    private FindingRepository frepository;
 
     @Autowired
     private MushroomRepository mrepository;
@@ -53,7 +57,8 @@ public class WebController {
 
     @GetMapping("/deleteu/{id}")
     public String deleteAppuser(@PathVariable("id") Long u_id, Model model) {
-        urepository.deleteById(u_id);
+        frepository.deleteById(u_id); // deletes appusers findings
+        urepository.deleteById(u_id); // deletes appuser
         return "redirect:/users";
     }
 

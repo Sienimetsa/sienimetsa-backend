@@ -43,9 +43,11 @@ public class Appuser implements UserDetails {
     private String country;
 
     @Column(name = "chat_color")
+    @NotBlank(message = "Chat color is mandatory")
     private String chatColor;
 
     @Column(name = "profile_picture")
+    @NotBlank(message = "Profile picture is mandatory")
     private String profilePicture;
 
 

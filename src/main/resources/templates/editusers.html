@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" 
-xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" /> 
 <link rel="stylesheet" href="/css/styles.css">
 
@@ -11,32 +10,58 @@ xmlns:th="http://www.thymeleaf.org">
 </head>
 <body>
     <h1>Edit user info</h1>
-    <form th:object="${appuser}" th:action="@{../saveu}" action="#" method="post">
-        <label for="u_id"></label>
-        <input type="hidden" id="id" th:field="*{u_id}" readonly="readonly" />
+    <form th:object="${appuser}" th:action="@{/saveu}" method="post">
+        <input type="hidden" th:field="*{u_id}" />
 
-        <label for="username">Username</label>
-        <input type="text" th:field="*{username}"/>
-        <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+        <ul>
+            <li>
+                <label for="username">Username</label>
+                <input type="text" th:field="*{username}" required />
+                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+            </li>
+            
+            <li>
+                <!-- Preserve existing password -->
+                <input type="hidden" th:field="*{passwordHash}" />
+                <label for="password">New Password (Leave blank to keep current password)</label>
+                <input type="password" id="password" name="newPassword" placeholder="Enter new password (optional)" />
+            </li>
+            
+            <li>
+                <label for="phone">Phone</label>
+                <input type="text" th:field="*{phone}" required />
+                <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+            </li>
+            
+            <li>
+                <label for="email">Email</label>
+                <input type="email" th:field="*{email}" required />
+                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            </li>
+            
+            <li>
+                <label for="country">Country</label>
+                <input type="text" th:field="*{country}" required />
+                <div th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></div>
+            </li>
+            
+            <li>
+                <label for="chatColor">Chat color</label>
+                <input type="text" th:field="*{chatColor}" required />
+                <div th:if="${#fields.hasErrors('chatColor')}" th:errors="*{chatColor}"></div>
+            </li>
+            
+            <li>
+                <label for="profilePicture">Profile picture</label>
+                <input type="text" th:field="*{profilePicture}" required />
+                <div th:if="${#fields.hasErrors('profilePicture')}" th:errors="*{profilePicture}"></div>
+            </li>
+        </ul>
 
-        <label for="password">Password</label>
-        <input type="text" th:field="*{password}"/>
-        <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-
-        <label for="phone">Phone</label>
-        <input type="text" th:field="*{phone}" />
-        <div class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
-
-        <label for="email">Email</label>
-        <input type="text" th:field="*{email}"/>
-        <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-
-        <label for="country">Country</label>
-        <input type="text" th:field="*{country}"/>
-        <div class="error" th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></div>
-
-        <input type="submit" value="Save"></input>
+        <button type="submit">Save</button>
     </form>
+    
+    <a href="/users">Cancel</a>
     <a class="btn btn-primary btn-custom" href="/frontpage">Back to front-page</a>
 </body>
-</html> 
+</html>

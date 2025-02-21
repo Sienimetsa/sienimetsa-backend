@@ -7,13 +7,15 @@
     <title>App users</title>
 
     <script>
-        function confirmDelete(event) {
-            event.preventDefault();
-            const confirmation = confirm("Haluatko varmasti poistaa tämän tuotteen?");
-            if (confirmation) {
-                window.location.href = event.target.href;
-            }
-        };
+     function confirmDelete(event) {
+    event.preventDefault();
+    const confirmation = confirm("Haluatko varmasti poistaa tämän käyttäjän?");
+    if (confirmation) {
+        window.location.replace(event.currentTarget.href);  
+
+    }
+}
+
     </script>
 </head>
 
@@ -34,6 +36,8 @@
                         <th>Phone</th>
                         <th>Email</th>
                         <th>Country</th>
+                        <th>Chat color</th>
+                        <th>Profile picture</th>
                         <th sec:authorize="hasAuthority('ADMIN')">Functions</th>
                     </tr>
                 </thead>
@@ -44,9 +48,13 @@
                         <td th:text="${appuser.phone}"></td>
                         <td th:text="${appuser.email}"></td>
                         <td th:text="${appuser.country}"></td>
+                        <td th:text="${appuser.chatColor}"></td>
+                        <td th:text="${appuser.profilePicture}"></td>
                         <td>
                             <a class="btn btn-warning" th:href="@{/editusers/{id}(id=${appuser.u_id})}">Edit</a>
-                            <a class="btn btn-danger" href="#" th:href="@{/deleteu/{id}(id=${appuser.u_id})}" onclick="confirmDelete(event)">Delete</a>
+                            <a class="btn btn-danger" th:href="@{/deleteu/{id}(id=${appuser.u_id})}" onclick="confirmDelete(event)">Delete</a>
+
+
                         </td>
                     </tr>
                 </tbody>
