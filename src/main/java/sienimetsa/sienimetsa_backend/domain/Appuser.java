@@ -1,6 +1,5 @@
 package sienimetsa.sienimetsa_backend.domain;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,8 +20,7 @@ public class Appuser implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long u_id;
 
-
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     @NotBlank(message = "Username is mandatory")
     private String username;
 
@@ -43,9 +41,11 @@ public class Appuser implements UserDetails {
     private String country;
 
     @Column(name = "chat_color")
+    @NotBlank(message = "Chat color is mandatory")
     private String chatColor;
 
     @Column(name = "profile_picture")
+    @NotBlank(message = "Profile picture is mandatory")
     private String profilePicture;
 
 
@@ -73,7 +73,6 @@ public class Appuser implements UserDetails {
         this.u_id = u_id;
     }
 
-  
     @Override
     public String getUsername() {
         return username; 
