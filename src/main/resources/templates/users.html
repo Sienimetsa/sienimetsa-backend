@@ -20,7 +20,7 @@
 <body>
     <div style="padding: 5%;">
         <div style="display: flex; justify-content: flex-end;">
-            <a class="btn btn-primary btn-custom" href="/index">Takaisin etusivulle</a>
+            <a class="btn btn-primary btn-custom" href="/frontpage">Back to Front-Page</a>
         </div>
         <div>
             <h1>App users</h1>
@@ -34,7 +34,7 @@
                         <th>Phone</th>
                         <th>Email</th>
                         <th>Country</th>
-                        <th sec:authorize="hasAuthority('ADMIN')">Toiminnot</th>
+                        <th sec:authorize="hasAuthority('ADMIN')">Functions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,8 +45,8 @@
                         <td th:text="${appuser.email}"></td>
                         <td th:text="${appuser.country}"></td>
                         <td>
-                            <a class="btn btn-warning" th:href="@{/editusers/{id}(id=${appuser.u_id})}">Muokkaa</a>
-                            <a class="btn btn-danger" href="#" th:href="@{/deleteu/{id}(id=${appuser.u_id})}" onclick="confirmDelete(event)">Poista</a>
+                            <a class="btn btn-warning" th:href="@{/editusers/{id}(id=${appuser.u_id})}">Edit</a>
+                            <a class="btn btn-danger" href="#" th:href="@{/deleteu/{id}(id=${appuser.u_id})}" onclick="confirmDelete(event)">Delete</a>
                         </td>
                     </tr>
                 </tbody>
