@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
 
 @Entity
 public class Mushroom {
@@ -15,7 +14,7 @@ public class Mushroom {
     private Long m_id;
 
     @Column(name = "mushroompic")
-    private Long mushroompic = 1L;
+    private Integer mushroompic;
 
     @Column(name = "mname")
     private String mname;
@@ -38,18 +37,14 @@ public class Mushroom {
     public Mushroom() {
     }
 
-    public Mushroom(Long mushroompic, String mname, String toxicity_level, String color, String gills, String cap, String taste) {
+    public Mushroom(Integer mushroompic, String mname, String toxicity_level, String color, String gills, String cap, String taste) {
+        this.mushroompic = mushroompic;
         this.mname = mname;
         this.toxicity_level = toxicity_level;
         this.color = color;
         this.gills = gills;
         this.cap = cap;
         this.taste = taste;
-    }
-
-    @PrePersist
-    private void prePersist() {
-        this.mushroompic = this.m_id + 1;
     }
     
     public Long getM_id() {
@@ -60,11 +55,11 @@ public class Mushroom {
         this.m_id = m_id;
     }
 
-    public Long getMushroompic() {
+    public Integer getMushroompic() {
         return mushroompic;
     }
 
-    public void setMushroompic(Long mushroompic) {
+    public void setMushroompic(Integer mushroompic) {
         this.mushroompic = mushroompic;
     }
 
@@ -121,7 +116,5 @@ public class Mushroom {
         return "Mushroom [m_id=" + m_id + ", mushroompic=" + mushroompic + ", mname=" + mname + ", toxicity_level="
                 + toxicity_level + ", color=" + color + ", gills=" + gills + ", cap=" + cap + ", taste=" + taste + "]";
     }
-
-    
 
 }

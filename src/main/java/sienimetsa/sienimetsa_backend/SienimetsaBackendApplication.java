@@ -67,25 +67,106 @@ public class SienimetsaBackendApplication {
 		
 			
 			Mushroom mushroom1 = new Mushroom(
-				Mushroompic.mp1,
+				1,
 				"Amanita muscaria",
 				"High", 
-				"Red", 
+				"Blue", 
 				"Free",
 				"Convex", 
 				"Bitter");
 
 			Mushroom mushroom2 = new Mushroom(
-				Mushroompic.mp2,
+				2,
 				"Boletus edulis",
 				"High", 
 				"Brown", 
 				"Free",
 				"Convex", 
 				"None");
+
+			Mushroom mushroom3 = new Mushroom(
+				3,
+				"Cantharellus cibarius",
+				"Low", 
+				"Yellow", 
+				"Free",
+				"Convex", 
+				"None");
+
+			Mushroom mushroom4 = new Mushroom(
+				4,
+				"Agaricus bisporus",
+				"Low", 
+				"White", 
+				"Free",
+				"Convex", 
+				"None");
+
+			Mushroom mushroom5 = new Mushroom(
+				5,
+				"Russula emetica",
+				"High", 
+				"Red", 
+				"Free",
+				"Convex", 
+				"Bitter");
+
+			Mushroom mushroom6 = new Mushroom(
+				6,
+				"Hypholoma fasciculare",
+				"High", 
+				"Green", 
+				"Free",
+				"Convex", 
+				"Bitter");
+
+			Mushroom mushroom7 = new Mushroom(
+				7,
+				"Clitocybe dealbata",
+				"High", 
+				"White", 
+				"Free",
+				"Convex", 
+				"Bitter");
+			
+			Mushroom mushroom8 = new Mushroom(
+				8,
+				"Agaricus xanthodermus",
+				"High", 
+				"Yellow", 
+				"Free",
+				"Convex", 
+				"Bitter");
+			
+			Mushroom mushroom9 = new Mushroom(
+				9,
+				"Boletus satanas",
+				"High", 
+				"Red", 
+				"Free",
+				"Convex", 
+				"Bitter");
+			
+			Mushroom mushroom10 = new Mushroom
+				(10,
+				"Clitocybe rivulosa",
+				"High", 
+				"White", 
+				"Free",
+				"Convex", 
+				"Bitter");
 			
 			mushroomRepository.save(mushroom1);
 			mushroomRepository.save(mushroom2);
+			mushroomRepository.save(mushroom3);
+			mushroomRepository.save(mushroom4);
+			mushroomRepository.save(mushroom5);
+			mushroomRepository.save(mushroom6);
+			mushroomRepository.save(mushroom7);
+			mushroomRepository.save(mushroom8);
+			mushroomRepository.save(mushroom9);
+			mushroomRepository.save(mushroom10);
+		
 
 			Finding finding1 = new Finding(
 				appuser1,

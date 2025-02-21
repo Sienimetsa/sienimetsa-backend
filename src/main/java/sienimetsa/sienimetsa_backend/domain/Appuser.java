@@ -20,7 +20,7 @@ public class Appuser implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long u_id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     @NotBlank(message = "Username is mandatory")
     private String username;
 
