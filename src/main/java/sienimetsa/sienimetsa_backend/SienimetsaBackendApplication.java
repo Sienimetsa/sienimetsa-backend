@@ -9,7 +9,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
 import sienimetsa.sienimetsa_backend.domain.FindingRepository;
 import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
-import sienimetsa.sienimetsa_backend.domain.Mushroompic;
 import sienimetsa.sienimetsa_backend.domain.User;
 import sienimetsa.sienimetsa_backend.domain.UserRepository;
 import sienimetsa.sienimetsa_backend.domain.Appuser;

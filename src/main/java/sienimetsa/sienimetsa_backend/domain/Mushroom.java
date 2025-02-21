@@ -2,11 +2,10 @@ package sienimetsa.sienimetsa_backend.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 
 @Entity
 public class Mushroom {
@@ -15,8 +14,8 @@ public class Mushroom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long m_id;
 
-    @Enumerated(EnumType.STRING)
-    private Mushroompic mushroompic;
+    @Column(name = "mushroompic")
+    private Long mushroompic = 1L;
 
     @Column(name = "mname")
     private String mname;
@@ -39,7 +38,7 @@ public class Mushroom {
     public Mushroom() {
     }
 
-    public Mushroom(Mushroompic mushroompic, String mname, String toxicity_level, String color, String gills, String cap, String taste) {
+    public Mushroom(Long mushroompic, String mname, String toxicity_level, String color, String gills, String cap, String taste) {
         this.mname = mname;
         this.toxicity_level = toxicity_level;
         this.color = color;
@@ -48,12 +47,25 @@ public class Mushroom {
         this.taste = taste;
     }
 
-    public Long getM_Id() {
+    @PrePersist
+    private void prePersist() {
+        this.mushroompic = this.m_id + 1;
+    }
+    
+    public Long getM_id() {
         return m_id;
     }
 
-    public void setM_Id(Long m_id) {
+    public void setM_id(Long m_id) {
         this.m_id = m_id;
+    }
+
+    public Long getMushroompic() {
+        return mushroompic;
+    }
+
+    public void setMushroompic(Long mushroompic) {
+        this.mushroompic = mushroompic;
     }
 
     public String getMname() {
@@ -106,8 +118,10 @@ public class Mushroom {
 
     @Override
     public String toString() {
-        return "Mushroom [m_Id=" + m_id + ", mname=" + mname + ", toxicity_level=" + toxicity_level + ", color="
-                + color + ", gills=" + gills + ", cap=" + cap + ", taste=" + taste + "]";
+        return "Mushroom [m_id=" + m_id + ", mushroompic=" + mushroompic + ", mname=" + mname + ", toxicity_level="
+                + toxicity_level + ", color=" + color + ", gills=" + gills + ", cap=" + cap + ", taste=" + taste + "]";
     }
+
+    
 
 }
