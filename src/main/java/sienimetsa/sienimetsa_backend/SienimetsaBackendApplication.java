@@ -32,6 +32,8 @@ public class SienimetsaBackendApplication {
 		FindingRepository findingRepository){
 
 		return (args) -> {
+			/*
+
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			String encodedPassword1 = encoder.encode("mehu");
 			String encodedPassword2 = encoder.encode("kuusi");
@@ -57,13 +59,14 @@ public class SienimetsaBackendApplication {
 	
         String encodedAdminPassword = encoder.encode("admin");
         String encodedUserPassword = encoder.encode("user");
-
+		
         // Create users with encoded passwords
         User user1 = new User("admin", encodedAdminPassword );
         User user2 = new User("user", encodedUserPassword );
 
         userRepository.save(user1);
         userRepository.save(user2);
+		
 			
 			Mushroom mushroom1 = new Mushroom(
 				Mushroompic.mp1,
@@ -102,7 +105,7 @@ public class SienimetsaBackendApplication {
 
 			findingRepository.save(finding1);
 			findingRepository.save(finding2);
+			*/
 		};
 	};
-
 }

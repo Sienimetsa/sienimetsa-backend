@@ -14,8 +14,9 @@ public class User {
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
-    @Column(unique = true)
-    private String username;
+    
+    @Column(name = "aUsername", unique = true)
+    private String aUsername;
 
     @Column(name = "password", nullable = false)
     private String passwordHash;
@@ -23,9 +24,9 @@ public class User {
 
     public User(){}
 
-    public User(String username,String passwordHash){
+    public User(String aUsername,String passwordHash){
         super();
-        this.username= username;
+        this.aUsername= aUsername;
         this.passwordHash=passwordHash;
     
     }
@@ -39,11 +40,11 @@ public class User {
     }
 
     public String getUsername() {
-        return username;
+        return aUsername;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String aUsername) {
+        this.aUsername = aUsername;
     }
 
     public String getPasswordHash() {
