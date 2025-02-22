@@ -55,6 +55,12 @@ public class AppUserProfileController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
     
+        // Check if the authenticated user is the one trying to delete their own account
+        if (!userDetails.getUsername().equals(optionalAppuser.get().getUsername())) {
+            logger.warn("User with ID {} is not authorized to delete user with ID {}", userDetails.getUsername(), u_id);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Forbidden");
+        }
+    
         // Delete all findings associated with this user
         findingRepository.deleteByAppuser(optionalAppuser.get());  // Deletes all findings associated with the user
         logger.info("Deleted findings associated with user ID: {}", u_id);
@@ -117,6 +123,8 @@ public class AppUserProfileController {
         }
 
         Appuser appuser = optionalAppuser.get();
+        
         return ResponseEntity.ok(appuser);
     }
 }
+
