@@ -14,6 +14,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import sienimetsa.sienimetsa_backend.domain.Appuser;
 import sienimetsa.sienimetsa_backend.dto.MobileLoginRequestDTO;
 import sienimetsa.sienimetsa_backend.dto.MobileSignupRequestDTO;
 import sienimetsa.sienimetsa_backend.jwt.JwtUtil;
@@ -56,7 +58,7 @@ public class AuthControllerTest {
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
             .thenReturn(new UsernamePasswordAuthenticationToken("test@example.com", "password"));
 
-        when(jwtUtil.generateToken(loginRequest.getEmail())).thenReturn("mockedToken");
+        when(jwtUtil.generateToken(eq(loginRequest.getEmail()), any(Appuser.class))).thenReturn("mockedToken");
 
         mockMvc.perform(post("/mobile/login")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -65,7 +67,7 @@ public class AuthControllerTest {
                 .andExpect(jsonPath("$.token").value("mockedToken"));
 
         verify(authenticationManager, times(1)).authenticate(any(UsernamePasswordAuthenticationToken.class));
-        verify(jwtUtil, times(1)).generateToken(loginRequest.getEmail());
+        verify(jwtUtil, times(1)).generateToken(eq(loginRequest.getEmail()), any(Appuser.class));
     }
 
     @Test

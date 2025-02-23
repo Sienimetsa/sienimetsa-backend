@@ -33,6 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String token = null;
         String email = null;
+        Long uId = null;
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             token = authorizationHeader.substring(7);
@@ -40,7 +41,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             try {
                 if (jwtUtil.validateJwtToken(token)) {
                     email = jwtUtil.extractEmail(token);
+                    uId = jwtUtil.extractUId(token);
                     logger.info("Extracted email from token: {}", email);
+                    logger.info("Extracted uId from token: {}", uId);
 
                     UserDetails userDetails = userDetailsService.loadUserByUsername(email);
                     UsernamePasswordAuthenticationToken authentication = 
