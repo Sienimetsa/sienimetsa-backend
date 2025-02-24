@@ -4,8 +4,6 @@ import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import sienimetsa.sienimetsa_backend.domain.Appuser;
-
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -22,10 +20,9 @@ public class JwtUtil {
     }
 
     // Generate the JWT token based on the email
-    public String generateToken(String email,Appuser user) {
+    public String generateToken(String email) {
         return Jwts.builder()
                 .subject(email) // Set email as the subject (username)
-                .claim("uId", user.getU_id())
                 .issuedAt(new Date())
                 .expiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(Keys.hmacShaKeyFor(jwtSecret.getBytes())) // Sign with the secret key
@@ -36,13 +33,6 @@ public class JwtUtil {
     public String extractEmail(String token) {
         return getClaims(token).getSubject(); // This will extract the email
     }
-
-    // Extract uId from the JWT token
-    public Long extractUId(String token) {
-        return getClaims(token).get("uId", Long.class); // Extract the uId claim
-    }
-    
-    
 
     // Validate the JWT token by checking its claims
     public boolean validateJwtToken(String token) {

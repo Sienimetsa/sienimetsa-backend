@@ -1,7 +1,5 @@
 package sienimetsa.sienimetsa_backend.web;
 
-import sienimetsa.sienimetsa_backend.domain.Appuser;
-import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
 import sienimetsa.sienimetsa_backend.dto.MobileLoginRequestDTO;
 import sienimetsa.sienimetsa_backend.dto.MobileSignupRequestDTO;
 import sienimetsa.sienimetsa_backend.jwt.JwtUtil;
@@ -25,9 +23,6 @@ public class AuthController {
     private JwtUtil jwtUtil; // used for generating tokens
 
     @Autowired
-    private AppuserRepository appuserRepository;
-
-    @Autowired
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/mobile/login")
@@ -35,8 +30,8 @@ public class AuthController {
         try {
             authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
-            Appuser user = appuserRepository.findByEmail(authRequest.getEmail()).orElseThrow(() -> new RuntimeException("User not found"));
-                String token = jwtUtil.generateToken(authRequest.getEmail(), user);
+    
+            String token = jwtUtil.generateToken(authRequest.getEmail());
     
             return ResponseEntity.ok(new AuthResponse(token));
         } catch (AuthenticationException e) {
