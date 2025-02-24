@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import sienimetsa.sienimetsa_backend.domain.Appuser;
@@ -37,6 +36,7 @@ public class AppUserProfileController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    //Delete user and associated data
     @Transactional
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteUser(@RequestBody Map<String, String> requestBody, @AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request) {
@@ -70,9 +70,7 @@ public class AppUserProfileController {
         return ResponseEntity.ok("User and associated data deleted successfully");
     }
     
-    
-    
-
+     // Update user profile
     @PutMapping("/update")
     public ResponseEntity<?> updateProfile(@AuthenticationPrincipal UserDetails userDetails, 
                                              @RequestBody MobileProfileUpdateDTO updateDTO) {
@@ -84,9 +82,10 @@ public class AppUserProfileController {
         if (!optionalAppuser.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
-
+        
         Appuser appuser = optionalAppuser.get();
 
+        // checks if the fields are not empty and updates the user profile
         if (updateDTO.getUsername() != null && !updateDTO.getUsername().isEmpty()) {
             appuser.setUsername(updateDTO.getUsername());
         }
@@ -105,6 +104,7 @@ public class AppUserProfileController {
         return ResponseEntity.ok("Profile updated successfully");
     }
 
+    // get user profile
     @GetMapping
     public ResponseEntity<?> getProfile(@AuthenticationPrincipal UserDetails userDetails) {
         if (userDetails == null) {

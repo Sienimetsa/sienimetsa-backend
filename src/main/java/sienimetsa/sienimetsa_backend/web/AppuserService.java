@@ -19,12 +19,12 @@ public class AppuserService implements UserDetailsService {
         this.appuserRepository = appuserRepository;
     }
 
-    // ✅ Fetch user by email
+    // Fetch user by email
     public Optional<Appuser> getUserByEmail(String email) {
         return appuserRepository.findByEmail(email);
     }
 
-    // ✅ Load user details for authentication
+    //  Load user details for authentication
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Appuser currUser = appuserRepository.findByEmail(email)
