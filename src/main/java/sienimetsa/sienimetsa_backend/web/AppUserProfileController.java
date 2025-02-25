@@ -23,12 +23,17 @@ import sienimetsa.sienimetsa_backend.dto.MobileProfileUpdateDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+/**
+ * Controller for handling user profile-related actions.
+ * Includes endpoints for retrieving, updating, and deleting user profiles.
+ */
 @RestController
 @RequestMapping("/api/profile")
 public class AppUserProfileController {
     private static final Logger logger = LoggerFactory.getLogger(AppUserProfileController.class);
     @Autowired
-    private AppuserRepository appuserRepository;
+    private AppuserRepository appuserRepository; 
 
     @Autowired
     private FindingRepository findingRepository;
@@ -36,7 +41,17 @@ public class AppUserProfileController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    //Delete user and associated data
+   /**
+     * Deletes the authenticated user's account along with all associated data.
+     * - Ensures the request is authenticated.
+     * - Deletes the user’s findings before removing the user.
+     * - Invalidates the session after deletion.
+     *
+     * - requestBody --> Contains the email of the user to be deleted.
+     * - userDetails --> Authenticated user details.
+     * - request --> HTTP request to manage session invalidation.
+     * - ResponseEntity --> with success or error message.
+     */
     @Transactional
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteUser(@RequestBody Map<String, String> requestBody, @AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request) {
@@ -70,7 +85,15 @@ public class AppUserProfileController {
         return ResponseEntity.ok("User and associated data deleted successfully");
     }
     
-     // Update user profile
+    /**
+     * Updates the authenticated user's profile.
+     * - Allows updates to username, password, chat color, and profile picture.
+     * - Ensures user authentication before proceeding.
+     *
+     * - userDetails --> Authenticated user details.
+     * - updateDTO --> Object containing updated profile information.
+     * - ResponseEntity --> with success or error message.
+     */
     @PutMapping("/update")
     public ResponseEntity<?> updateProfile(@AuthenticationPrincipal UserDetails userDetails, 
                                              @RequestBody MobileProfileUpdateDTO updateDTO) {
@@ -82,7 +105,7 @@ public class AppUserProfileController {
         if (!optionalAppuser.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
-        
+
         Appuser appuser = optionalAppuser.get();
 
         // checks if the fields are not empty and updates the user profile
@@ -104,7 +127,13 @@ public class AppUserProfileController {
         return ResponseEntity.ok("Profile updated successfully");
     }
 
-    // get user profile
+    /**
+     * Retrieves the authenticated user's profile.
+     * - Ensures user authentication before returning profile data.
+     *
+     * - userDetails --> Authenticated user details.
+     * - ResponseEntity -->containing the user profile or an error message.
+     */
     @GetMapping
     public ResponseEntity<?> getProfile(@AuthenticationPrincipal UserDetails userDetails) {
         if (userDetails == null) {
