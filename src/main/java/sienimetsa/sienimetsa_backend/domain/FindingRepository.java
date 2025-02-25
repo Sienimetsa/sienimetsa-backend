@@ -1,8 +1,10 @@
 package sienimetsa.sienimetsa_backend.domain;
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 public interface FindingRepository extends CrudRepository<Finding, Long> {
-    Finding findByAppuser(Appuser appuser);
+    List<?> findByAppuser(Appuser appuser);
     void deleteByAppuser(Appuser appuser);
 
 }
