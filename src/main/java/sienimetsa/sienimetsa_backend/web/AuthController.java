@@ -17,40 +17,57 @@ import org.springframework.security.core.AuthenticationException;
 public class AuthController {
 
     @Autowired
-    private AppuserSignUpServiceImpl appuserSignUpService;
+    private AppuserSignUpServiceImpl appuserSignUpService; // Handles user registration logic
 
     @Autowired
     private JwtUtil jwtUtil; // used for generating tokens
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager; // Manages authentication
 
+
+/*  Handles user login for mobile users. 
+  - Authenticates user credentials. 
+  - Generates and returns a JWT token upon successful authentication. 
+  - authRequest Contains user email and password. 
+    - ResponseEntity containing JWT token or error message. */
     @PostMapping("/mobile/login")
     public ResponseEntity<?> login(@RequestBody MobileLoginRequestDTO authRequest) {
         try {
+             // Authenticate user credentials
             authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
-    
+            // Generate JWT token
             String token = jwtUtil.generateToken(authRequest.getEmail());
     
             return ResponseEntity.ok(new AuthResponse(token));
         } catch (AuthenticationException e) {
-            // Log the exception for debugging purposes
+        
             e.printStackTrace();
             return ResponseEntity.status(401).body("Authentication failed: Invalid credentials");
         } catch (Exception e) {
-            // Log the exception for debugging purposes
+            
             e.printStackTrace();
             return ResponseEntity.status(500).body("An error occurred during authentication");
         }
     }
 
+    /**
+     * Handles new user registration for mobile users.
+     * - Calls the service to create a new user.
+     * - Returns a success message if registration is successful.
+     * - signupRequest Contains user registration details.
+     * - ResponseEntity with a success message and HTTP status.
+     */
     @PostMapping("/mobile/signup")
     public ResponseEntity<?> signup(@RequestBody MobileSignupRequestDTO signupRequest) {
         String message = appuserSignUpService.registerNewUser(signupRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(message);
     }
 
+    /**
+     * Inner class representing the authentication response containing the JWT token.
+     */
     public static class AuthResponse {
         private String token;
 

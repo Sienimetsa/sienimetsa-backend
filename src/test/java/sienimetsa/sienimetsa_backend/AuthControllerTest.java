@@ -125,4 +125,3 @@ public class AuthControllerTest {
         verify(appuserSignUpService, times(1)).registerNewUser(any(MobileSignupRequestDTO.class));
     }
 }
-

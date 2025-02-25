@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 public class Mushroom {
 
     @Id
+    @Column(name = "m_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long m_id;
 
