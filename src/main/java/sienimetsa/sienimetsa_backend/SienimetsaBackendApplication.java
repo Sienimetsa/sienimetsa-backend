@@ -182,8 +182,16 @@ public class SienimetsaBackendApplication {
 				"Vantaa",
 				"Found in the forest near the lake");
 
+			Finding finding3 = new Finding(
+				appuser1,
+				mushroom2,
+				java.time.LocalDateTime.now(),
+				"Espoo",
+				"Found in the forest near the lake");
+
 			findingRepository.save(finding1);
 			findingRepository.save(finding2);
+			findingRepository.save(finding3);
 
 		};
 	};
