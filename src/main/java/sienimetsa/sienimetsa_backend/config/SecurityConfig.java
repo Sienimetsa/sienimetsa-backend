@@ -53,7 +53,7 @@ public class SecurityConfig {
     public SecurityFilterChain mobileSecurityFilterChain(HttpSecurity http) throws Exception {
         http
             // ADD ENDPOINTS HERE TO USE WITH TOKEN
-            .securityMatcher("/mobile/**", "/api/profile/**", "/api/mushrooms/**")
+            .securityMatcher("/mobile/**", "/api/profile/**", "/api/mushrooms/**", "/userfindings/**")
             
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.disable())
