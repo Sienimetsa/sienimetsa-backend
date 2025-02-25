@@ -52,8 +52,9 @@ public class SecurityConfig {
     @Order(1)
     public SecurityFilterChain mobileSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-            // Include /api/profile/** in addition to /mobile/**
-            .securityMatcher("/mobile/**", "/api/profile/**")
+            // ADD ENDPOINTS HERE TO USE WITH TOKEN
+            .securityMatcher("/mobile/**", "/api/profile/**", "/api/mushrooms/**", "/userfindings/**")
+            
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
