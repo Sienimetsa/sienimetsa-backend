@@ -15,6 +15,7 @@ import sienimetsa.sienimetsa_backend.domain.Appuser;
 import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
 import sienimetsa.sienimetsa_backend.domain.FindingRepository;
 import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
+import sienimetsa.sienimetsa_backend.domain.Mushroom;
 
 @RestController
 public class EntityController{
@@ -35,4 +36,12 @@ public class EntityController{
         }
         return List.of(); // Return empty list if user not found
     }
+
+    @GetMapping("/allmushrooms")
+    @ResponseBody
+    public List<?> getAllMushrooms() {
+        return (List<Mushroom>) mrepository.findAll();
+    }
+
+    
 }
