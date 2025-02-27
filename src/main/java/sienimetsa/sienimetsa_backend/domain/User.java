@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 @Entity
 @Table(name = "adminUser")
 public class User {
@@ -14,10 +15,13 @@ public class User {
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
+
     @Column(unique = true)
+    @NotBlank(message = "Username is needed")
     private String username;
 
     @Column(name = "password", nullable = false)
+    @NotBlank(message = "password is needed")
     private String passwordHash;
 
 
