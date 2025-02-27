@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Mushroom {
@@ -17,22 +18,28 @@ public class Mushroom {
     @Column(name = "mushroompic")
     private Integer mushroompic;
 
-    @Column(name = "mname")
+    @NotBlank(message = "Mushroom name cannot be blank")
+    @Column(name = "mname", nullable = false)
     private String mname;
 
-    @Column(name = "toxicity_level")
+    @NotBlank(message = "Toxicity level cannot be blank")
+    @Column(name = "toxicity_level", nullable = false)
     private String toxicity_level;
 
-    @Column(name = "color")
+    @NotBlank(message = "Color cannot be blank")
+    @Column(name = "color", nullable = false)
     private String color;
 
-    @Column(name = "gills")
+    @NotBlank(message = "Gills information cannot be blank")
+    @Column(name = "gills", nullable = false)
     private String gills;
 
-    @Column(name = "cap")
+    @NotBlank(message = "Cap information cannot be blank")
+    @Column(name = "cap", nullable = false)
     private String cap;
 
-    @Column(name = "taste")
+    @NotBlank(message = "Taste description cannot be blank")
+    @Column(name = "taste", nullable = false)
     private String taste;
 
     public Mushroom() {
