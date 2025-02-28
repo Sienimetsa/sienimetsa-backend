@@ -39,6 +39,7 @@ public class AppuserSignUpServiceImpl {
         newUser.setPasswordHash(passwordEncoder.encode(signupRequestDTO.getPassword())); // Encrypt password
         newUser.setChatColor("black"); // Set default chat color
         newUser.setProfilePicture("pp1"); // Set default profile picture
+        newUser.setLevel(1);
 
         // Save user to the database
         appuserRepository.save(newUser);
