@@ -1,21 +1,18 @@
 package sienimetsa.sienimetsa_backend.web;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import sienimetsa.sienimetsa_backend.domain.Appuser;
 import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
 import sienimetsa.sienimetsa_backend.domain.FindingRepository;
-import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
 import sienimetsa.sienimetsa_backend.domain.Mushroom;
+import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
 
 @RestController
 public class EntityController{

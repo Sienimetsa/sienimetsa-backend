@@ -5,16 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 @Entity
-public class Appuser implements UserDetails {
+public class Appuser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,11 +43,14 @@ public class Appuser implements UserDetails {
     @NotBlank(message = "Profile picture is mandatory")
     private String profilePicture;
 
+    @Column(name = "level")
+    @Min(value = 1, message = "Level needs to be at least 1")
+    private int level;
 
     public Appuser() {
     }
 
-    public Appuser( String username, String passwordHash, String phone, String email, String country, String chatColor,String profilePicture) {
+    public Appuser( String username, String passwordHash, String phone, String email, String country, String chatColor, String profilePicture, int level) {
   
         this.username = username;
         this.passwordHash = passwordHash;
@@ -61,9 +59,9 @@ public class Appuser implements UserDetails {
         this.country = country;
         this.chatColor =chatColor;
         this.profilePicture =profilePicture;
+        this.level = level;
     }
 
-  
     // Getters and setters
     public Long getU_id() {
         return u_id;
@@ -73,7 +71,6 @@ public class Appuser implements UserDetails {
         this.u_id = u_id;
     }
 
-    @Override
     public String getUsername() {
         return username; 
     }
@@ -130,41 +127,28 @@ public class Appuser implements UserDetails {
         this.profilePicture = profilePicture;
     }
 
-    // Overriding methods from UserDetails interface
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList(); // If roles are implemented, you can return them here
+    public int getLevel() {
+        return level;
     }
 
-    @Override
-    public String getPassword() {
-        return passwordHash;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true; // You can implement account expiry logic if needed
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true; // You can implement account locking logic if needed
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true; // You can implement credentials expiry logic if needed
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true; // You can implement account enable/disable logic if needed
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     @Override
     public String toString() {
-        return "Appuser [u_id=" + u_id + ", username=" + username + ", password=" + passwordHash + 
-               ", phone=" + phone + ", email=" + email + ", country=" + country + 
-                "]";
+        return "Appuser{" +
+                "u_id=" + u_id +
+                ", username='" + username + '\'' +
+                ", passwordHash='" + passwordHash + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", country='" + country + '\'' +
+                ", chatColor='" + chatColor + '\'' +
+                ", profilePicture='" + profilePicture + '\'' +
+                ", level=" + level +
+                '}';
     }
+
+
 }

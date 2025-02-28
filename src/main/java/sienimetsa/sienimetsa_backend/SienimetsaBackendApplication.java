@@ -6,14 +6,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import sienimetsa.sienimetsa_backend.domain.Appuser;
 import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
+import sienimetsa.sienimetsa_backend.domain.Finding;
 import sienimetsa.sienimetsa_backend.domain.FindingRepository;
+import sienimetsa.sienimetsa_backend.domain.Mushroom;
 import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
 import sienimetsa.sienimetsa_backend.domain.User;
 import sienimetsa.sienimetsa_backend.domain.UserRepository;
-import sienimetsa.sienimetsa_backend.domain.Appuser;
-import sienimetsa.sienimetsa_backend.domain.Finding;
-import sienimetsa.sienimetsa_backend.domain.Mushroom;
 
 
 @SpringBootApplication
@@ -41,7 +41,7 @@ public class SienimetsaBackendApplication {
 				encodedPassword1,
 				"358401234568",
 				"real@email.com",
-				"Finland","pink","pp1");
+				"Finland","pink","pp1", 1);
 
 			Appuser appuser2 = new Appuser(
 		
@@ -49,7 +49,7 @@ public class SienimetsaBackendApplication {
 				encodedPassword2,
 				"358401234567",
 				"test@lookout.com",
-				"Finland","black","pp1");
+				"Finland","black","pp1", 1);
 
 			appuserRepository.save(appuser1);
 			appuserRepository.save(appuser2);
