@@ -20,9 +20,10 @@ public class JwtUtil {
     }
 
     // Generate the JWT token based on the email
-    public String generateToken(String email) {
+    public String generateToken(String email, Long u_id) {
         return Jwts.builder()
                 .subject(email) // Set email as the subject (username)
+                .claim("u_id", u_id) // Add the user ID as a claim
                 .issuedAt(new Date())
                 .expiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(Keys.hmacShaKeyFor(jwtSecret.getBytes())) // Sign with the secret key
@@ -32,6 +33,11 @@ public class JwtUtil {
     // Extract the email (subject) from the JWT token
     public String extractEmail(String token) {
         return getClaims(token).getSubject(); // This will extract the email
+    }
+
+    // Extract the u_id from the JWT token
+    public Long extractUId(String token) {
+        return getClaims(token).get("u_id", Long.class); // This will extract the u_id
     }
 
     // Validate the JWT token by checking its claims
