@@ -1,5 +1,7 @@
 package sienimetsa.sienimetsa_backend.web;
 
+import sienimetsa.sienimetsa_backend.domain.Appuser;
+import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
 import sienimetsa.sienimetsa_backend.dto.MobileLoginRequestDTO;
 import sienimetsa.sienimetsa_backend.dto.MobileSignupRequestDTO;
 import sienimetsa.sienimetsa_backend.jwt.JwtUtil;
@@ -25,6 +27,8 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager; // Manages authentication
 
+    @Autowired
+    private AppuserRepository appuserRepository; // Repository to access Appuser data
 
 /*  Handles user login for mobile users. 
   - Authenticates user credentials. 
@@ -34,19 +38,25 @@ public class AuthController {
     @PostMapping("/mobile/login")
     public ResponseEntity<?> login(@RequestBody MobileLoginRequestDTO authRequest) {
         try {
-             // Authenticate user credentials
+            // Authenticate user credentials
             authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+                    new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+
+            // Retrieve the u_id from the database
+            Appuser appuser = appuserRepository.findByEmail(authRequest.getEmail())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+            Long u_id = appuser.getU_id();
+
             // Generate JWT token
-            String token = jwtUtil.generateToken(authRequest.getEmail());
-    
+            String token = jwtUtil.generateToken(authRequest.getEmail(), u_id);
+
             return ResponseEntity.ok(new AuthResponse(token));
         } catch (AuthenticationException e) {
-        
+
             e.printStackTrace();
             return ResponseEntity.status(401).body("Authentication failed: Invalid credentials");
         } catch (Exception e) {
-            
+
             e.printStackTrace();
             return ResponseEntity.status(500).body("An error occurred during authentication");
         }

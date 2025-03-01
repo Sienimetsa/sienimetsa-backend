@@ -22,7 +22,10 @@ import sienimetsa.sienimetsa_backend.web.AuthController;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import sienimetsa.sienimetsa_backend.domain.Appuser;
+import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
 
+import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthControllerTest {
@@ -35,6 +38,9 @@ public class AuthControllerTest {
 
     @Mock
     private AppuserSignUpServiceImpl appuserSignUpService;
+
+    @Mock
+    private AppuserRepository appuserRepository;
 
     @InjectMocks
     private AuthController authController;
@@ -53,10 +59,14 @@ public class AuthControllerTest {
         loginRequest.setEmail("test@example.com");
         loginRequest.setPassword("password");
 
+        Appuser appuser = new Appuser();
+        appuser.setU_id(1L);
+
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
             .thenReturn(new UsernamePasswordAuthenticationToken("test@example.com", "password"));
 
-        when(jwtUtil.generateToken(loginRequest.getEmail())).thenReturn("mockedToken");
+        when(appuserRepository.findByEmail(loginRequest.getEmail())).thenReturn(Optional.of(appuser));
+        when(jwtUtil.generateToken(loginRequest.getEmail(), appuser.getU_id())).thenReturn("mockedToken");
 
         mockMvc.perform(post("/mobile/login")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -65,7 +75,8 @@ public class AuthControllerTest {
                 .andExpect(jsonPath("$.token").value("mockedToken"));
 
         verify(authenticationManager, times(1)).authenticate(any(UsernamePasswordAuthenticationToken.class));
-        verify(jwtUtil, times(1)).generateToken(loginRequest.getEmail());
+        verify(appuserRepository, times(1)).findByEmail(loginRequest.getEmail());
+        verify(jwtUtil, times(1)).generateToken(loginRequest.getEmail(), appuser.getU_id());
     }
 
     @Test
