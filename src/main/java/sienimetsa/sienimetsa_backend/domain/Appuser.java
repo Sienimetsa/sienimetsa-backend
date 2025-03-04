@@ -124,6 +124,9 @@ public class Appuser {
     }
 
     public void setProfilePicture(String profilePicture) {
+        if (profilePicture == null || profilePicture.trim().isEmpty()) {
+            throw new IllegalArgumentException("Profile picture is mandatory");
+        }
         this.profilePicture = profilePicture;
     }
 

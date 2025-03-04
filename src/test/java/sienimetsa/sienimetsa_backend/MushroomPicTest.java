@@ -1,30 +1,28 @@
-// package sienimetsa.sienimetsa_backend;
+package sienimetsa.sienimetsa_backend;
 
-// import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-// import sienimetsa.sienimetsa_backend.domain.Mushroompic;
+import static org.junit.jupiter.api.Assertions.*;
 
-// import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
-// class MushroomPicTest {
+import sienimetsa.sienimetsa_backend.domain.Appuser;
 
-//     @Test
-//     void testEnumValues() {
-//         // Verify the number of enum values
-//         Mushroompic[] values = Mushroompic.values();
-//         assertEquals(5, values.length);
+@SpringBootTest
+class MushroomPicTest {
 
-//         // Verify specific enum values
-//         assertEquals(Mushroompic.mp1, Mushroompic.valueOf("mp1"));
-//         assertEquals(Mushroompic.mp2, Mushroompic.valueOf("mp2"));
-//         assertEquals(Mushroompic.mp3, Mushroompic.valueOf("mp3"));
-//         assertEquals(Mushroompic.mp4, Mushroompic.valueOf("mp4"));
-//         assertEquals(Mushroompic.mp5, Mushroompic.valueOf("mp5"));
-//     }
+    @Test
+    void testProfilePictureSetterAndGetter() {
+        Appuser user = new Appuser();
+        String profilePicUrl = "https://example.com/profile.jpg";
+        user.setProfilePicture(profilePicUrl);
+        assertEquals(profilePicUrl, user.getProfilePicture());
+    }
 
-//     @Test
-//     void testEnumToString() {
-//         assertEquals("mp1", Mushroompic.mp1.toString());
-//         assertEquals("mp2", Mushroompic.mp2.toString());
-//     }
-// }
+    @Test
+    void testProfilePictureNotBlank() {
+        Appuser user = new Appuser();
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> user.setProfilePicture(""));
+        assertTrue(exception.getMessage().contains("Profile picture is mandatory"));
+    }
+}
