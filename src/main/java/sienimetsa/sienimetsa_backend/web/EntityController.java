@@ -3,6 +3,7 @@ package sienimetsa.sienimetsa_backend.web;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import sienimetsa.sienimetsa_backend.domain.Appuser;
 import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
 import sienimetsa.sienimetsa_backend.domain.Finding;
@@ -49,8 +51,9 @@ public class EntityController {
 
     // adds a finding
     @PostMapping("/addfinding")
-    public ResponseEntity<Finding> addFinding(@RequestBody Finding finding) {
-        return ResponseEntity.ok(frepository.save(finding));
+    public ResponseEntity<Finding> addFinding(@RequestBody @Valid Finding finding) {
+        Finding savedFinding = frepository.save(finding);
+        return ResponseEntity.ok(savedFinding);
     }
 
     // Updates finding using it's id
@@ -66,7 +69,7 @@ public class EntityController {
     }
 
     // Deletes a findng based on it's id
-    @GetMapping("/deletefinding/{id}")
+    @DeleteMapping("/deletefinding/{id}")
     public ResponseEntity<Void> deleteFinding(@PathVariable Long id) {
         if (frepository.existsById(id)) {
             frepository.deleteById(id);

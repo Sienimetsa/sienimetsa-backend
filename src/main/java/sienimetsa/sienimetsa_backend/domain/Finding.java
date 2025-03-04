@@ -2,6 +2,8 @@ package sienimetsa.sienimetsa_backend.domain;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +28,7 @@ public class Finding {
     @JoinColumn(name = "m_id")
     private Mushroom mushroom;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @Column(name = "f_time")
     private LocalDateTime f_time;
 
