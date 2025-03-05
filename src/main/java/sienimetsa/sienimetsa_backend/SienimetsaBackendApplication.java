@@ -169,6 +169,7 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Found in the forest near the lake");
+					
 
 			Finding finding2 = new Finding(
 					appuser2,
@@ -204,27 +205,6 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"TURKU",
 					"LÖYSIN TOST TOISELT PUOLELT JOKKEE");
-
-			Finding finding7 = new Finding(
-					appuser2,
-					mushroom6,
-					java.time.LocalDateTime.now(),
-					"TURKU",
-					"Found close to the Pewpaws place");
-
-			Finding finding8 = new Finding(
-					appuser2,
-					mushroom6,
-					java.time.LocalDateTime.now(),
-					"TAMPERE",
-					"Found near the woods");
-
-			Finding finding9 = new Finding(
-					appuser2,
-					mushroom6,
-					java.time.LocalDateTime.now(),
-					"HELSINKI",
-					"Found near the small forest close to the center");
 
 			findingRepository.save(finding1);
 			findingRepository.save(finding2);
