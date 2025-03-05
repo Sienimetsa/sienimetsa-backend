@@ -206,6 +206,27 @@ public class SienimetsaBackendApplication {
 					"TURKU",
 					"LÖYSIN TOST TOISELT PUOLELT JOKKEE");
 
+			Finding finding7 = new Finding(
+					appuser1,
+					mushroom1,
+					java.time.LocalDateTime.now(),
+					"Espoo",
+					"Oli puskan takana");
+
+			Finding finding8 = new Finding(
+						appuser1,
+						mushroom1,
+						java.time.LocalDateTime.now(),
+						"Vantaa",
+						"karhuja paljon alueella, pitää varoa");
+
+			Finding finding9 = new Finding(
+							appuser1,
+							mushroom1,
+							java.time.LocalDateTime.now(),
+							"Espoo",
+							"Paljon väkeä ilalla pitää mennä aamulla");
+
 			findingRepository.save(finding1);
 			findingRepository.save(finding2);
 			findingRepository.save(finding3);
