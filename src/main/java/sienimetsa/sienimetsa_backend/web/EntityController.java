@@ -1,18 +1,11 @@
 package sienimetsa.sienimetsa_backend.web;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import sienimetsa.sienimetsa_backend.domain.Appuser;
 import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
@@ -22,7 +15,7 @@ import sienimetsa.sienimetsa_backend.domain.Mushroom;
 import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
 
 @RestController
-@RequestMapping("/findings")
+@RequestMapping("/api/findings")
 public class EntityController {
 
     @Autowired
@@ -32,43 +25,67 @@ public class EntityController {
     @Autowired
     private MushroomRepository mrepository;
 
+    // Get all findings by user id
     @GetMapping("/userfindings/{id}")
-    @ResponseBody
-    public List<?> findings(@PathVariable("id") Long u_id) {
+    public List<Finding> getFindingsByUserId(@PathVariable("id") Long u_id) {
         Appuser user = urepository.findById(u_id).orElse(null);
         if (user != null) {
             return frepository.findByAppuser(user);
         }
-        return List.of(); // Return empty list if user not found
+        return List.of();
     }
 
-    // all findings
+    // Get all mushrooms
     @GetMapping("/allmushrooms")
-    @ResponseBody
-    public List<?> getAllMushrooms() {
+    public List<Mushroom> getAllMushrooms() {
         return (List<Mushroom>) mrepository.findAll();
     }
 
-    // adds a finding
+    // Get all findings
+    @GetMapping("/allfindings")
+    public List<Finding> getAllFindings() {
+        return (List<Finding>) frepository.findAll();
+    }
+
+    // Get a finding by id
+    @GetMapping("/{id}")
+    public ResponseEntity<Finding> getFindingById(@PathVariable Long id) {
+        return frepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    // Creates a new finding
     @PostMapping("/addfinding")
-    public ResponseEntity<Finding> addFinding(@RequestBody @Valid Finding finding) {
+    public ResponseEntity<Finding> createFinding(@RequestBody @Valid Finding finding) {
+        if (finding.getCity() == null || finding.getCity().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
         Finding savedFinding = frepository.save(finding);
-        return ResponseEntity.ok(savedFinding);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedFinding);
     }
 
-    // Updates finding using it's id
-    @PutMapping("/updatefinding/{id}")
-    public ResponseEntity<Finding> updateFinding(@PathVariable Long id, @RequestBody Finding updatedFinding) {
-        return frepository.findById(id).map(finding -> {
-            finding.setMushroom(updatedFinding.getMushroom());
-            finding.setCity(updatedFinding.getCity());
-            finding.setF_time(updatedFinding.getF_time());
-            finding.setNotes(updatedFinding.getNotes());
-            return ResponseEntity.ok(frepository.save(finding));
-        }).orElseGet(() -> ResponseEntity.notFound().build());
+    // Edit a finding by id
+    @PutMapping("/editfinding/{id}")
+    public ResponseEntity<Finding> updateFinding(@PathVariable("id") Long id, @RequestBody @Valid Finding updatedFinding) {
+        Optional<Finding> existingFindingOptional = frepository.findById(id);
+
+        if (existingFindingOptional.isPresent()) {
+            Finding existingFinding = existingFindingOptional.get();
+            existingFinding.setCity(updatedFinding.getCity());
+            existingFinding.setNotes(updatedFinding.getNotes());
+            existingFinding.setAppuser(updatedFinding.getAppuser());
+            existingFinding.setMushroom(updatedFinding.getMushroom());
+            existingFinding.setF_time(updatedFinding.getF_time());
+
+            Finding savedFinding = frepository.save(existingFinding);
+            return ResponseEntity.ok(savedFinding);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    // Deletes a findng based on it's id
+    // Delete a finding by id
     @DeleteMapping("/deletefinding/{id}")
     public ResponseEntity<Void> deleteFinding(@PathVariable Long id) {
         if (frepository.existsById(id)) {
@@ -77,6 +94,4 @@ public class EntityController {
         }
         return ResponseEntity.notFound().build();
     }
-    //put pyyntö 
-    //mushroom pic entitys pitää muuttaa int --> string
 }
