@@ -1,13 +1,12 @@
 package sienimetsa.sienimetsa_backend;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -23,11 +22,10 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class CrudTest {
+public class CrudFindingTest {
 
     private MockMvc mockMvc;
 
@@ -45,21 +43,17 @@ public class CrudTest {
 
     private ObjectMapper objectMapper;
 
-    // The setUp() method should be annotated with @BeforeEach to initialize MockMvc and mocks
     @BeforeEach
     public void setUp() {
-        // Initialize mocks and create MockMvc instance before each test
         MockitoAnnotations.openMocks(this);
         
-        // Initialize ObjectMapper and register JavaTimeModule to handle LocalDateTime correctly
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
-        // Set up MockMvc
         mockMvc = MockMvcBuilders.standaloneSetup(entityController).build();
     }
-/*
+    //lisää findingin
     @Test
     public void testAddFinding() throws Exception {
         Finding finding = new Finding(new Appuser(), new Mushroom(), LocalDateTime.now(), "Helsinki", "Test notes");
@@ -73,7 +67,7 @@ public class CrudTest {
                 .andExpect(jsonPath("$.city").value("Helsinki"))
                 .andExpect(jsonPath("$.notes").value("Test notes"));
     }
-
+    //päivittää findingin
     @Test
     public void testUpdateFinding() throws Exception {
         Long findingId = 1L;
@@ -90,7 +84,7 @@ public class CrudTest {
                 .andExpect(jsonPath("$.city").value("Helsinki"))
                 .andExpect(jsonPath("$.notes").value("New notes"));
     }
-
+    //etsii finding käyttäjän mukaan
     @Test
     public void testFindingsByUser() throws Exception {
         Long userId = 1L;
@@ -106,7 +100,7 @@ public class CrudTest {
                 .andExpect(jsonPath("$[0].city").value("Tampere"))
                 .andExpect(jsonPath("$[0].notes").value("Forest find"));
     }
-*/
+    //poistaa findingin
     @Test
     public void testDeleteFinding() throws Exception {
         Long findingId = 1L;

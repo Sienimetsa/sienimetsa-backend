@@ -77,5 +77,6 @@ public class EntityController {
         }
         return ResponseEntity.notFound().build();
     }
-
+    //put pyyntö 
+    //mushroom pic entitys pitää muuttaa int --> string
 }
