@@ -53,13 +53,13 @@ public class SecurityConfig {
     public SecurityFilterChain mobileSecurityFilterChain(HttpSecurity http) throws Exception {
         http
             // ADD ENDPOINTS HERE TO USE WITH TOKEN
-            .securityMatcher("/mobile/**", "/api/profile/**", "/api/mushrooms/**", "/userfindings/**", "allmushrooms/**","/api/appusers/**")
+            .securityMatcher("/mobile/**", "/api/profile/**", "/api/mushrooms/**", "/userfindings/**", "allmushrooms/**","/api/appusers/**","/buckets/all/**","buckets/upload/**")
             
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/mobile/signup", "/mobile/login").permitAll()
-                .requestMatchers("/api/findings/**").permitAll()
+                .requestMatchers("/api/findings/**").permitAll()             
                 .anyRequest().authenticated())
             .exceptionHandling(ex -> ex.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
             .formLogin(form -> form.disable())
