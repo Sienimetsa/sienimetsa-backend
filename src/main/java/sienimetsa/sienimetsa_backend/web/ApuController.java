@@ -1,10 +1,13 @@
 package sienimetsa.sienimetsa_backend.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import sienimetsa.sienimetsa_backend.domain.Appuser;
 import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
@@ -15,7 +18,7 @@ import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
 import sienimetsa.sienimetsa_backend.domain.User;
 import sienimetsa.sienimetsa_backend.domain.UserRepository;
 
-@Controller
+@RestController
 @RequestMapping("/apu")
 public class ApuController {
 
@@ -31,31 +34,23 @@ public class ApuController {
     private UserRepository repository;
 
     @GetMapping("/allusers")
-    public String getUsers(Model model) {
-        model.addAttribute("user", new User());  // Empty user object
-        model.addAttribute("users", repository.findAll()); // List of all users
-        return "allusers";
+    public List <User> getAllUsers() {
+        return (List<User>) repository.findAll();
     }
 
     @GetMapping("/allappusers")
-    public String getAppUsers(Model model) {
-        model.addAttribute("appuser", new Appuser());  // Empty user object
-        model.addAttribute("appusers", urepository.findAll()); // List of all users
-        return "allappusers";
+    public List<Appuser> getAllAppusers() {
+        return (List<Appuser>) urepository.findAll();
     }
 
     @GetMapping("/allmushrooms")
-    public String getMushrooms(Model model) {
-        model.addAttribute("mushroom", new Mushroom());  // Empty mushroom object
-        model.addAttribute("mushrooms", mrepository.findAll());
-        return "allmushrooms"; // List of all mushrooms
+    public List<Mushroom> getAllMushrooms() {
+        return (List<Mushroom>) mrepository.findAll();
     }
 
     @GetMapping("/allfindings")
-    public String getFindings(Model model) {
-        model.addAttribute("finding", new Finding());  // Empty finding object
-        model.addAttribute("findings", frepository.findAll());
-        return "allfindings"; // List of all findings
+    public List <Finding> getAllFindings() {
+        return (List<Finding>) frepository.findAll();
     }
 
     @GetMapping("/allprofiles")
