@@ -26,6 +26,7 @@ public class EntityController {
     private MushroomRepository mrepository;
 
     // Get all findings by user id
+    //toimii
     @GetMapping("/userfindings/{id}")
     public List<Finding> getFindingsByUserId(@PathVariable("id") Long u_id) {
         Appuser user = urepository.findById(u_id).orElse(null);
@@ -36,27 +37,31 @@ public class EntityController {
     }
 
     // Get all mushrooms
+    //toimii
     @GetMapping("/allmushrooms")
     public List<Mushroom> getAllMushrooms() {
         return (List<Mushroom>) mrepository.findAll();
     }
 
     // Get all findings
-    @GetMapping("/allfindings")
+    //toimii
+    @GetMapping("/findings")
     public List<Finding> getAllFindings() {
         return (List<Finding>) frepository.findAll();
     }
 
     // Get a finding by id
+    //toimii
     @GetMapping("/{id}")
     public ResponseEntity<Finding> getFindingById(@PathVariable Long id) {
         return frepository.findById(id)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElse(ResponseEntity.notFound().build());
     }
 
     // Creates a new finding
-    @PostMapping("/addfinding")
+    
+    @PostMapping("/")
     public ResponseEntity<Finding> createFinding(@RequestBody @Valid Finding finding) {
         if (finding.getCity() == null || finding.getCity().isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -66,7 +71,7 @@ public class EntityController {
     }
 
     // Edit a finding by id
-    @PutMapping("/editfinding/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Finding> updateFinding(@PathVariable("id") Long id, @RequestBody @Valid Finding updatedFinding) {
         Optional<Finding> existingFindingOptional = frepository.findById(id);
 
@@ -86,7 +91,7 @@ public class EntityController {
     }
 
     // Delete a finding by id
-    @DeleteMapping("/deletefinding/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFinding(@PathVariable Long id) {
         if (frepository.existsById(id)) {
             frepository.deleteById(id);

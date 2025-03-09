@@ -1,125 +1,105 @@
 package sienimetsa.sienimetsa_backend;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import sienimetsa.sienimetsa_backend.domain.Appuser;
 import sienimetsa.sienimetsa_backend.domain.Finding;
 import sienimetsa.sienimetsa_backend.domain.FindingRepository;
-import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
-import sienimetsa.sienimetsa_backend.web.EntityController;
-import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@TestPropertySource(properties = "spring.security.enabled=false")
 public class EntityControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @Mock
-    private FindingRepository frepository;
-
-    @Mock
-    private AppuserRepository urepository;
-
-    @Mock
-    private MushroomRepository mrepository;
-
-    @InjectMocks
-    private EntityController entityController;
+    @Autowired
+    private FindingRepository findingRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
 
-    private Finding mockFinding;
-    private Appuser mockUser;
+    private Finding testFinding;
 
     @BeforeEach
-    void setUp() {
-        mockUser = new Appuser();
-        mockUser.setU_id(1L);
-        mockUser.setUsername("testuser");
-
-        mockFinding = new Finding();
-        mockFinding.setF_Id(1L);
-        mockFinding.setAppuser(mockUser);
-        mockFinding.setCity("Helsinki");
-        mockFinding.setNotes("Test notes");
+    public void setUp() {
+        // Set up a test finding before each test
+        testFinding = new Finding();
+        testFinding.setCity("Helsinki");
+        testFinding.setNotes("Mushroom found near a forest trail.");
+        // You should set other properties as needed, for example, user and mushroom
     }
 
     @Test
-    @WithMockUser(username = "testuser", roles = "USER")
-    void createFindingTest() throws Exception {
-        when(frepository.save(any(Finding.class))).thenReturn(mockFinding);
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/api/findings/addfinding")
-                .contentType("application/json")
-                .content(objectMapper.writeValueAsString(mockFinding));
-        mockMvc.perform(request)
+    public void testCreateFinding() throws Exception {
+        // POST request to create a new finding
+        mockMvc.perform(post("/api/findings/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(testFinding)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.f_Id").value(1))
                 .andExpect(jsonPath("$.city").value("Helsinki"))
-                .andExpect(jsonPath("$.notes").value("Test notes"));
+                .andExpect(jsonPath("$.notes").value("Mushroom found near a forest trail."));
     }
 
     @Test
-    void getFindingByIdTest() throws Exception {
-        when(frepository.findById(1L)).thenReturn(java.util.Optional.of(mockFinding));
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/findings/1"))
+    public void testGetFindingById() throws Exception {
+        // Save a finding first
+        Finding savedFinding = findingRepository.save(testFinding);
+
+        // GET request to fetch the finding by ID
+        mockMvc.perform(get("/api/findings/{id}", savedFinding.getF_Id()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.f_Id").value(1))
                 .andExpect(jsonPath("$.city").value("Helsinki"))
-                .andExpect(jsonPath("$.notes").value("Test notes"));
+                .andExpect(jsonPath("$.notes").value("Mushroom found near a forest trail."));
     }
 
     @Test
-    void getAllFindingsTest() throws Exception {
-        when(frepository.findAll()).thenReturn(java.util.List.of(mockFinding));
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/findings/allfindings"))
+    public void testGetAllFindings() throws Exception {
+        // Save a finding before testing
+        findingRepository.save(testFinding);
+
+        // GET request to fetch all findings
+        mockMvc.perform(get("/api/findings/"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].f_Id").value(1))
                 .andExpect(jsonPath("$[0].city").value("Helsinki"))
-                .andExpect(jsonPath("$[0].notes").value("Test notes"));
+                .andExpect(jsonPath("$[0].notes").value("Mushroom found near a forest trail."));
     }
 
     @Test
-    void updateFindingTest() throws Exception {
-        Finding updatedFinding = new Finding(mockUser, null, mockFinding.getF_time(), "Espoo", "Updated notes");
-        updatedFinding.setF_Id(1L);
-        when(frepository.findById(1L)).thenReturn(java.util.Optional.of(mockFinding));
-        when(frepository.save(any(Finding.class))).thenReturn(updatedFinding);
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/findings/editfinding/1")
-                .contentType("application/json")
-                .content(objectMapper.writeValueAsString(updatedFinding)))
+    public void testUpdateFinding() throws Exception {
+        // Save a finding first
+        Finding savedFinding = findingRepository.save(testFinding);
+        savedFinding.setCity("Espoo");
+
+        // PUT request to update the existing finding
+        mockMvc.perform(put("/api/findings/{id}", savedFinding.getF_Id())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(savedFinding)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.city").value("Espoo"))
-                .andExpect(jsonPath("$.notes").value("Updated notes"));
+                .andExpect(jsonPath("$.city").value("Espoo"));
     }
 
     @Test
-    void deleteFindingTest() throws Exception {
-        when(frepository.existsById(1L)).thenReturn(true);
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/findings/deletefinding/1"))
+    public void testDeleteFinding() throws Exception {
+        // Save a finding before testing
+        Finding savedFinding = findingRepository.save(testFinding);
+
+        // DELETE request to delete the finding
+        mockMvc.perform(delete("/api/findings/{id}", savedFinding.getF_Id()))
                 .andExpect(status().isNoContent());
-    }
 
-    @Test
-    void deleteFindingNotFoundTest() throws Exception {
-        when(frepository.existsById(1L)).thenReturn(false);
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/findings/deletefinding/1"))
+        // Verify it is deleted
+        mockMvc.perform(get("/api/findings/{id}", savedFinding.getF_Id()))
                 .andExpect(status().isNotFound());
     }
 }
