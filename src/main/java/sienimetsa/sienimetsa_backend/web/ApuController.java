@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -32,27 +33,35 @@ public class ApuController {
     private UserRepository repository;
 
     @GetMapping("/allusers")
-    public List<User> getUsers() {
-        return (List<User>) repository.findAll();
+    public String getUsers(Model model) {
+        model.addAttribute("user", new User());  // Empty user object
+        model.addAttribute("users", repository.findAll()); // List of all users
+        return "allusers";
     }
 
     @GetMapping("/allappusers")
-    public List<Appuser> getAppUsers() {
-        return (List<Appuser>) urepository.findAll();
+    public String getAppUsers(Model model) {
+        model.addAttribute("appuser", new Appuser());  // Empty user object
+        model.addAttribute("appusers", urepository.findAll()); // List of all users
+        return "allappusers";
     }
 
     @GetMapping("/allmushrooms")
-    public List<Mushroom> getMushrooms() {
-        return (List<Mushroom>) mrepository.findAll();
+    public String getMushrooms(Model model) {
+        model.addAttribute("mushroom", new Mushroom());  // Empty mushroom object
+        model.addAttribute("mushrooms", mrepository.findAll());
+        return "allmushrooms"; // List of all mushrooms
     }
 
     @GetMapping("/allfindings")
-    public List<Finding> getFindings() {
-        return (List<Finding>) frepository.findAll();
+    public String getFindings(Model model) {
+        model.addAttribute("finding", new Finding());  // Empty finding object
+        model.addAttribute("findings", frepository.findAll());
+        return "allfindings"; // List of all findings
     }
 
     @GetMapping("/allprofiles")
     public String getProfile() {
-        return "profile";
+        return "allprofiles";
     }
 }
