@@ -5,26 +5,28 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.databind.SerializationFeature;
-
 import sienimetsa.sienimetsa_backend.domain.*;
 import sienimetsa.sienimetsa_backend.web.EntityController;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import sienimetsa.sienimetsa_backend.domain.Appuser;
+import sienimetsa.sienimetsa_backend.domain.Finding;
+import sienimetsa.sienimetsa_backend.domain.FindingRepository;
+import sienimetsa.sienimetsa_backend.domain.Mushroom;
 
+@ExtendWith(MockitoExtension.class)
 public class CrudFindingTest {
 
     private MockMvc mockMvc;
@@ -45,46 +47,58 @@ public class CrudFindingTest {
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.openMocks(this);
-        
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-
         mockMvc = MockMvcBuilders.standaloneSetup(entityController).build();
     }
-    //lisää findingin
+
     @Test
     public void testAddFinding() throws Exception {
-        Finding finding = new Finding(new Appuser(), new Mushroom(), LocalDateTime.now(), "Helsinki", "Test notes");
+        Appuser user = new Appuser("testUser", "passwordHash", "123456789", "test@example.com",
+                "TestCountry", "blue", "profilePic.png", 1);
+        user.setU_id(1L);
 
-        Mockito.when(frepository.save(any(Finding.class))).thenReturn(finding);
+        Mushroom mushroom = new Mushroom(1, "Shiitake", "low", "brown", "free", "convex", "savory");
+        mushroom.setM_id(1L);
 
-        mockMvc.perform(post("/findings/addfinding")
+        LocalDateTime fixedDate = LocalDateTime.of(2023, 1, 1, 12, 0);
+        Finding finding = new Finding(user, mushroom, fixedDate, "Helsinki", "Test notes");
+
+        org.mockito.Mockito.when(frepository.save(any(Finding.class))).thenReturn(finding);
+
+        mockMvc.perform(post("/apu/newfinding")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(finding)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.city").value("Helsinki"))
                 .andExpect(jsonPath("$.notes").value("Test notes"));
     }
-    //päivittää findingin
+
     @Test
     public void testUpdateFinding() throws Exception {
         Long findingId = 1L;
-        Finding existingFinding = new Finding(new Appuser(), new Mushroom(), LocalDateTime.now(), "Espoo", "Old notes");
-        Finding updatedFinding = new Finding(new Appuser(), new Mushroom(), LocalDateTime.now(), "Helsinki", "New notes");
+        Appuser user = new Appuser("testUser", "passwordHash", "123456789", "test@example.com",
+                "TestCountry", "blue", "profilePic.png", 1);
+        user.setU_id(1L);
 
-        Mockito.when(frepository.findById(findingId)).thenReturn(Optional.of(existingFinding));
-        Mockito.when(frepository.save(any(Finding.class))).thenReturn(updatedFinding);
+        Mushroom mushroom = new Mushroom(1, "Shiitake", "low", "brown", "free", "convex", "savory");
+        mushroom.setM_id(1L);
 
-        mockMvc.perform(put("/findings/updatefinding/{id}", findingId)
+        Finding existingFinding = new Finding(user, mushroom, LocalDateTime.now(), "Espoo", "Old notes");
+        Finding updatedFinding = new Finding(user, mushroom, LocalDateTime.now(), "Helsinki", "New notes");
+
+        org.mockito.Mockito.when(frepository.findById(findingId)).thenReturn(Optional.of(existingFinding));
+        org.mockito.Mockito.when(frepository.save(any(Finding.class))).thenReturn(updatedFinding);
+
+        mockMvc.perform(put("/apu/editfinding/{id}", findingId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updatedFinding)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.city").value("Helsinki"))
                 .andExpect(jsonPath("$.notes").value("New notes"));
     }
-    //etsii finding käyttäjän mukaan
+
     @Test
     public void testFindingsByUser() throws Exception {
         Long userId = 1L;
@@ -95,12 +109,12 @@ public class CrudFindingTest {
         Mockito.when(urepository.findById(userId)).thenReturn(Optional.of(user));
         Mockito.when(frepository.findByAppuser(user)).thenReturn(List.of(finding));
 
-        mockMvc.perform(get("/findings/userfindings/{id}", userId))
+        mockMvc.perform(get("/apu/userfindings/{id}", userId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].city").value("Tampere"))
                 .andExpect(jsonPath("$[0].notes").value("Forest find"));
     }
-    //poistaa findingin
+
     @Test
     public void testDeleteFinding() throws Exception {
         Long findingId = 1L;
@@ -108,7 +122,7 @@ public class CrudFindingTest {
         Mockito.when(frepository.existsById(findingId)).thenReturn(true);
         Mockito.doNothing().when(frepository).deleteById(findingId);
 
-        mockMvc.perform(delete("/findings/deletefinding/{id}", findingId))
+        mockMvc.perform(delete("/apu/deletefinding/{id}", findingId))
                 .andExpect(status().isNoContent());
     }
 }
