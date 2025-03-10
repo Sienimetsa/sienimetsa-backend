@@ -38,7 +38,7 @@ public class ApuController {
 
     @GetMapping("/")
     public Map<String, Object> getAllEndpoints() {
-        String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString() + "/api";
+        String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString() + "/apu";
 
         Map<String, Object> response = new HashMap<>();
         Map<String, Map<String, String>> links = new HashMap<>();
