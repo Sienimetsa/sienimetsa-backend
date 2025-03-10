@@ -12,20 +12,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import software.amazon.awssdk.core.sync.RequestBody;
+import sienimetsa.sienimetsa_backend.service.AwsUploadService;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.Bucket;
 import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 @RestController
 @RequestMapping("/buckets")
 public class BucketController {
 
     private final S3Client s3Client;
+    private final AwsUploadService awsUploadService;
     
-    public BucketController(S3Client s3Client) {
+    public BucketController(S3Client s3Client, AwsUploadService awsUploadService) {
         this.s3Client = s3Client;
+        this.awsUploadService = awsUploadService;
     }
 
     @GetMapping("/all")
@@ -43,22 +44,7 @@ public class BucketController {
     @PostMapping("/upload")
     public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
         try {
-            // Generoi tiedostonimen ettei tuu duplikaatteja
-            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-            String bucketName = "sienimetsa-img";
-            
-            byte[] fileBytes = file.getBytes();
-            
-            // Tiedosto lähetetään S3:een
-            s3Client.putObject(PutObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(fileName)
-                    .contentType(file.getContentType())
-                    .build(),
-                    RequestBody.fromBytes(fileBytes));
-            
-            // Generoidaan palautettava URL
-            String fileUrl = "https://" + bucketName + ".s3.amazonaws.com/" + fileName;
+            String fileUrl = awsUploadService.uploadImage(file);
             
             return new ResponseEntity<>("File uploaded successfully. URL: " + fileUrl, HttpStatus.OK);
         } catch (Exception e) {
