@@ -11,19 +11,16 @@ import sienimetsa.sienimetsa_backend.domain.Appuser;
 import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
 import sienimetsa.sienimetsa_backend.domain.Finding;
 import sienimetsa.sienimetsa_backend.domain.FindingRepository;
-import sienimetsa.sienimetsa_backend.domain.Mushroom;
-import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
 
 @RestController
-@RequestMapping("/api/findings")
+@RequestMapping("/apu")
 public class EntityController {
 
     @Autowired
     private AppuserRepository urepository;
     @Autowired
     private FindingRepository frepository;
-    @Autowired
-    private MushroomRepository mrepository;
+
 
     // Get all findings by user id
     //toimii
@@ -36,23 +33,9 @@ public class EntityController {
         return List.of();
     }
 
-    // Get all mushrooms
-    //toimii
-    @GetMapping("/allmushrooms")
-    public List<Mushroom> getAllMushrooms() {
-        return (List<Mushroom>) mrepository.findAll();
-    }
-
-    // Get all findings
-    //toimii
-    @GetMapping("/findings")
-    public List<Finding> getAllFindings() {
-        return (List<Finding>) frepository.findAll();
-    }
-
     // Get a finding by id
     //toimii
-    @GetMapping("/{id}")
+    @GetMapping("/finding/{id}")
     public ResponseEntity<Finding> getFindingById(@PathVariable Long id) {
         return frepository.findById(id)
                 .map(ResponseEntity::ok)
@@ -61,7 +44,7 @@ public class EntityController {
 
     // Creates a new finding
     
-    @PostMapping("/")
+    @PostMapping("/newfinding")
     public ResponseEntity<Finding> createFinding(@RequestBody @Valid Finding finding) {
         if (finding.getCity() == null || finding.getCity().isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -71,7 +54,7 @@ public class EntityController {
     }
 
     // Edit a finding by id
-    @PutMapping("/{id}")
+    @PutMapping("/editfinding/{id}")
     public ResponseEntity<Finding> updateFinding(@PathVariable("id") Long id, @RequestBody @Valid Finding updatedFinding) {
         Optional<Finding> existingFindingOptional = frepository.findById(id);
 
@@ -91,7 +74,7 @@ public class EntityController {
     }
 
     // Delete a finding by id
-    @DeleteMapping("/{id}")
+    @DeleteMapping("deletefinding/{id}")
     public ResponseEntity<Void> deleteFinding(@PathVariable Long id) {
         if (frepository.existsById(id)) {
             frepository.deleteById(id);
