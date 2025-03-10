@@ -59,7 +59,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/mobile/signup", "/mobile/login").permitAll()
-                .requestMatchers("/api/findings/**").permitAll()             
+                .requestMatchers("/apu/**").permitAll()             
                 .anyRequest().authenticated())
             .exceptionHandling(ex -> ex.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
             .formLogin(form -> form.disable())
