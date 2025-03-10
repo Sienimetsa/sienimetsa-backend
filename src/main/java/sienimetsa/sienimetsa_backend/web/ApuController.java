@@ -43,11 +43,11 @@ public class ApuController {
         Map<String, Object> response = new HashMap<>();
         Map<String, Map<String, String>> links = new HashMap<>();
 
-        links.put("users", Map.of("href", baseUrl + "/allusers"));
-        links.put("mushrooms", Map.of("href", baseUrl + "/allmushrooms"));
-        links.put("findings", Map.of("href", baseUrl + "/allfindings"));
-        links.put("appusers", Map.of("href", baseUrl + "/allappusers"));
-        links.put("profile", Map.of("href", baseUrl + "/allprofiles"));
+        links.put("allusers", Map.of("href", baseUrl + "/allusers"));
+        links.put("allmushrooms", Map.of("href", baseUrl + "/allmushrooms"));
+        links.put("allfindings", Map.of("href", baseUrl + "/allfindings"));
+        links.put("allappusers", Map.of("href", baseUrl + "/allappusers"));
+        links.put("allprofiles", Map.of("href", baseUrl + "/allprofiles"));
 
         response.put("_links", links);
 
