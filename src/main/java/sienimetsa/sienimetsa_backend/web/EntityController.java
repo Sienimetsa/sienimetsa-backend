@@ -74,7 +74,7 @@ public class EntityController {
     }
 
     // Delete a finding by id
-    @DeleteMapping("deletefinding/{id}")
+    @DeleteMapping("/deletefinding/{id}")
     public ResponseEntity<Void> deleteFinding(@PathVariable Long id) {
         if (frepository.existsById(id)) {
             frepository.deleteById(id);
