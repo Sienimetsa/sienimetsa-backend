@@ -33,6 +33,7 @@
         }
         .users { background: #3498db; }
         .mushrooms { background: #2ecc71; }
+        .findings { background: #f1c40f; }
         .logout { background: #e74c3c; }
     </style>
 </head>
@@ -42,6 +43,7 @@
         <p>Select a page to view:</p>
         <a th:href="@{/users}" class="users">Users</a>
         <a th:href="@{/mushrooms}" class="mushrooms">Mushrooms</a>
+        <a th:href="@{/findings}" class="findings">Findings</a>
         <form th:action="@{/logout}" method="post" style="display:inline;">
             <button type="submit" class="logout">Log Out</button>
         </form>        
