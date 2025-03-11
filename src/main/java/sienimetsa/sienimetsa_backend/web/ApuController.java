@@ -69,6 +69,7 @@ public class ApuController {
 
     @GetMapping("/allfindings")
     public List <Finding> getAllFindings() {
+        
         return (List<Finding>) frepository.findAll();
     }
 
