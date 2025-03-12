@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.validation.Valid;
 import sienimetsa.sienimetsa_backend.domain.Appuser;
 import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
+import sienimetsa.sienimetsa_backend.domain.Finding;
 import sienimetsa.sienimetsa_backend.domain.FindingRepository;
 import sienimetsa.sienimetsa_backend.domain.Mushroom;
 import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
-
 
 
 @Controller
@@ -91,5 +91,33 @@ public class WebController {
         }
         mrepository.save(mushroom);
         return "redirect:mushrooms";
+    }
+
+    @GetMapping("/findings")
+    public String showFindings(Model model) {
+        model.addAttribute("finding", new Finding());  // Empty finding object
+        model.addAttribute("findings", frepository.findAll()); // List of all findings
+        return "findings";
+    }
+
+    @GetMapping("/findings/edit/{id}")
+    public String editFinding(@PathVariable("id") Long id, Model model) {
+        Finding finding = frepository.findById(id).orElse(null);
+        if (finding == null) {
+            return "redirect:/findings";
+        }
+        model.addAttribute("finding", finding);
+        return "editfindings";  
+    }
+
+    @PostMapping("/findings/edit/{id}")
+    public String updateFinding(@PathVariable("id") Long id, @ModelAttribute Finding updatedFinding) {
+        Finding existingFinding = frepository.findById(id).orElse(null);
+        if (existingFinding != null) {
+            existingFinding.setCity(updatedFinding.getCity());
+            existingFinding.setNotes(updatedFinding.getNotes());
+            frepository.save(existingFinding);
+        }
+        return "redirect:/findings";  // Korjattu reitti!
     }
 }

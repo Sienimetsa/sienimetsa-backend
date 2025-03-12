@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Findings</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/css/styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="container" style="padding: 5%;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>Findings</h1>
+            <a href="/frontpage" class="btn btn-primary">Back to Front-Page</a>
+            <a href="/editfindings" class="btn btn-primary">Edit findings</a>
+        </div>
+        <div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>appuser</th>
+                        <th>mushroom</th>
+                        <th>time</th>
+                        <th>city</th>
+                        <th>notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="finding : ${findings}">
+                        <td th:text="${finding.appuser.username}"></td>
+                        <td th:text="${finding.mushroom.mname}"></td>
+                        <td th:text="${finding.f_time}"></td>
+                        <td th:text="${finding.city}"></td>
+                        <td th:text="${finding.notes}"></td>
+                    </tr>
+                </tbody>                
+            </table>
+        </div>
+    </div>
+</body>
+</html>
