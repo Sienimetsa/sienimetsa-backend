@@ -168,7 +168,8 @@ public class SienimetsaBackendApplication {
 					mushroom1,
 					java.time.LocalDateTime.now(),
 					"Espoo",
-					"Found in the forest near the lake");
+					"Found in the forest near the lake",
+					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
 
 					
 			Finding finding2 = new Finding(
@@ -176,63 +177,72 @@ public class SienimetsaBackendApplication {
 					mushroom2,
 					java.time.LocalDateTime.now(),
 					"Vantaa",
-					"Found in the forest near the lake");
+					"Found in the forest near the lake",
+					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
 
 			Finding finding3 = new Finding(
 					appuser1,
 					mushroom2,
 					java.time.LocalDateTime.now(),
 					"Espoo",
-					"Found in the forest near the lake");
+					"Found in the forest near the lake",
+					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
 
 			Finding finding4 = new Finding(
 					appuser1,
 					mushroom8,
 					java.time.LocalDateTime.now(),
 					"HESA",
-					"LÖYSIN TOST LÄHELT");
+					"LÖYSIN TOST LÄHELT",
+					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
 
 			Finding finding5 = new Finding(
 					appuser2,
 					mushroom5,
 					java.time.LocalDateTime.now(),
 					"Espoo",
-					"Found in the forest near the lake");
+					"Found in the forest near the lake",
+					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
 
 			Finding finding6 = new Finding(
 					appuser1,
 					mushroom6,
 					java.time.LocalDateTime.now(),
 					"TURKU",
-					"LÖYSIN TOST TOISELT PUOLELT JOKKEE");
+					"LÖYSIN TOST TOISELT PUOLELT JOKKEE",
+					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
 
 			Finding finding7 = new Finding(
 					appuser1,
 					mushroom1,
 					java.time.LocalDateTime.now(),
 					"Espoo",
-					"Oli puskan takana");
+					"Oli puskan takana",
+					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
 
 			Finding finding8 = new Finding(
 					appuser1,
 					mushroom1,
 					java.time.LocalDateTime.now(),
 					"Vantaa",
-					"karhuja paljon alueella, pitää varoa");
+					"karhuja paljon alueella, pitää varoa",
+					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
 
 			Finding finding9 = new Finding(
 					appuser1,
 					mushroom1,
 					java.time.LocalDateTime.now(),
 					"Espoo",
-					"Paljon väkeä ilalla pitää mennä aamulla");
+					"Paljon väkeä ilalla pitää mennä aamulla",
+					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
 
 			Finding finding10 = new Finding(
 					appuser1,
 					mushroom2,
 					java.time.LocalDateTime.now(),
 					"AAAA",
-					"HULLU LÖYTÖ (<---- copilot täytti :DDD)");
+					"HULLU LÖYTÖ (<---- copilot täytti :DDD)",
+					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
 
 			findingRepository.save(finding1);
 			findingRepository.save(finding2);

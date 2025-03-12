@@ -39,15 +39,19 @@ public class Finding {
     @Column(name = "notes")
     private String notes;
 
+    @Column(name = "imageURL")
+    private String imageURL;
+
     public Finding() {
     }
 
-    public Finding(Appuser appuser, Mushroom mushroom, LocalDateTime f_time, String city, String notes) {
+    public Finding(Appuser appuser, Mushroom mushroom, LocalDateTime f_time, String city, String notes, String imageURL) {
         this.appuser = appuser;
         this.mushroom = mushroom;
         this.f_time = f_time;
         this.city = city;
         this.notes = notes;
+        this.imageURL = imageURL;
     }
 
     public Long getF_Id() {
@@ -98,11 +102,21 @@ public class Finding {
         this.notes = notes;
     }
 
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
     @Override
     public String toString() {
-        return "Finding [f_id=" + f_id + ", appuser=" + appuser + ", mushroom=" + mushroom + ", f_time=" + f_time + ", city=" + city
-                + ", notes=" + notes + "]";
+        return "Finding [f_id=" + f_id + ", appuser=" + appuser + ", mushroom=" + mushroom + ", f_time=" + f_time
+                + ", city=" + city + ", notes=" + notes + ", imageURL=" + imageURL + "]";
     }
+
+    
 
     
 }

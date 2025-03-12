@@ -1,30 +1,38 @@
 package sienimetsa.sienimetsa_backend;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import sienimetsa.sienimetsa_backend.domain.*;
-import sienimetsa.sienimetsa_backend.web.EntityController;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import static org.mockito.ArgumentMatchers.any;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import static org.mockito.ArgumentMatchers.any;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 import sienimetsa.sienimetsa_backend.domain.Appuser;
+import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
 import sienimetsa.sienimetsa_backend.domain.Finding;
 import sienimetsa.sienimetsa_backend.domain.FindingRepository;
 import sienimetsa.sienimetsa_backend.domain.Mushroom;
+import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
+import sienimetsa.sienimetsa_backend.web.EntityController;
 
 @ExtendWith(MockitoExtension.class)
 public class CrudFindingTest {
@@ -63,7 +71,7 @@ public class CrudFindingTest {
         mushroom.setM_id(1L);
 
         LocalDateTime fixedDate = LocalDateTime.of(2023, 1, 1, 12, 0);
-        Finding finding = new Finding(user, mushroom, fixedDate, "Helsinki", "Test notes");
+        Finding finding = new Finding(user, mushroom, fixedDate, "Helsinki", "Test notes", "image.png");
 
         org.mockito.Mockito.when(frepository.save(any(Finding.class))).thenReturn(finding);
 
@@ -85,8 +93,8 @@ public class CrudFindingTest {
         Mushroom mushroom = new Mushroom(1, "Shiitake", "low", "brown", "free", "convex", "savory");
         mushroom.setM_id(1L);
 
-        Finding existingFinding = new Finding(user, mushroom, LocalDateTime.now(), "Espoo", "Old notes");
-        Finding updatedFinding = new Finding(user, mushroom, LocalDateTime.now(), "Helsinki", "New notes");
+        Finding existingFinding = new Finding(user, mushroom, LocalDateTime.now(), "Espoo", "Old notes", "image.png");
+        Finding updatedFinding = new Finding(user, mushroom, LocalDateTime.now(), "Helsinki", "New notes", "mutsis.fi");
 
         org.mockito.Mockito.when(frepository.findById(findingId)).thenReturn(Optional.of(existingFinding));
         org.mockito.Mockito.when(frepository.save(any(Finding.class))).thenReturn(updatedFinding);
@@ -104,7 +112,7 @@ public class CrudFindingTest {
         Long userId = 1L;
         Appuser user = new Appuser();
         user.setU_id(userId);
-        Finding finding = new Finding(user, new Mushroom(), LocalDateTime.now(), "Tampere", "Forest find");
+        Finding finding = new Finding(user, new Mushroom(), LocalDateTime.now(), "Tampere", "Forest find", "image.png");
 
         Mockito.when(urepository.findById(userId)).thenReturn(Optional.of(user));
         Mockito.when(frepository.findByAppuser(user)).thenReturn(List.of(finding));

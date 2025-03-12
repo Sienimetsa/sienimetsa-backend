@@ -23,7 +23,7 @@ public class AwsUploadService {
      * @return URL josta kuva on ladattavissa (jos on oikeudet)
      * @throws IOException Jos hommat ns. leipoo
      */
-    
+
     public String uploadImage(MultipartFile file) throws IOException {
         // Generoidaan "uniikki" tiedostonimi niin ettei tule ongelmia
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
@@ -40,6 +40,6 @@ public class AwsUploadService {
                 RequestBody.fromBytes(fileBytes));
         
         // Generoidaan entityyn varastoitava URL
-        return "https://" + bucketName + ".s3.amazonaws.com/" + fileName;
+        return "https://" + bucketName + ".s3.eu-north-1.amazonaws.com/" + fileName;
     }
 }
