@@ -34,6 +34,10 @@ public class WebController {
     public String login() {
         return "login";
     }
+    @GetMapping("/")
+    public String defaultpage() {
+        return "redirect:/frontpage";
+    }
     @GetMapping("/index")
     public String index() {
         return "index";
