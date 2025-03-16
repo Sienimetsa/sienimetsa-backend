@@ -64,25 +64,18 @@ public class EntityController {
 
     // Creates a new finding with image upload from React Native
     @PostMapping(value = "/newfinding", consumes = { "multipart/form-data" })
-    public ResponseEntity<Finding> createFinding(
-            @RequestPart("file") MultipartFile imageFile,
-            @RequestPart("finding") String findingJson) {
+    public ResponseEntity<Finding> createFinding(@RequestPart("file") MultipartFile imageFile, @RequestPart("finding") String findingJson) {
 
-        // Parse JSON string to Finding object
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule()); // Add this to handle LocalDateTime
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // Optional: Format dates as ISO strings
 
         Finding finding;
         try {
-            // Create a custom deserializer configuration
             finding = mapper.readValue(findingJson, Finding.class);
-
         } catch (Exception e) {
-            // Log the full exception for debugging
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
         if (imageFile != null && !imageFile.isEmpty()) {
@@ -90,11 +83,7 @@ public class EntityController {
                 String imageUrl = awsUploadService.uploadImage(imageFile);
                 finding.setImageURL(imageUrl);
             } catch (IOException e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                        .body(null);
-            } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                        .body(null);
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
             }
         }
 
@@ -110,12 +99,6 @@ public class EntityController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
-
-
-
-
-
-    
 
     // Edit a finding by id
     @PutMapping("/editfinding/{id}")
