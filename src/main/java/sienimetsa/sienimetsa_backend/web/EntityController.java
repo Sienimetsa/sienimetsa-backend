@@ -1,5 +1,6 @@
 package sienimetsa.sienimetsa_backend.web;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,16 +14,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import jakarta.validation.Valid;
 import sienimetsa.sienimetsa_backend.domain.Appuser;
 import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
 import sienimetsa.sienimetsa_backend.domain.Finding;
 import sienimetsa.sienimetsa_backend.domain.FindingRepository;
+import sienimetsa.sienimetsa_backend.domain.Mushroom;
+import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
 import sienimetsa.sienimetsa_backend.service.AwsUploadService;
 
 @RestController
@@ -35,10 +41,10 @@ public class EntityController {
     private FindingRepository frepository;
     @Autowired
     private AwsUploadService awsUploadService;
-
+    @Autowired
+    private MushroomRepository mrepository;
 
     // Get all findings by user id
-    //toimii
     @GetMapping("/userfindings/{id}")
     public List<Finding> getFindingsByUserId(@PathVariable("id") Long u_id) {
         Appuser user = urepository.findById(u_id).orElse(null);
@@ -49,7 +55,6 @@ public class EntityController {
     }
 
     // Get a finding by id
-    //toimii
     @GetMapping("/finding/{id}")
     public ResponseEntity<Finding> getFindingById(@PathVariable Long id) {
         return frepository.findById(id)
@@ -57,26 +62,48 @@ public class EntityController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Creates a new finding with image upload
-    @PostMapping("/newfinding")
-    public ResponseEntity<Finding> createFinding(@RequestParam(value = "image", required = true) MultipartFile imageFile, 
-                                               @RequestPart("finding") @Valid Finding finding) {
+    // Creates a new finding with image upload from React Native
+    @PostMapping(value = "/newfinding", consumes = { "multipart/form-data" })
+    public ResponseEntity<Finding> createFinding(@RequestPart("file") MultipartFile imageFile, @RequestPart("finding") String findingJson) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule()); // Add this to handle LocalDateTime
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // Optional: Format dates as ISO strings
+
+        Finding finding;
+        try {
+            finding = mapper.readValue(findingJson, Finding.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
         if (imageFile != null && !imageFile.isEmpty()) {
             try {
                 String imageUrl = awsUploadService.uploadImage(imageFile);
                 finding.setImageURL(imageUrl);
-            } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                        .body(null);
+            } catch (IOException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
             }
         }
-        Finding savedFinding = frepository.save(finding);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedFinding);
+
+        Optional<Appuser> appuserOptional = urepository.findById(finding.getAppuser().getU_id());
+        Optional<Mushroom> mushroomOptional = mrepository.findById(finding.getMushroom().getM_id());
+
+        if (appuserOptional.isPresent() && mushroomOptional.isPresent()) {
+            finding.setAppuser(appuserOptional.get());
+            finding.setMushroom(mushroomOptional.get());
+            Finding savedFinding = frepository.save(finding);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedFinding);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
     }
 
     // Edit a finding by id
     @PutMapping("/editfinding/{id}")
-    public ResponseEntity<Finding> updateFinding(@PathVariable("id") Long id, @RequestBody @Valid Finding updatedFinding) {
+    public ResponseEntity<Finding> updateFinding(@PathVariable("id") Long id,
+            @RequestBody @Valid Finding updatedFinding) {
         Optional<Finding> existingFindingOptional = frepository.findById(id);
 
         if (existingFindingOptional.isPresent()) {
