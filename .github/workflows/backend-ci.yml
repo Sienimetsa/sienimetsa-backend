@@ -23,6 +23,8 @@ jobs:
 
       - name: Build and run tests
         run: mvn clean verify
+        env:
+          SPRING_PROFILES_ACTIVE: test
 
       - name: Upload test reports
         if: always()

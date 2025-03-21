@@ -1,33 +1,41 @@
 package sienimetsa.sienimetsa_backend;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import static org.mockito.ArgumentMatchers.any;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import sienimetsa.sienimetsa_backend.domain.Appuser;
+import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
 import sienimetsa.sienimetsa_backend.dto.MobileLoginRequestDTO;
 import sienimetsa.sienimetsa_backend.dto.MobileSignupRequestDTO;
 import sienimetsa.sienimetsa_backend.jwt.JwtUtil;
 import sienimetsa.sienimetsa_backend.web.AppuserSignUpServiceImpl;
 import sienimetsa.sienimetsa_backend.web.AuthController;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import sienimetsa.sienimetsa_backend.domain.Appuser;
-import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
-
-import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
+@ActiveProfiles("test")
 public class AuthControllerTest {
 
     @Mock
