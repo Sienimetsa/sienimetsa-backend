@@ -1,20 +1,22 @@
 package sienimetsa.sienimetsa_backend;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import sienimetsa.sienimetsa_backend.domain.Appuser;
 import sienimetsa.sienimetsa_backend.domain.Finding;
 import sienimetsa.sienimetsa_backend.domain.Mushroom;
 import sienimetsa.sienimetsa_backend.domain.User;
 
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
+@SpringBootTest
 class ValidationTest {
 
     private Validator validator;
@@ -38,7 +40,7 @@ class ValidationTest {
         Set<ConstraintViolation<Appuser>> violations = validator.validate(appuser);
 
         assertFalse(violations.isEmpty());
-        assertEquals(5, violations.size()); // Checking for all violations
+        assertEquals(8, violations.size()); // Checking for all violations
     }
 
     //testaa finding entity
