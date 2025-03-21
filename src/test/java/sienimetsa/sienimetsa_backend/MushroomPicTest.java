@@ -5,12 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import sienimetsa.sienimetsa_backend.domain.Appuser;
 
 @SpringBootTest
-@ActiveProfiles("test")
 class MushroomPicTest {
 
     @Test

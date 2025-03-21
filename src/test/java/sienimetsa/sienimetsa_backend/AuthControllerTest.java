@@ -16,7 +16,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -35,7 +34,6 @@ import sienimetsa.sienimetsa_backend.web.AppuserSignUpServiceImpl;
 import sienimetsa.sienimetsa_backend.web.AuthController;
 
 @ExtendWith(MockitoExtension.class)
-@ActiveProfiles("test")
 public class AuthControllerTest {
 
     @Mock
