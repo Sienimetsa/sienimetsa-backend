@@ -59,14 +59,16 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/mobile/signup", "/mobile/login").permitAll()
-                .requestMatchers("/apu/**").permitAll()             
+                .requestMatchers("/apu/**").permitAll()           
                 .anyRequest().authenticated())
             .exceptionHandling(ex -> ex.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
             .formLogin(form -> form.disable())
             .addFilterBefore(new JwtAuthenticationFilter(jwtUtil, appuserDetailsService), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-
+    
+    
+    
      /**
      * Security filter chain for Thymeleaf-based admin frontend.
      * - Allows public access to CSS, login page, and H2 database console
@@ -78,9 +80,9 @@ public class SecurityConfig {
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
+            .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**","/ws/**"))
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/css/**", "/login", "/h2-console/**").permitAll()
+                .requestMatchers("/css/**", "/login", "/h2-console/**","/ws/**").permitAll()
                 .requestMatchers("/", "/frontpage", "/users", "/mushrooms").hasRole("ADMIN")
                 .anyRequest().authenticated())
             .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
@@ -149,18 +151,20 @@ public class SecurityConfig {
      * - Allows requests from `http://localhost:8081`
      * - Permits common HTTP methods
      * - Enables credentials support (e.g., cookies, Authorization header)
-     */
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8081"));  // Add your frontend URL 
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));  // allow all methods
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "*")); // Allow all headers
-        configuration.setAllowCredentials(true); // Allow cookies or credentials if needed
+     */@Bean
+public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration configuration = new CorsConfiguration();
+    configuration.setAllowedOrigins(Arrays.asList("http://localhost:8081")); //For react
+    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "CONNECT"));
+    configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "*"));
+    configuration.setAllowCredentials(true);
+    configuration.addAllowedOriginPattern("http://localhost:8081"); //For websocket
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(); // Manages CORS settings by applying configurations based on URL patterns. 
-        source.registerCorsConfiguration("/**", configuration); // Apply CORS settings to all endpoints
-        return source;
-    }
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration);
+    return source;
+}
+    
+    
     
 }
