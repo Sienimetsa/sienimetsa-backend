@@ -45,7 +45,8 @@ public class Mushroom {
     public Mushroom() {
     }
 
-    public Mushroom( Integer mushroompic, String mname, String toxicity_level, String color, String gills, String cap, String taste) {
+    public Mushroom(Integer mushroompic, String mname, String toxicity_level, String color, String gills, String cap,
+            String taste) {
         this.mushroompic = mushroompic;
         this.mname = mname;
         this.toxicity_level = toxicity_level;
@@ -54,7 +55,7 @@ public class Mushroom {
         this.cap = cap;
         this.taste = taste;
     }
-    
+
     public Long getM_id() {
         return m_id;
     }

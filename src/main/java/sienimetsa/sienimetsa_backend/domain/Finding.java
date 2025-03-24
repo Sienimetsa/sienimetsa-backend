@@ -45,7 +45,8 @@ public class Finding {
     public Finding() {
     }
 
-    public Finding(Appuser appuser, Mushroom mushroom, LocalDateTime f_time, String city, String notes, String imageURL) {
+    public Finding(Appuser appuser, Mushroom mushroom, LocalDateTime f_time, String city, String notes,
+            String imageURL) {
         this.appuser = appuser;
         this.mushroom = mushroom;
         this.f_time = f_time;
@@ -116,7 +117,4 @@ public class Finding {
                 + ", city=" + city + ", notes=" + notes + ", imageURL=" + imageURL + "]";
     }
 
-    
-
-    
 }

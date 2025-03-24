@@ -34,79 +34,80 @@ public class SecurityConfig {
     private final AppuserService appuserDetailsService;
     private final JwtUtil jwtUtil;
 
-    public SecurityConfig(UserDetailServiceImpl userDetailsService, AppuserService appuserDetailsService, JwtUtil jwtUtil) {
+    public SecurityConfig(UserDetailServiceImpl userDetailsService, AppuserService appuserDetailsService,
+            JwtUtil jwtUtil) {
         this.userDetailsService = userDetailsService; // Service for handling backend user authentication
         this.appuserDetailsService = appuserDetailsService; // Service for handling mobile user authentication
         this.jwtUtil = jwtUtil; // Utility for handling JWT tokens
     }
 
-
-     /**
+    /**
      * Security filter chain for mobile API endpoints.
      * - Matches `/mobile/**` and `/api/profile/**`
      * - Allows unauthenticated access to `/mobile/signup` and `/mobile/login`
      * - Requires authentication for other endpoints
      * - Uses JWT authentication for security
      */
-    @Bean       
+    @Bean
     @Order(1)
     public SecurityFilterChain mobileSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-            // ADD ENDPOINTS HERE TO USE WITH TOKEN
-            .securityMatcher("/mobile/**", "/apu/**", "/api/**", "/buckets/all/**", "buckets/upload/**")
-            
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/mobile/signup", "/mobile/login").permitAll()
-                .requestMatchers("/apu/**").permitAll()           
-                .anyRequest().authenticated())
-            .exceptionHandling(ex -> ex.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-            .formLogin(form -> form.disable())
-            .addFilterBefore(new JwtAuthenticationFilter(jwtUtil, appuserDetailsService), UsernamePasswordAuthenticationFilter.class);
+                // ADD ENDPOINTS HERE TO USE WITH TOKEN
+                .securityMatcher("/mobile/**", "/apu/**", "/api/**", "/buckets/all/**", "buckets/upload/**")
+
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/mobile/signup", "/mobile/login").permitAll()
+                        .requestMatchers("/apu/**").permitAll()
+                        .anyRequest().authenticated())
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
+                .formLogin(form -> form.disable())
+                .addFilterBefore(new JwtAuthenticationFilter(jwtUtil, appuserDetailsService),
+                        UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-    
-    
-    
-     /**
+
+    /**
      * Security filter chain for Thymeleaf-based admin frontend.
      * - Allows public access to CSS, login page, and H2 database console
      * - Restricts admin-only pages to users with the "ADMIN" role
      * - Enables login/logout functionality
      */
-    @Bean       
+    @Bean
     @Order(2)
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**","/ws/**"))
-            .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/css/**", "/login", "/h2-console/**","/ws/**").permitAll()
-                .requestMatchers("/", "/frontpage", "/users", "/mushrooms").hasRole("ADMIN")
-                .anyRequest().authenticated())
-            .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
-            .formLogin(formLogin -> formLogin
-                .loginPage("/login")
-                .defaultSuccessUrl("/frontpage", true)
-                .permitAll())
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout")
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .permitAll());
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**", "/ws/**"))
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/css/**", "/login", "/h2-console/**", "/ws/**").permitAll()
+                        .requestMatchers("/", "/frontpage", "/users", "/mushrooms").hasRole("ADMIN")
+                        .anyRequest().authenticated())
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
+                .formLogin(formLogin -> formLogin
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/frontpage", true)
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .permitAll());
         return http.build();
     }
 
     /**
-     * Retrieves the default AuthenticationManager from Spring Security's configuration. (frontend)
+     * Retrieves the default AuthenticationManager from Spring Security's
+     * configuration. (frontend)
      */
     @Bean
     public AuthenticationManager frontAuthenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
-    //BCrypt password encoder for hashing passwords
+
+    // BCrypt password encoder for hashing passwords
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -117,19 +118,20 @@ public class SecurityConfig {
      * - Uses `UserDetailServiceImpl` to retrieve user details
      * - Uses BCrypt password encoder
      */
-    @Bean     
+    @Bean
     public DaoAuthenticationProvider backendAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService); // For backend
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
-      /**
+
+    /**
      * Authentication provider for frontend users (mobile users).
      * - Uses `AppuserService` to retrieve user details
      * - Uses BCrypt password encoder
      */
-    @Bean  
+    @Bean
     public DaoAuthenticationProvider frontendAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(appuserDetailsService); // For mobile
@@ -137,8 +139,9 @@ public class SecurityConfig {
         return provider;
     }
 
-     /**
-     * Primary authentication manager combining both backend and frontend authentication providers.
+    /**
+     * Primary authentication manager combining both backend and frontend
+     * authentication providers.
      */
     @Primary
     @Bean
@@ -146,25 +149,24 @@ public class SecurityConfig {
         return new ProviderManager(List.of(backendAuthenticationProvider(), frontendAuthenticationProvider()));
     }
 
-     /**
+    /**
      * Configures Cross-Origin Resource Sharing (CORS).
      * - Allows requests from `http://localhost:8081`
      * - Permits common HTTP methods
      * - Enables credentials support (e.g., cookies, Authorization header)
-     */@Bean
-public CorsConfigurationSource corsConfigurationSource() {
-    CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(Arrays.asList("http://localhost:8081")); //For react
-    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "CONNECT"));
-    configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "*"));
-    configuration.setAllowCredentials(true);
-    configuration.addAllowedOriginPattern("http://localhost:8081"); //For websocket
+     */
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8081")); // For react
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "CONNECT"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "*"));
+        configuration.setAllowCredentials(true);
+        configuration.addAllowedOriginPattern("http://localhost:8081"); // For websocket
 
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", configuration);
-    return source;
-}
-    
-    
-    
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
 }
