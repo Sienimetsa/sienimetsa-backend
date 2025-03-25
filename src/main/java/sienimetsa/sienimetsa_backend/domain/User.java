@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+
 @Entity
 @Table(name = "adminUser")
 public class User {
@@ -15,7 +16,6 @@ public class User {
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
-    
     @Column(name = "aUsername", unique = true)
     @NotBlank(message = "aUsername is needed")
     private String aUsername;
@@ -24,14 +24,14 @@ public class User {
     @NotBlank(message = "password is needed")
     private String passwordHash;
 
+    public User() {
+    }
 
-    public User(){}
-
-    public User(String aUsername,String passwordHash){
+    public User(String aUsername, String passwordHash) {
         super();
-        this.aUsername= aUsername;
-        this.passwordHash=passwordHash;
-    
+        this.aUsername = aUsername;
+        this.passwordHash = passwordHash;
+
     }
 
     public Long getId() {
@@ -57,7 +57,5 @@ public class User {
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
     }
-
-   
 
 }

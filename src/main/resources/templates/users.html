@@ -4,31 +4,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App users</title>
+    <title>App Users</title>
 
     <script>
-     function confirmDelete(event) {
-    event.preventDefault();
-    const confirmation = confirm("Haluatko varmasti poistaa tämän käyttäjän?");
-    if (confirmation) {
-        window.location.replace(event.currentTarget.href);  
-
-    }
-}
-
+        function confirmDelete(event) {
+            event.preventDefault();
+            const confirmation = confirm("Are you sure you want to delete this user?");
+            if (confirmation) {
+                window.location.replace(event.currentTarget.href);
+            }
+        }
     </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8f5e9; /* Light green background */
+            color: #2e7d32; /* Dark green text */
+            margin: 50px;
+        }
+        .container {
+            background: #a5d6a7; /* Lighter green container */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            margin: auto;
+        }
+        .btn-custom {
+            background-color: #388e3c; /* Dark green button */
+            color: white;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+        .btn-custom:hover {
+            background-color: #2e7d32; /* Darker green on hover */
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4caf50; /* Green header */
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f1f8e9; /* Lighter green rows */
+        }
+        tr:hover {
+            background-color: #c8e6c9; /* Slightly darker green on hover */
+        }
+        .btn-edit {
+            background-color: #4caf50; /* Green button */
+            color: white;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+        .btn-edit:hover {
+            background-color: #388e3c; /* Darker green on hover */
+        }
+        .btn-delete {
+            background-color: #c62828; /* Red button */
+            color: white;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+        .btn-delete:hover {
+            background-color: #e53935; /* Darker red on hover */
+        }
+    </style>
+
 </head>
 
 <body>
-    <div style="padding: 5%;">
+    <div class="container">
         <div style="display: flex; justify-content: flex-end;">
-            <a class="btn btn-primary btn-custom" href="/frontpage">Back to Front-Page</a>
+            <a class="btn btn-custom" href="/frontpage">Back to Front-Page</a>
         </div>
         <div>
-            <h1>App users</h1>
+            <h1>App Users</h1>
         </div>
         <div style="padding-top: 2%;">
-            <table class="table pink-table table-hover" style="margin: 0 auto;">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -36,8 +102,8 @@
                         <th>Phone</th>
                         <th>Email</th>
                         <th>Country</th>
-                        <th>Chat color</th>
-                        <th>Profile picture</th>
+                        <th>Chat Color</th>
+                        <th>Profile Picture</th>
                         <th sec:authorize="hasAuthority('ADMIN')">Functions</th>
                     </tr>
                 </thead>
@@ -51,10 +117,8 @@
                         <td th:text="${appuser.chatColor}"></td>
                         <td th:text="${appuser.profilePicture}"></td>
                         <td>
-                            <a class="btn btn-warning" th:href="@{/editusers/{id}(id=${appuser.u_id})}">Edit</a>
-                            <a class="btn btn-danger" th:href="@{/deleteu/{id}(id=${appuser.u_id})}" onclick="confirmDelete(event)">Delete</a>
-
-
+                            <a class="btn btn-edit" th:href="@{/editusers/{id}(id=${appuser.u_id})}">Edit</a>
+                            <a class="btn btn-delete" th:href="@{/deleteu/{id}(id=${appuser.u_id})}" onclick="confirmDelete(event)">Delete</a>
                         </td>
                     </tr>
                 </tbody>

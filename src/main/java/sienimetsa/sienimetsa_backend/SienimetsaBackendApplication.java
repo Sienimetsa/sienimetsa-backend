@@ -40,7 +40,7 @@ public class SienimetsaBackendApplication {
 					encodedPassword1,
 					"358401234568",
 					"real@email.com",
-					"Finland", "pink", "pp1", 1);
+					"Finland", "#9B59B6", "pp1", 1);
 
 			Appuser appuser2 = new Appuser(
 
@@ -48,7 +48,7 @@ public class SienimetsaBackendApplication {
 					encodedPassword2,
 					"358401234567",
 					"test@lookout.com",
-					"Finland", "black", "pp1", 1);
+					"Finland", "#E67E22", "pp1", 1);
 
 			appuserRepository.save(appuser1);
 			appuserRepository.save(appuser2);

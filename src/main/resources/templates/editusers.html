@@ -1,67 +1,138 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" /> 
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 <link rel="stylesheet" href="/css/styles.css">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Users</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8f5e9; /* Light green background */
+            color: #2e7d32; /* Dark green text */
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-container {
+            background: #a5d6a7; /* Light green form background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px; /* Ensure form does not exceed 600px width */
+        }
+        h1 {
+            color: #388e3c; /* Dark green title */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            width: 100%;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 20px 0;
+            border-radius: 5px;
+            border: 1px solid #388e3c;
+        }
+        button[type="submit"],
+        .btn-custom,
+        .btn-cancel {
+            background-color: #388e3c; /* Dark green button */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%; /* Full-width button */
+            margin-bottom: 10px;
+        }
+        button[type="submit"]:hover,
+        .btn-custom:hover,
+        .btn-cancel:hover {
+            background-color: #2e7d32; /* Darker green on hover */
+        }
+        .btn-cancel {
+            background-color: #e74c3c; /* Red cancel button */
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Edit user info</h1>
-    <form th:object="${appuser}" th:action="@{/saveu}" method="post">
-        <input type="hidden" th:field="*{u_id}" />
+    <div class="form-container">
+        <h1>Edit User Info</h1>
+        <form th:object="${appuser}" th:action="@{/saveu}" method="post">
+            <input type="hidden" th:field="*{u_id}" />
 
-        <ul>
-            <li>
-                <label for="username">Username</label>
-                <input type="text" th:field="*{username}" required />
-                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
-            </li>
-            
-            <li>
-                <!-- Preserve existing password -->
-                <input type="hidden" th:field="*{passwordHash}" />
-                <label for="password">New Password (Leave blank to keep current password)</label>
-                <input type="password" id="password" name="newPassword" placeholder="Enter new password (optional)" />
-            </li>
-            
-            <li>
-                <label for="phone">Phone</label>
-                <input type="text" th:field="*{phone}" required />
-                <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
-            </li>
-            
-            <li>
-                <label for="email">Email</label>
-                <input type="email" th:field="*{email}" required />
-                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-            </li>
-            
-            <li>
-                <label for="country">Country</label>
-                <input type="text" th:field="*{country}" required />
-                <div th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></div>
-            </li>
-            
-            <li>
-                <label for="chatColor">Chat color</label>
-                <input type="text" th:field="*{chatColor}" required />
-                <div th:if="${#fields.hasErrors('chatColor')}" th:errors="*{chatColor}"></div>
-            </li>
-            
-            <li>
-                <label for="profilePicture">Profile picture</label>
-                <input type="text" th:field="*{profilePicture}" required />
-                <div th:if="${#fields.hasErrors('profilePicture')}" th:errors="*{profilePicture}"></div>
-            </li>
-        </ul>
+            <ul>
+                <li>
+                    <label for="username">Username</label>
+                    <input type="text" th:field="*{username}" required />
+                    <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                </li>
+                
+                <li>
+                    <!-- Preserve existing password -->
+                    <input type="hidden" th:field="*{passwordHash}" />
+                    <label for="password">New Password (Leave blank to keep current password)</label>
+                    <input type="password" id="password" name="newPassword" placeholder="Enter new password (optional)" />
+                </li>
+                
+                <li>
+                    <label for="phone">Phone</label>
+                    <input type="text" th:field="*{phone}" required />
+                    <div class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+                </li>
+                
+                <li>
+                    <label for="email">Email</label>
+                    <input type="email" th:field="*{email}" required />
+                    <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                </li>
+                
+                <li>
+                    <label for="country">Country</label>
+                    <input type="text" th:field="*{country}" required />
+                    <div class="error" th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></div>
+                </li>
+                
+                <li>
+                    <label for="chatColor">Chat Color</label>
+                    <input type="text" th:field="*{chatColor}" required />
+                    <div class="error" th:if="${#fields.hasErrors('chatColor')}" th:errors="*{chatColor}"></div>
+                </li>
+                
+                <li>
+                    <label for="profilePicture">Profile Picture</label>
+                    <input type="text" th:field="*{profilePicture}" required />
+                    <div class="error" th:if="${#fields.hasErrors('profilePicture')}" th:errors="*{profilePicture}"></div>
+                </li>
+            </ul>
 
-        <button type="submit">Save</button>
-    </form>
-    
-    <a href="/users">Cancel</a>
-    <a class="btn btn-primary btn-custom" href="/frontpage">Back to front-page</a>
+            <button type="submit">Save</button>
+        </form>
+        
+        <a href="/users" class="btn-cancel">Cancel</a>
+        <a class="btn btn-primary btn-custom" href="/frontpage">Back to Front-Page</a>
+    </div>
 </body>
 </html>

@@ -7,24 +7,83 @@
     <title>Findings</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/css/styles.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e8f5e9; /* Light green background */
+            color: #2e7d32; /* Dark green text */
+            margin: 50px;
+        }
+        .container {
+            background: #a5d6a7; /* Lighter green container */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            margin: auto;
+        }
+        .btn-custom {
+            background-color: #388e3c; /* Dark green button */
+            color: white;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+        .btn-custom:hover {
+            background-color: #2e7d32; /* Darker green on hover */
+        }
+        .btn-back {
+            background-color: #388e3c; /* Dark green button */
+            color: white;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+        .btn-back:hover {
+            background-color: #2e7d32; /* Darker green on hover */
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4caf50; /* Green header */
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f1f8e9; /* Lighter green rows */
+        }
+        tr:hover {
+            background-color: #c8e6c9; /* Slightly darker green on hover */
+        }
+    </style>
+
 </head>
 
 <body>
     <div class="container" style="padding: 5%;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <h1>Findings</h1>
-            <a href="/frontpage" class="btn btn-primary">Back to Front-Page</a>
-            <a href="/editfindings" class="btn btn-primary">Edit findings</a>
+            <div>
+                <a href="/frontpage" class="btn btn-back">Back to Front-Page</a>
+            </div>
         </div>
         <div>
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>appuser</th>
-                        <th>mushroom</th>
-                        <th>time</th>
-                        <th>city</th>
-                        <th>notes</th>
+                        <th>App User</th>
+                        <th>Mushroom</th>
+                        <th>Time</th>
+                        <th>City</th>
+                        <th>Notes</th>
                     </tr>
                 </thead>
                 <tbody>

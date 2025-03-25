@@ -1,4 +1,4 @@
-package sienimetsa.sienimetsa_backend.web;
+package sienimetsa.sienimetsa_backend;
 
 import java.util.List;
 
@@ -17,6 +17,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import sienimetsa.sienimetsa_backend.service.AwsUploadService;
+import sienimetsa.sienimetsa_backend.web.BucketController;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.Bucket;
 import software.amazon.awssdk.services.s3.model.ListBucketsResponse;

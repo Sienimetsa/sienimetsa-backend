@@ -1,37 +1,14 @@
-package sienimetsa.sienimetsa_backend.domain;
+package sienimetsa.sienimetsa_backend.dto;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "message")
-public class Message {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class MessageDTO {
     private String username;
     private String text;
     private LocalDateTime timestamp;
+    private String chatColor; // Add the chatColor field
 
-    public Message() {
-    }
-
-    public Message(String username, String text, LocalDateTime timestamp) {
-        this.username = username;
-        this.text = text;
-        this.timestamp = timestamp;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    // Getters and setters
     public String getUsername() {
         return username;
     }
@@ -56,13 +33,21 @@ public class Message {
         this.timestamp = timestamp;
     }
 
+    public String getChatColor() {
+        return chatColor;
+    }
+
+    public void setChatColor(String chatColor) {
+        this.chatColor = chatColor;
+    }
+
     @Override
     public String toString() {
-        return "Message{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
+        return "MessageDTO{" +
+                "username='" + username + '\'' +
                 ", text='" + text + '\'' +
                 ", timestamp=" + timestamp +
+                ", chatColor='" + chatColor + '\'' + // Add chatColor to the toString method
                 '}';
     }
 }
