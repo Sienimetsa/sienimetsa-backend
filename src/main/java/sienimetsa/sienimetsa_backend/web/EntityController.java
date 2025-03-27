@@ -30,6 +30,7 @@ import sienimetsa.sienimetsa_backend.domain.FindingRepository;
 import sienimetsa.sienimetsa_backend.domain.Mushroom;
 import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
 import sienimetsa.sienimetsa_backend.service.AwsUploadService;
+import sienimetsa.sienimetsa_backend.service.LevelingService;
 
 @RestController
 @RequestMapping("/apu")
@@ -43,6 +44,8 @@ public class EntityController {
     private AwsUploadService awsUploadService;
     @Autowired
     private MushroomRepository mrepository;
+    @Autowired
+    private LevelingService levelingService;
 
     // Get all findings by user id
     @GetMapping("/userfindings/{id}")
@@ -62,7 +65,8 @@ public class EntityController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Creates a new finding with image upload from React Native
+    // Creates a new finding with image upload from React Native and processes the finding for the user
+    // by updating their unique mushrooms and potentially increasing their level
     @PostMapping(value = "/newfinding", consumes = { "multipart/form-data" })
     public ResponseEntity<Finding> createFinding(@RequestPart("file") MultipartFile imageFile, @RequestPart("finding") String findingJson) {
 
@@ -89,6 +93,10 @@ public class EntityController {
 
         Optional<Appuser> appuserOptional = urepository.findById(finding.getAppuser().getU_id());
         Optional<Mushroom> mushroomOptional = mrepository.findById(finding.getMushroom().getM_id());
+
+        if (appuserOptional.isPresent() && mushroomOptional.isPresent()) {
+            levelingService.processFinding(appuserOptional.get(), mushroomOptional.get());
+        }
 
         if (appuserOptional.isPresent() && mushroomOptional.isPresent()) {
             finding.setAppuser(appuserOptional.get());
