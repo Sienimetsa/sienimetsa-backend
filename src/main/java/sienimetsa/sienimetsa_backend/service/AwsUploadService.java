@@ -20,7 +20,7 @@ public class AwsUploadService {
      * Service joka lataa kuvan S3:een ja palauttaa sen URL:n
      * 
      * @param file Tiedosto joka pitää pyynnön mukana lähettää
-     * @return URL josta kuva on ladattavissa (jos on oikeudet)
+     * @return tiedostonimi
      * @throws IOException Jos hommat ns. leipoo
      */
 
@@ -39,7 +39,7 @@ public class AwsUploadService {
                 .build(),
                 RequestBody.fromBytes(fileBytes));
         
-        // Generoidaan entityyn varastoitava URL
-        return "https://" + bucketName + ".s3.eu-north-1.amazonaws.com/" + fileName;
+        // Generoidaan entityyn varastoitava tiedostonimi
+        return fileName;
     }
 }

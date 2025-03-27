@@ -169,7 +169,7 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Found in the forest near the lake",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
 
 					
 			Finding finding2 = new Finding(
@@ -178,7 +178,7 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Vantaa",
 					"Found in the forest near the lake",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"https://sienimetsa-img.s3.eu-north-1.amazonaws.com/Konsta.png");
 
 			Finding finding3 = new Finding(
 					appuser1,
@@ -186,7 +186,7 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Found in the forest near the lake",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"https://sienimetsa-img.s3.eu-north-1.amazonaws.com/Konsta.png");
 
 			Finding finding4 = new Finding(
 					appuser1,

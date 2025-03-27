@@ -65,6 +65,7 @@ public class EntityController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    
     // Creates a new finding with image upload from React Native and processes the finding for the user
     // by updating their unique mushrooms and potentially increasing their level
     @PostMapping(value = "/newfinding", consumes = { "multipart/form-data" })
@@ -107,6 +108,8 @@ public class EntityController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
+
+    
 
     // Edit a finding by id
     @PutMapping("/editfinding/{id}")

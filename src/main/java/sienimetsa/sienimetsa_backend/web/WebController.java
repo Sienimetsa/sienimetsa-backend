@@ -1,6 +1,14 @@
 package sienimetsa.sienimetsa_backend.web;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,16 +25,21 @@ import sienimetsa.sienimetsa_backend.domain.Finding;
 import sienimetsa.sienimetsa_backend.domain.FindingRepository;
 import sienimetsa.sienimetsa_backend.domain.Mushroom;
 import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
-
+import software.amazon.awssdk.core.ResponseInputStream;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 
 @Controller
 public class WebController {
+
 
     @Autowired
     private AppuserRepository urepository;
     @Autowired
     private FindingRepository frepository;
-
+    @Autowired
+    private S3Client s3Client;
     @Autowired
     private MushroomRepository mrepository;
    
@@ -103,6 +116,24 @@ public class WebController {
         model.addAttribute("findings", frepository.findAll()); // List of all findings
         return "findings";
     }
+
+    @GetMapping("/images/{fileName}")
+    public ResponseEntity<byte[]> getImage(@PathVariable String fileName) {
+        ResponseInputStream<GetObjectResponse> object = s3Client.getObject(GetObjectRequest.builder()
+            .bucket("sienimetsa-img")
+            .key(fileName)
+            .build());
+
+        try (InputStream inputStream = object) {
+            byte[] bytes = IOUtils.toByteArray(inputStream);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_PNG); // Adjust based on image type
+        return new ResponseEntity<>(bytes, headers, HttpStatus.OK);
+    } catch (IOException e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+}
+
 
     @GetMapping("/findings/edit/{id}")
     public String editFinding(@PathVariable("id") Long id, Model model) {
