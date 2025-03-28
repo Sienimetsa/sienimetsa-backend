@@ -14,6 +14,7 @@ import sienimetsa.sienimetsa_backend.domain.Mushroom;
 import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
 import sienimetsa.sienimetsa_backend.domain.User;
 import sienimetsa.sienimetsa_backend.domain.UserRepository;
+import sienimetsa.sienimetsa_backend.service.LevelingService;
 
 @SpringBootApplication
 public class SienimetsaBackendApplication {
@@ -27,7 +28,8 @@ public class SienimetsaBackendApplication {
 			AppuserRepository appuserRepository,
 			UserRepository userRepository,
 			MushroomRepository mushroomRepository,
-			FindingRepository findingRepository) {
+			FindingRepository findingRepository,
+			LevelingService levelingService) {
 
 		return (args) -> {
 
@@ -66,91 +68,145 @@ public class SienimetsaBackendApplication {
 			Mushroom mushroom1 = new Mushroom(
 					1,
 					"Amanita muscaria",
+					"Fly agaric",
 					"High",
 					"Blue",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom2 = new Mushroom(
 					2,
 					"Boletus edulis",
+					"Porcini, King bolete",
 					"High",
 					"Brown",
 					"Free",
 					"Convex",
-					"None");
+					"None",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom3 = new Mushroom(
 					3,
 					"Cantharellus cibarius",
+					"Chanterelle",
 					"Low",
 					"Yellow",
 					"Free",
 					"Convex",
-					"None");
+					"None",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom4 = new Mushroom(
 					4,
 					"Agaricus bisporus",
+					"Button mushroom",
 					"Low",
 					"White",
 					"Free",
 					"Convex",
-					"None");
+					"None",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom5 = new Mushroom(
 					5,
 					"Russula emetica",
+					"The sickener",
 					"High",
 					"Red",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom6 = new Mushroom(
 					6,
 					"Hypholoma fasciculare",
+					"Sulphur tuft",
 					"High",
 					"Green",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom7 = new Mushroom(
 					7,
 					"Clitocybe dealbata",
+					"Ivory funnel",
 					"High",
 					"White",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom8 = new Mushroom(
 					8,
 					"Agaricus xanthodermus",
+					"Yellow-staining mushroom",
 					"High",
 					"Yellow",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom9 = new Mushroom(
 					9,
 					"Boletus satanas",
+					"Satan's bolete",
 					"High",
 					"Red",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
-			Mushroom mushroom10 = new Mushroom(10,
+			Mushroom mushroom10 = new Mushroom(
+					10,
 					"Clitocybe rivulosa",
+					"Fool's funnel",
 					"High",
 					"White",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
+
+			Mushroom mushroom11 = new Mushroom(
+					11,
+					"Craterellus tubaeformis",
+					"winter chanterelle",
+					"low",
+					"Brown",
+					"Decurrent",
+					"Funnel-shaped",
+					"Mild",
+					"A popular edible mushroom found in coniferous forests, often growing in mossy areas.");
+
+			Mushroom mushroom12 = new Mushroom(
+					12,
+					"Craterellus cornucopioides",
+					"black trumpet",
+					"low",
+					"Brown",
+					"Decurrent",
+					"Convex to Funnel-shaped",
+					"Bitter",
+					"A velvety dark brown mushroom commonly found in coniferous forests, often growing on decaying wood or tree stumps.");
+
+			Mushroom mushroom13 = new Mushroom(
+					13,
+					"Amanita virosa",
+					"destroying angel",
+					"high",
+					"white",
+					"Hymenium",
+					"Convex or flat",
+					"Mild",
+					"A deadly poisonous mushroom with a pure white cap, stem, and gills. Found in forests, particularly near birch and conifers. Consumption can cause fatal liver and kidney failure.");
 
 			mushroomRepository.save(mushroom1);
 			mushroomRepository.save(mushroom2);
@@ -162,6 +218,9 @@ public class SienimetsaBackendApplication {
 			mushroomRepository.save(mushroom8);
 			mushroomRepository.save(mushroom9);
 			mushroomRepository.save(mushroom10);
+			mushroomRepository.save(mushroom11);
+			mushroomRepository.save(mushroom12);
+			mushroomRepository.save(mushroom13);
 
 			Finding finding1 = new Finding(
 					appuser1,
@@ -169,16 +228,17 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Found in the forest near the lake",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
+			levelingService.processFinding(appuser1, mushroom1);
 
-					
 			Finding finding2 = new Finding(
 					appuser2,
 					mushroom2,
 					java.time.LocalDateTime.now(),
 					"Vantaa",
 					"Found in the forest near the lake",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
+			levelingService.processFinding(appuser2, mushroom2);
 
 			Finding finding3 = new Finding(
 					appuser1,
@@ -186,7 +246,8 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Found in the forest near the lake",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
+			levelingService.processFinding(appuser1, mushroom2);
 
 			Finding finding4 = new Finding(
 					appuser1,
@@ -194,7 +255,8 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"HESA",
 					"LÖYSIN TOST LÄHELT",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
+			levelingService.processFinding(appuser1, mushroom8);
 
 			Finding finding5 = new Finding(
 					appuser2,
@@ -202,7 +264,8 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Found in the forest near the lake",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
+			levelingService.processFinding(appuser2, mushroom5);
 
 			Finding finding6 = new Finding(
 					appuser1,
@@ -210,7 +273,8 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"TURKU",
 					"LÖYSIN TOST TOISELT PUOLELT JOKKEE",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
+			levelingService.processFinding(appuser1, mushroom6);
 
 			Finding finding7 = new Finding(
 					appuser1,
@@ -218,7 +282,8 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Oli puskan takana",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
+			levelingService.processFinding(appuser1, mushroom1);
 
 			Finding finding8 = new Finding(
 					appuser1,
@@ -226,7 +291,8 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Vantaa",
 					"karhuja paljon alueella, pitää varoa",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
+			levelingService.processFinding(appuser1, mushroom1);
 
 			Finding finding9 = new Finding(
 					appuser1,
@@ -234,7 +300,8 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Paljon väkeä ilalla pitää mennä aamulla",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
+			levelingService.processFinding(appuser1, mushroom1);
 
 			Finding finding10 = new Finding(
 					appuser1,
@@ -242,7 +309,8 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"AAAA",
 					"HULLU LÖYTÖ (<---- copilot täytti :DDD)",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
+			levelingService.processFinding(appuser1, mushroom2);
 
 			findingRepository.save(finding1);
 			findingRepository.save(finding2);
@@ -254,6 +322,8 @@ public class SienimetsaBackendApplication {
 			findingRepository.save(finding8);
 			findingRepository.save(finding9);
 			findingRepository.save(finding10);
+			appuserRepository.save(appuser1);
+			appuserRepository.save(appuser2);
 
 		};
 	};

@@ -22,6 +22,11 @@ public class Mushroom {
     @Column(name = "mname", nullable = false)
     private String mname;
 
+
+    @NotBlank(message = "Common mushroom name cannot be blank")
+    @Column(name = "cmname", nullable = false)
+    private String cmname;
+
     @NotBlank(message = "Toxicity level cannot be blank")
     @Column(name = "toxicity_level", nullable = false)
     private String toxicity_level;
@@ -42,18 +47,23 @@ public class Mushroom {
     @Column(name = "taste", nullable = false)
     private String taste;
 
+    @Column(name = "description")
+    private String description;
+
     public Mushroom() {
     }
 
-    public Mushroom(Integer mushroompic, String mname, String toxicity_level, String color, String gills, String cap,
-            String taste) {
+    public Mushroom(Integer mushroompic, String mname,String cmname, String toxicity_level, String color, String gills, String cap,
+            String taste, String description) {
         this.mushroompic = mushroompic;
         this.mname = mname;
+        this.cmname = mname;
         this.toxicity_level = toxicity_level;
         this.color = color;
         this.gills = gills;
         this.cap = cap;
         this.taste = taste;
+        this.description = description;
     }
 
     public Long getM_id() {
@@ -80,6 +90,13 @@ public class Mushroom {
         this.mname = mname;
     }
 
+    public String getCmname() {
+        return cmname;
+    }
+
+    public void setCmname(String cmname) {
+        this.cmname = cmname;
+    }
     public String getToxicity_level() {
         return toxicity_level;
     }
@@ -120,10 +137,21 @@ public class Mushroom {
         this.taste = taste;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
-        return "Mushroom [m_id=" + m_id + ", mushroompic=" + mushroompic + ", mname=" + mname + ", toxicity_level="
-                + toxicity_level + ", color=" + color + ", gills=" + gills + ", cap=" + cap + ", taste=" + taste + "]";
+        return "Mushroom [m_id=" + m_id + ", mushroompic=" + mushroompic + ", mname=" + mname+", cmname=" + cmname + ", toxicity_level="
+                + toxicity_level + ", color=" + color + ", gills=" + gills + ", cap=" + cap + ", taste=" + taste
+                + ", description=" + description + "]";
     }
+
+    
 
 }

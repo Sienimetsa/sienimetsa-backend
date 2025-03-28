@@ -1,6 +1,10 @@
 package sienimetsa.sienimetsa_backend.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -46,6 +50,10 @@ public class Appuser {
     @Column(name = "level")
     @Min(value = 1, message = "Level needs to be at least 1")
     private int level;
+
+    @ElementCollection
+    @Column(name = "unique_mushrooms")
+    private Set<Long> uniqueMushrooms = new HashSet<>();
 
     public Appuser() {
     }
@@ -136,6 +144,18 @@ public class Appuser {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public Set<Long> getUniqueMushrooms() {
+        return uniqueMushrooms;
+    }
+
+    public void setUniqueMushrooms(Set<Long> uniqueMushrooms) {
+        this.uniqueMushrooms = uniqueMushrooms;
+    }
+
+    public void addUniqueMushroom(Long mushroomId) {
+        this.uniqueMushrooms.add(mushroomId);
     }
 
     @Override
