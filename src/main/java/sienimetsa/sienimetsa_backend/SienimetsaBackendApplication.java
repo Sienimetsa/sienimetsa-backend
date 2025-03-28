@@ -14,6 +14,7 @@ import sienimetsa.sienimetsa_backend.domain.Mushroom;
 import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
 import sienimetsa.sienimetsa_backend.domain.User;
 import sienimetsa.sienimetsa_backend.domain.UserRepository;
+import sienimetsa.sienimetsa_backend.service.LevelingService;
 
 @SpringBootApplication
 public class SienimetsaBackendApplication {
@@ -27,7 +28,8 @@ public class SienimetsaBackendApplication {
 			AppuserRepository appuserRepository,
 			UserRepository userRepository,
 			MushroomRepository mushroomRepository,
-			FindingRepository findingRepository) {
+			FindingRepository findingRepository,
+			LevelingService levelingService){
 
 		return (args) -> {
 
@@ -169,8 +171,8 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Found in the forest near the lake",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
-
+					"Konsta.png");
+					levelingService.processFinding(appuser1, mushroom1);
 					
 			Finding finding2 = new Finding(
 					appuser2,
@@ -178,7 +180,8 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Vantaa",
 					"Found in the forest near the lake",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
+					levelingService.processFinding(appuser2, mushroom2);
 
 			Finding finding3 = new Finding(
 					appuser1,
@@ -186,7 +189,8 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Found in the forest near the lake",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
+           			levelingService.processFinding(appuser1, mushroom2);
 
 			Finding finding4 = new Finding(
 					appuser1,
@@ -194,7 +198,8 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"HESA",
 					"LÖYSIN TOST LÄHELT",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
+					levelingService.processFinding(appuser1, mushroom8);
 
 			Finding finding5 = new Finding(
 					appuser2,
@@ -202,7 +207,8 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Found in the forest near the lake",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
+					levelingService.processFinding(appuser2, mushroom5);
 
 			Finding finding6 = new Finding(
 					appuser1,
@@ -210,7 +216,8 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"TURKU",
 					"LÖYSIN TOST TOISELT PUOLELT JOKKEE",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
+					levelingService.processFinding(appuser1, mushroom6);
 
 			Finding finding7 = new Finding(
 					appuser1,
@@ -218,7 +225,8 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Oli puskan takana",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
+					levelingService.processFinding(appuser1, mushroom1);
 
 			Finding finding8 = new Finding(
 					appuser1,
@@ -226,7 +234,8 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Vantaa",
 					"karhuja paljon alueella, pitää varoa",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
+					levelingService.processFinding(appuser1, mushroom1);
 
 			Finding finding9 = new Finding(
 					appuser1,
@@ -234,7 +243,8 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Paljon väkeä ilalla pitää mennä aamulla",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
+					levelingService.processFinding(appuser1, mushroom1);
 
 			Finding finding10 = new Finding(
 					appuser1,
@@ -242,7 +252,8 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"AAAA",
 					"HULLU LÖYTÖ (<---- copilot täytti :DDD)",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
+					levelingService.processFinding(appuser1, mushroom2);
 
 			findingRepository.save(finding1);
 			findingRepository.save(finding2);
@@ -254,6 +265,8 @@ public class SienimetsaBackendApplication {
 			findingRepository.save(finding8);
 			findingRepository.save(finding9);
 			findingRepository.save(finding10);
+			appuserRepository.save(appuser1);
+			appuserRepository.save(appuser2);
 
 		};
 	};
