@@ -178,7 +178,7 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Vantaa",
 					"Found in the forest near the lake",
-					"https://sienimetsa-img.s3.eu-north-1.amazonaws.com/Konsta.png");
+					"Konsta.png");
 
 			Finding finding3 = new Finding(
 					appuser1,
@@ -186,7 +186,7 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Found in the forest near the lake",
-					"https://sienimetsa-img.s3.eu-north-1.amazonaws.com/Konsta.png");
+					"Konsta.png");
 
 			Finding finding4 = new Finding(
 					appuser1,
@@ -194,7 +194,7 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"HESA",
 					"LÖYSIN TOST LÄHELT",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
 
 			Finding finding5 = new Finding(
 					appuser2,
@@ -202,7 +202,7 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Found in the forest near the lake",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
 
 			Finding finding6 = new Finding(
 					appuser1,
@@ -210,7 +210,7 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"TURKU",
 					"LÖYSIN TOST TOISELT PUOLELT JOKKEE",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
 
 			Finding finding7 = new Finding(
 					appuser1,
@@ -218,7 +218,7 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Oli puskan takana",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
 
 			Finding finding8 = new Finding(
 					appuser1,
@@ -226,7 +226,7 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Vantaa",
 					"karhuja paljon alueella, pitää varoa",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
 
 			Finding finding9 = new Finding(
 					appuser1,
@@ -234,7 +234,7 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Paljon väkeä ilalla pitää mennä aamulla",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
 
 			Finding finding10 = new Finding(
 					appuser1,
@@ -242,7 +242,7 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"AAAA",
 					"HULLU LÖYTÖ (<---- copilot täytti :DDD)",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"Konsta.png");
 
 			findingRepository.save(finding1);
 			findingRepository.save(finding2);
