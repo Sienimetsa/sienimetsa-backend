@@ -72,7 +72,8 @@ public class SienimetsaBackendApplication {
 					"Blue",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom2 = new Mushroom(
 					2,
@@ -81,7 +82,8 @@ public class SienimetsaBackendApplication {
 					"Brown",
 					"Free",
 					"Convex",
-					"None");
+					"None",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom3 = new Mushroom(
 					3,
@@ -90,7 +92,8 @@ public class SienimetsaBackendApplication {
 					"Yellow",
 					"Free",
 					"Convex",
-					"None");
+					"None",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom4 = new Mushroom(
 					4,
@@ -99,7 +102,8 @@ public class SienimetsaBackendApplication {
 					"White",
 					"Free",
 					"Convex",
-					"None");
+					"None",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom5 = new Mushroom(
 					5,
@@ -108,7 +112,8 @@ public class SienimetsaBackendApplication {
 					"Red",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom6 = new Mushroom(
 					6,
@@ -117,7 +122,8 @@ public class SienimetsaBackendApplication {
 					"Green",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom7 = new Mushroom(
 					7,
@@ -126,7 +132,8 @@ public class SienimetsaBackendApplication {
 					"White",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom8 = new Mushroom(
 					8,
@@ -135,7 +142,8 @@ public class SienimetsaBackendApplication {
 					"Yellow",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");	
 
 			Mushroom mushroom9 = new Mushroom(
 					9,
@@ -144,7 +152,8 @@ public class SienimetsaBackendApplication {
 					"Red",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom10 = new Mushroom(10,
 					"Clitocybe rivulosa",
@@ -152,7 +161,8 @@ public class SienimetsaBackendApplication {
 					"White",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			mushroomRepository.save(mushroom1);
 			mushroomRepository.save(mushroom2);
@@ -170,19 +180,17 @@ public class SienimetsaBackendApplication {
 					mushroom1,
 					java.time.LocalDateTime.now(),
 					"Espoo",
-		"Found in the forest near the lake",
-		"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
-
-		levelingService.processFinding(appuser1, mushroom1);
-		
-Finding finding2 = new Finding(
+					"Found in the forest near the lake",
+					"Konsta.png");
+					levelingService.processFinding(appuser1, mushroom1);
+					
+			Finding finding2 = new Finding(
 					appuser2,
 					mushroom2,
 					java.time.LocalDateTime.now(),
 					"Vantaa",
 					"Found in the forest near the lake",
-					"https://sienimetsa-img.s3.eu-north-1.amazonaws.com/Konsta.png");
-
+					"Konsta.png");
 					levelingService.processFinding(appuser2, mushroom2);
 
 			Finding finding3 = new Finding(
@@ -191,8 +199,7 @@ Finding finding2 = new Finding(
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Found in the forest near the lake",
-					"https://sienimetsa-img.s3.eu-north-1.amazonaws.com/Konsta.png");
-
+					"Konsta.png");
            			levelingService.processFinding(appuser1, mushroom2);
 
 			Finding finding4 = new Finding(
@@ -201,8 +208,7 @@ Finding finding2 = new Finding(
 					java.time.LocalDateTime.now(),
 					"HESA",
 					"LÖYSIN TOST LÄHELT",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
-
+					"Konsta.png");
 					levelingService.processFinding(appuser1, mushroom8);
 
 			Finding finding5 = new Finding(
@@ -211,8 +217,7 @@ Finding finding2 = new Finding(
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Found in the forest near the lake",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
-
+					"Konsta.png");
 					levelingService.processFinding(appuser2, mushroom5);
 
 			Finding finding6 = new Finding(
@@ -221,8 +226,7 @@ Finding finding2 = new Finding(
 					java.time.LocalDateTime.now(),
 					"TURKU",
 					"LÖYSIN TOST TOISELT PUOLELT JOKKEE",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
-
+					"Konsta.png");
 					levelingService.processFinding(appuser1, mushroom6);
 
 			Finding finding7 = new Finding(
@@ -231,8 +235,7 @@ Finding finding2 = new Finding(
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Oli puskan takana",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
-
+					"Konsta.png");
 					levelingService.processFinding(appuser1, mushroom1);
 
 			Finding finding8 = new Finding(
@@ -241,8 +244,7 @@ Finding finding2 = new Finding(
 					java.time.LocalDateTime.now(),
 					"Vantaa",
 					"karhuja paljon alueella, pitää varoa",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
-
+					"Konsta.png");
 					levelingService.processFinding(appuser1, mushroom1);
 
 			Finding finding9 = new Finding(
@@ -251,8 +253,7 @@ Finding finding2 = new Finding(
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Paljon väkeä ilalla pitää mennä aamulla",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
-
+					"Konsta.png");
 					levelingService.processFinding(appuser1, mushroom1);
 
 			Finding finding10 = new Finding(
@@ -261,8 +262,7 @@ Finding finding2 = new Finding(
 					java.time.LocalDateTime.now(),
 					"AAAA",
 					"HULLU LÖYTÖ (<---- copilot täytti :DDD)",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
-
+					"Konsta.png");
 					levelingService.processFinding(appuser1, mushroom2);
 
 			findingRepository.save(finding1);
