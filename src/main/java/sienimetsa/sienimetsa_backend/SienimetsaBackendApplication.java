@@ -14,6 +14,7 @@ import sienimetsa.sienimetsa_backend.domain.Mushroom;
 import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
 import sienimetsa.sienimetsa_backend.domain.User;
 import sienimetsa.sienimetsa_backend.domain.UserRepository;
+import sienimetsa.sienimetsa_backend.service.LevelingService;
 
 @SpringBootApplication
 public class SienimetsaBackendApplication {
@@ -27,7 +28,8 @@ public class SienimetsaBackendApplication {
 			AppuserRepository appuserRepository,
 			UserRepository userRepository,
 			MushroomRepository mushroomRepository,
-			FindingRepository findingRepository) {
+			FindingRepository findingRepository,
+			LevelingService levelingService){
 
 		return (args) -> {
 
@@ -170,7 +172,7 @@ public class SienimetsaBackendApplication {
 					"Espoo",
 					"Found in the forest near the lake",
 					"Konsta.png");
-
+					levelingService.processFinding(appuser1, mushroom1);
 					
 			Finding finding2 = new Finding(
 					appuser2,
@@ -179,6 +181,7 @@ public class SienimetsaBackendApplication {
 					"Vantaa",
 					"Found in the forest near the lake",
 					"Konsta.png");
+					levelingService.processFinding(appuser2, mushroom2);
 
 			Finding finding3 = new Finding(
 					appuser1,
@@ -187,6 +190,7 @@ public class SienimetsaBackendApplication {
 					"Espoo",
 					"Found in the forest near the lake",
 					"Konsta.png");
+           			levelingService.processFinding(appuser1, mushroom2);
 
 			Finding finding4 = new Finding(
 					appuser1,
@@ -195,6 +199,7 @@ public class SienimetsaBackendApplication {
 					"HESA",
 					"LÖYSIN TOST LÄHELT",
 					"Konsta.png");
+					levelingService.processFinding(appuser1, mushroom8);
 
 			Finding finding5 = new Finding(
 					appuser2,
@@ -203,6 +208,7 @@ public class SienimetsaBackendApplication {
 					"Espoo",
 					"Found in the forest near the lake",
 					"Konsta.png");
+					levelingService.processFinding(appuser2, mushroom5);
 
 			Finding finding6 = new Finding(
 					appuser1,
@@ -211,6 +217,7 @@ public class SienimetsaBackendApplication {
 					"TURKU",
 					"LÖYSIN TOST TOISELT PUOLELT JOKKEE",
 					"Konsta.png");
+					levelingService.processFinding(appuser1, mushroom6);
 
 			Finding finding7 = new Finding(
 					appuser1,
@@ -219,6 +226,7 @@ public class SienimetsaBackendApplication {
 					"Espoo",
 					"Oli puskan takana",
 					"Konsta.png");
+					levelingService.processFinding(appuser1, mushroom1);
 
 			Finding finding8 = new Finding(
 					appuser1,
@@ -227,6 +235,7 @@ public class SienimetsaBackendApplication {
 					"Vantaa",
 					"karhuja paljon alueella, pitää varoa",
 					"Konsta.png");
+					levelingService.processFinding(appuser1, mushroom1);
 
 			Finding finding9 = new Finding(
 					appuser1,
@@ -235,6 +244,7 @@ public class SienimetsaBackendApplication {
 					"Espoo",
 					"Paljon väkeä ilalla pitää mennä aamulla",
 					"Konsta.png");
+					levelingService.processFinding(appuser1, mushroom1);
 
 			Finding finding10 = new Finding(
 					appuser1,
@@ -243,6 +253,7 @@ public class SienimetsaBackendApplication {
 					"AAAA",
 					"HULLU LÖYTÖ (<---- copilot täytti :DDD)",
 					"Konsta.png");
+					levelingService.processFinding(appuser1, mushroom2);
 
 			findingRepository.save(finding1);
 			findingRepository.save(finding2);
@@ -254,6 +265,8 @@ public class SienimetsaBackendApplication {
 			findingRepository.save(finding8);
 			findingRepository.save(finding9);
 			findingRepository.save(finding10);
+			appuserRepository.save(appuser1);
+			appuserRepository.save(appuser2);
 
 		};
 	};
