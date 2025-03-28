@@ -42,11 +42,14 @@ public class Mushroom {
     @Column(name = "taste", nullable = false)
     private String taste;
 
+    @Column(name = "description")
+    private String description;
+
     public Mushroom() {
     }
 
     public Mushroom(Integer mushroompic, String mname, String toxicity_level, String color, String gills, String cap,
-            String taste) {
+            String taste, String description) {
         this.mushroompic = mushroompic;
         this.mname = mname;
         this.toxicity_level = toxicity_level;
@@ -54,6 +57,7 @@ public class Mushroom {
         this.gills = gills;
         this.cap = cap;
         this.taste = taste;
+        this.description = description;
     }
 
     public Long getM_id() {
@@ -120,10 +124,21 @@ public class Mushroom {
         this.taste = taste;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "Mushroom [m_id=" + m_id + ", mushroompic=" + mushroompic + ", mname=" + mname + ", toxicity_level="
-                + toxicity_level + ", color=" + color + ", gills=" + gills + ", cap=" + cap + ", taste=" + taste + "]";
+                + toxicity_level + ", color=" + color + ", gills=" + gills + ", cap=" + cap + ", taste=" + taste
+                + ", description=" + description + "]";
     }
+
+    
 
 }
