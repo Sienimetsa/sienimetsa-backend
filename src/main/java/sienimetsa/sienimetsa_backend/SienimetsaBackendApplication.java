@@ -22,7 +22,7 @@ public class SienimetsaBackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SienimetsaBackendApplication.class, args);
 	}
-
+/*
 	@Bean
 	public CommandLineRunner demo(
 			AppuserRepository appuserRepository,
@@ -327,4 +327,5 @@ public class SienimetsaBackendApplication {
 
 		};
 	};
+	*/
 }
