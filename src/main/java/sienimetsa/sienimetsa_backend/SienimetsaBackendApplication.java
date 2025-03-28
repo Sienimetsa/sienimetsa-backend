@@ -170,18 +170,18 @@ public class SienimetsaBackendApplication {
 					mushroom1,
 					java.time.LocalDateTime.now(),
 					"Espoo",
-					"Found in the forest near the lake",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
-					
-					levelingService.processFinding(appuser1, mushroom1);
-					
-			Finding finding2 = new Finding(
+		"Found in the forest near the lake",
+		"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+
+		levelingService.processFinding(appuser1, mushroom1);
+		
+Finding finding2 = new Finding(
 					appuser2,
 					mushroom2,
 					java.time.LocalDateTime.now(),
 					"Vantaa",
 					"Found in the forest near the lake",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"https://sienimetsa-img.s3.eu-north-1.amazonaws.com/Konsta.png");
 
 					levelingService.processFinding(appuser2, mushroom2);
 
@@ -191,7 +191,7 @@ public class SienimetsaBackendApplication {
 					java.time.LocalDateTime.now(),
 					"Espoo",
 					"Found in the forest near the lake",
-					"https://www.kodinkuvalehti.fi/s3fs-public/main_media/tatti.jpg");
+					"https://sienimetsa-img.s3.eu-north-1.amazonaws.com/Konsta.png");
 
            			levelingService.processFinding(appuser1, mushroom2);
 
