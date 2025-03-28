@@ -9,6 +9,8 @@ public class EnvConfig {
 
     @Bean
     public Dotenv dotenv() {
-        return Dotenv.load();
+        return Dotenv.configure()
+            .directory("/etc/secrets") // Renderin tallennuspolku
+            .load();
     }
 }
