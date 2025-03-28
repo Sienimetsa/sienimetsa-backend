@@ -29,7 +29,7 @@ public class SienimetsaBackendApplication {
 			UserRepository userRepository,
 			MushroomRepository mushroomRepository,
 			FindingRepository findingRepository,
-			LevelingService levelingService){
+			LevelingService levelingService) {
 
 		return (args) -> {
 
@@ -68,6 +68,7 @@ public class SienimetsaBackendApplication {
 			Mushroom mushroom1 = new Mushroom(
 					1,
 					"Amanita muscaria",
+					"Fly agaric",
 					"High",
 					"Blue",
 					"Free",
@@ -78,6 +79,7 @@ public class SienimetsaBackendApplication {
 			Mushroom mushroom2 = new Mushroom(
 					2,
 					"Boletus edulis",
+					"Porcini, King bolete",
 					"High",
 					"Brown",
 					"Free",
@@ -88,6 +90,7 @@ public class SienimetsaBackendApplication {
 			Mushroom mushroom3 = new Mushroom(
 					3,
 					"Cantharellus cibarius",
+					"Chanterelle",
 					"Low",
 					"Yellow",
 					"Free",
@@ -98,6 +101,7 @@ public class SienimetsaBackendApplication {
 			Mushroom mushroom4 = new Mushroom(
 					4,
 					"Agaricus bisporus",
+					"Button mushroom",
 					"Low",
 					"White",
 					"Free",
@@ -108,6 +112,7 @@ public class SienimetsaBackendApplication {
 			Mushroom mushroom5 = new Mushroom(
 					5,
 					"Russula emetica",
+					"The sickener",
 					"High",
 					"Red",
 					"Free",
@@ -118,6 +123,7 @@ public class SienimetsaBackendApplication {
 			Mushroom mushroom6 = new Mushroom(
 					6,
 					"Hypholoma fasciculare",
+					"Sulphur tuft",
 					"High",
 					"Green",
 					"Free",
@@ -128,6 +134,7 @@ public class SienimetsaBackendApplication {
 			Mushroom mushroom7 = new Mushroom(
 					7,
 					"Clitocybe dealbata",
+					"Ivory funnel",
 					"High",
 					"White",
 					"Free",
@@ -138,16 +145,18 @@ public class SienimetsaBackendApplication {
 			Mushroom mushroom8 = new Mushroom(
 					8,
 					"Agaricus xanthodermus",
+					"Yellow-staining mushroom",
 					"High",
 					"Yellow",
 					"Free",
 					"Convex",
 					"Bitter",
-					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");	
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom9 = new Mushroom(
 					9,
 					"Boletus satanas",
+					"Satan's bolete",
 					"High",
 					"Red",
 					"Free",
@@ -155,14 +164,49 @@ public class SienimetsaBackendApplication {
 					"Bitter",
 					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
-			Mushroom mushroom10 = new Mushroom(10,
+			Mushroom mushroom10 = new Mushroom(
+					10,
 					"Clitocybe rivulosa",
+					"Fool's funnel",
 					"High",
 					"White",
 					"Free",
 					"Convex",
 					"Bitter",
 					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
+
+			Mushroom mushroom11 = new Mushroom(
+					11,
+					"Craterellus tubaeformis",
+					"winter chanterelle",
+					"low",
+					"Brown",
+					"Decurrent",
+					"Funnel-shaped",
+					"Mild",
+					"A popular edible mushroom found in coniferous forests, often growing in mossy areas.");
+
+			Mushroom mushroom12 = new Mushroom(
+					12,
+					"Craterellus cornucopioides",
+					"black trumpet",
+					"low",
+					"Brown",
+					"Decurrent",
+					"Convex to Funnel-shaped",
+					"Bitter",
+					"A velvety dark brown mushroom commonly found in coniferous forests, often growing on decaying wood or tree stumps.");
+
+			Mushroom mushroom13 = new Mushroom(
+					13,
+					"Amanita virosa",
+					"destroying angel",
+					"high",
+					"white",
+					"Hymenium",
+					"Convex or flat",
+					"Mild",
+					"A deadly poisonous mushroom with a pure white cap, stem, and gills. Found in forests, particularly near birch and conifers. Consumption can cause fatal liver and kidney failure.");
 
 			mushroomRepository.save(mushroom1);
 			mushroomRepository.save(mushroom2);
@@ -174,6 +218,9 @@ public class SienimetsaBackendApplication {
 			mushroomRepository.save(mushroom8);
 			mushroomRepository.save(mushroom9);
 			mushroomRepository.save(mushroom10);
+			mushroomRepository.save(mushroom11);
+			mushroomRepository.save(mushroom12);
+			mushroomRepository.save(mushroom13);
 
 			Finding finding1 = new Finding(
 					appuser1,
@@ -182,8 +229,8 @@ public class SienimetsaBackendApplication {
 					"Espoo",
 					"Found in the forest near the lake",
 					"Konsta.png");
-					levelingService.processFinding(appuser1, mushroom1);
-					
+			levelingService.processFinding(appuser1, mushroom1);
+
 			Finding finding2 = new Finding(
 					appuser2,
 					mushroom2,
@@ -191,7 +238,7 @@ public class SienimetsaBackendApplication {
 					"Vantaa",
 					"Found in the forest near the lake",
 					"Konsta.png");
-					levelingService.processFinding(appuser2, mushroom2);
+			levelingService.processFinding(appuser2, mushroom2);
 
 			Finding finding3 = new Finding(
 					appuser1,
@@ -200,7 +247,7 @@ public class SienimetsaBackendApplication {
 					"Espoo",
 					"Found in the forest near the lake",
 					"Konsta.png");
-           			levelingService.processFinding(appuser1, mushroom2);
+			levelingService.processFinding(appuser1, mushroom2);
 
 			Finding finding4 = new Finding(
 					appuser1,
@@ -209,7 +256,7 @@ public class SienimetsaBackendApplication {
 					"HESA",
 					"LÖYSIN TOST LÄHELT",
 					"Konsta.png");
-					levelingService.processFinding(appuser1, mushroom8);
+			levelingService.processFinding(appuser1, mushroom8);
 
 			Finding finding5 = new Finding(
 					appuser2,
@@ -218,7 +265,7 @@ public class SienimetsaBackendApplication {
 					"Espoo",
 					"Found in the forest near the lake",
 					"Konsta.png");
-					levelingService.processFinding(appuser2, mushroom5);
+			levelingService.processFinding(appuser2, mushroom5);
 
 			Finding finding6 = new Finding(
 					appuser1,
@@ -227,7 +274,7 @@ public class SienimetsaBackendApplication {
 					"TURKU",
 					"LÖYSIN TOST TOISELT PUOLELT JOKKEE",
 					"Konsta.png");
-					levelingService.processFinding(appuser1, mushroom6);
+			levelingService.processFinding(appuser1, mushroom6);
 
 			Finding finding7 = new Finding(
 					appuser1,
@@ -236,7 +283,7 @@ public class SienimetsaBackendApplication {
 					"Espoo",
 					"Oli puskan takana",
 					"Konsta.png");
-					levelingService.processFinding(appuser1, mushroom1);
+			levelingService.processFinding(appuser1, mushroom1);
 
 			Finding finding8 = new Finding(
 					appuser1,
@@ -245,7 +292,7 @@ public class SienimetsaBackendApplication {
 					"Vantaa",
 					"karhuja paljon alueella, pitää varoa",
 					"Konsta.png");
-					levelingService.processFinding(appuser1, mushroom1);
+			levelingService.processFinding(appuser1, mushroom1);
 
 			Finding finding9 = new Finding(
 					appuser1,
@@ -254,7 +301,7 @@ public class SienimetsaBackendApplication {
 					"Espoo",
 					"Paljon väkeä ilalla pitää mennä aamulla",
 					"Konsta.png");
-					levelingService.processFinding(appuser1, mushroom1);
+			levelingService.processFinding(appuser1, mushroom1);
 
 			Finding finding10 = new Finding(
 					appuser1,
@@ -263,7 +310,7 @@ public class SienimetsaBackendApplication {
 					"AAAA",
 					"HULLU LÖYTÖ (<---- copilot täytti :DDD)",
 					"Konsta.png");
-					levelingService.processFinding(appuser1, mushroom2);
+			levelingService.processFinding(appuser1, mushroom2);
 
 			findingRepository.save(finding1);
 			findingRepository.save(finding2);
