@@ -84,6 +84,7 @@
                         <th>Time</th>
                         <th>City</th>
                         <th>Notes</th>
+                        <th>Picture</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -93,6 +94,7 @@
                         <td th:text="${finding.f_time}"></td>
                         <td th:text="${finding.city}"></td>
                         <td th:text="${finding.notes}"></td>
+                        <td><img th:src="@{'/images/' + ${finding.ImageURL}}" style="width: 75px; height: 75px;" /></td>
                     </tr>
                 </tbody>                
             </table>

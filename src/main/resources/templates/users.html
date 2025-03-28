@@ -104,6 +104,7 @@
                         <th>Country</th>
                         <th>Chat Color</th>
                         <th>Profile Picture</th>
+                        <th>Level</th>
                         <th sec:authorize="hasAuthority('ADMIN')">Functions</th>
                     </tr>
                 </thead>
@@ -116,6 +117,7 @@
                         <td th:text="${appuser.country}"></td>
                         <td th:text="${appuser.chatColor}"></td>
                         <td th:text="${appuser.profilePicture}"></td>
+                        <td th:text="${appuser.level}"></td>
                         <td>
                             <a class="btn btn-edit" th:href="@{/editusers/{id}(id=${appuser.u_id})}">Edit</a>
                             <a class="btn btn-delete" th:href="@{/deleteu/{id}(id=${appuser.u_id})}" onclick="confirmDelete(event)">Delete</a>
