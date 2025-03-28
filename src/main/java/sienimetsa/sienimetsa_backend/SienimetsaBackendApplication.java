@@ -72,7 +72,8 @@ public class SienimetsaBackendApplication {
 					"Blue",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom2 = new Mushroom(
 					2,
@@ -81,7 +82,8 @@ public class SienimetsaBackendApplication {
 					"Brown",
 					"Free",
 					"Convex",
-					"None");
+					"None",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom3 = new Mushroom(
 					3,
@@ -90,7 +92,8 @@ public class SienimetsaBackendApplication {
 					"Yellow",
 					"Free",
 					"Convex",
-					"None");
+					"None",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom4 = new Mushroom(
 					4,
@@ -99,7 +102,8 @@ public class SienimetsaBackendApplication {
 					"White",
 					"Free",
 					"Convex",
-					"None");
+					"None",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom5 = new Mushroom(
 					5,
@@ -108,7 +112,8 @@ public class SienimetsaBackendApplication {
 					"Red",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom6 = new Mushroom(
 					6,
@@ -117,7 +122,8 @@ public class SienimetsaBackendApplication {
 					"Green",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom7 = new Mushroom(
 					7,
@@ -126,7 +132,8 @@ public class SienimetsaBackendApplication {
 					"White",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom8 = new Mushroom(
 					8,
@@ -135,7 +142,8 @@ public class SienimetsaBackendApplication {
 					"Yellow",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");	
 
 			Mushroom mushroom9 = new Mushroom(
 					9,
@@ -144,7 +152,8 @@ public class SienimetsaBackendApplication {
 					"Red",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			Mushroom mushroom10 = new Mushroom(10,
 					"Clitocybe rivulosa",
@@ -152,7 +161,8 @@ public class SienimetsaBackendApplication {
 					"White",
 					"Free",
 					"Convex",
-					"Bitter");
+					"Bitter",
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
 			mushroomRepository.save(mushroom1);
 			mushroomRepository.save(mushroom2);
