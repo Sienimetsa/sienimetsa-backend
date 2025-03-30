@@ -42,6 +42,24 @@ logging.level.org.springframework.web.socket=DEBUG
 logging.level.org.springframework.web.socket.sockjs=DEBUG
 
 3. Ota tiedoston SienimetsaBackendApplication.java @bean pois kommenteista.
-4. Käynnistä sovellus ja tee omat juttusi.
-5.Kun olet valmis testauksen kanssa, kommentoi 3. kohdan tiedostossa @bean takaisin /* */, vaihda application.properties 
-"vanhat" tiedot takaisin (joko cmd + z tai manuaalisesti "undo") ja h2 dependencyn tilalle postgreSql dependency. 
+4. Vaihda EnvConfig.java tiedostossa @Bean sisälle:
+
+    public Dotenv dotenv() {
+        return Dotenv.configure()
+            .directory("./") // Renderin tallennuspolku
+            .load();
+    }
+
+5. Käynnistä sovellus.
+
+Kun olet valmis lokaalin h2 käytön kanssa, toimi seuraavasti:
+1. kommentoi 3. kohdan tiedostossa @bean takaisin /* */
+2.vaihda application.properties "vanhat" tiedot takaisin (joko cmd + z tai manuaalisesti "undo").
+3.h2 dependencyn tilalle postgreSql dependency (pom.xml)
+4.EnvConfig.java @Bean sisälle:
+
+public Dotenv dotenv() {
+        return Dotenv.configure()
+            .directory("/etc/secrets") // Renderin tallennuspolku
+            .load();
+    }
