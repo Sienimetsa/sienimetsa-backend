@@ -1373,5 +1373,9 @@ public class SienimetsaBackendApplication {
 
 		};
 	};
+<<<<<<< Updated upstream
 	*/
+=======
+        */
+>>>>>>> Stashed changes
 }
