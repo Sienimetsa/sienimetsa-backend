@@ -22,7 +22,7 @@ public class SienimetsaBackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SienimetsaBackendApplication.class, args);
 	}
-/*
+
 	@Bean
 	public CommandLineRunner demo(
 			AppuserRepository appuserRepository,
@@ -42,7 +42,7 @@ public class SienimetsaBackendApplication {
 					encodedPassword1,
 					"358401234568",
 					"real@email.com",
-					"Finland", "#9B59B6", "pp1", 1);
+					"Finland", "#9B59B6", "pp1", 1,0);
 
 			Appuser appuser2 = new Appuser(
 
@@ -50,7 +50,7 @@ public class SienimetsaBackendApplication {
 					encodedPassword2,
 					"358401234567",
 					"test@lookout.com",
-					"Finland", "#E67E22", "pp1", 1);
+					"Finland", "#E67E22", "pp1", 1,0);
 
 			appuserRepository.save(appuser1);
 			appuserRepository.save(appuser2);
@@ -1373,5 +1373,5 @@ public class SienimetsaBackendApplication {
 
 		};
 	};
-	*/
+
 }

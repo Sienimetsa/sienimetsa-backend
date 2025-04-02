@@ -51,6 +51,10 @@ public class Appuser {
     @Min(value = 1, message = "Level needs to be at least 1")
     private int level;
 
+    @Column(name = "progress")
+    private double progress; 
+
+
     @ElementCollection
     @Column(name = "unique_mushrooms")
     private Set<Long> uniqueMushrooms = new HashSet<>();
@@ -58,7 +62,7 @@ public class Appuser {
     public Appuser() {
     }
 
-    public Appuser( String username, String passwordHash, String phone, String email, String country, String chatColor, String profilePicture, int level) {
+    public Appuser( String username, String passwordHash, String phone, String email, String country, String chatColor, String profilePicture, int level, double progress) {
   
         this.username = username;
         this.passwordHash = passwordHash;
@@ -68,6 +72,7 @@ public class Appuser {
         this.chatColor =chatColor;
         this.profilePicture =profilePicture;
         this.level = level;
+        this.progress= progress;
     }
 
     // Getters and setters
@@ -145,7 +150,13 @@ public class Appuser {
     public void setLevel(int level) {
         this.level = level;
     }
+  public double getProgress() {
+        return progress;
+    }
 
+    public void setProgress(double progress) {
+        this.progress = progress;
+    }
     public Set<Long> getUniqueMushrooms() {
         return uniqueMushrooms;
     }
