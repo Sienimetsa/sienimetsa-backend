@@ -53,11 +53,11 @@ public class Mushroom {
     public Mushroom() {
     }
 
-    public Mushroom(Integer mushroompic, String mname,String cmname, String toxicity_level, String color, String gills, String cap,
+    public Mushroom(Integer mushroompic, String mname, String cmname, String toxicity_level, String color, String gills, String cap,
             String taste, String description) {
         this.mushroompic = mushroompic;
         this.mname = mname;
-        this.cmname = mname;
+        this.cmname = cmname;
         this.toxicity_level = toxicity_level;
         this.color = color;
         this.gills = gills;
