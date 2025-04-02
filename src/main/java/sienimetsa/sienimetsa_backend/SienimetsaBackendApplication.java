@@ -50,7 +50,7 @@ public class SienimetsaBackendApplication {
 					encodedPassword2,
 					"358401234567",
 					"test@lookout.com",
-					"Finland", "#E67E22", "pp1", 1,0);
+					"Finland", "#574E47", "pp1", 1,0);
 
 			appuserRepository.save(appuser1);
 			appuserRepository.save(appuser2);
