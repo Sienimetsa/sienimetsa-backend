@@ -17,21 +17,19 @@ public class AwsUploadService {
     private S3Client s3Client;
     
     /**
-     * Service joka lataa kuvan S3:een ja palauttaa sen URL:n
+     * Service that uploads an image to S3 and returns its URL
      * 
-     * @param file Tiedosto joka pitää pyynnön mukana lähettää
-     * @return tiedostonimi
-     * @throws IOException Jos hommat ns. leipoo
+     * @param file File that needs to be sent with the request
+     * @return file name
+     * @throws IOException If something goes wrong
      */
 
     public String uploadImage(MultipartFile file) throws IOException {
-        // Generoidaan "uniikki" tiedostonimi niin ettei tule ongelmia
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         String bucketName = "sienimetsa-img";
         
         byte[] fileBytes = file.getBytes();
         
-        // Lähetetään kuva S3:een
         s3Client.putObject(PutObjectRequest.builder()
                 .bucket(bucketName)
                 .key(fileName)
@@ -39,7 +37,6 @@ public class AwsUploadService {
                 .build(),
                 RequestBody.fromBytes(fileBytes));
         
-        // Generoidaan entityyn varastoitava tiedostonimi
         return fileName;
     }
 }
