@@ -11,7 +11,9 @@ public class EnvConfig {
     @Bean
     public Dotenv dotenv() {
         return Dotenv.configure()
-            .directory("./") // Renderin tallennuspolku
-            .load();
+                .ignoreIfMissing()
+                .ignoreIfMalformed()
+                .load();
     }
+    
 }
