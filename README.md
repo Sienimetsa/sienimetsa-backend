@@ -4,7 +4,7 @@ Backend project for the "Software Project 2" course application. This backend ap
 # Features
 ### Login
 - `GET /login` - Shows the login page.
-### Frontpage
+### Front page
 - `GET /frontpage` - Shows the applications front-page. The page includes links to users, findings and mushrooms.
 ### Users
 - `GET /allusers` - Shows all appusers and provides an option to add/edit/delete an user.
