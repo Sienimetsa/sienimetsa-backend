@@ -1,20 +1,7 @@
 package sienimetsa.sienimetsa_backend;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import sienimetsa.sienimetsa_backend.domain.Appuser;
-import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
-import sienimetsa.sienimetsa_backend.domain.Finding;
-import sienimetsa.sienimetsa_backend.domain.FindingRepository;
-import sienimetsa.sienimetsa_backend.domain.Mushroom;
-import sienimetsa.sienimetsa_backend.domain.MushroomRepository;
-import sienimetsa.sienimetsa_backend.domain.User;
-import sienimetsa.sienimetsa_backend.domain.UserRepository;
-import sienimetsa.sienimetsa_backend.service.LevelingService;
 
 @SpringBootApplication
 public class SienimetsaBackendApplication {
@@ -22,7 +9,7 @@ public class SienimetsaBackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SienimetsaBackendApplication.class, args);
 	}
-        
+        /*
 	@Bean
 	public CommandLineRunner demo(
 			AppuserRepository appuserRepository,
@@ -1373,5 +1360,5 @@ public class SienimetsaBackendApplication {
 
 		};
 	};
-
+        */
 }

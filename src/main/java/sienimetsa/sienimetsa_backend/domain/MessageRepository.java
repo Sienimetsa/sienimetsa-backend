@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findAllByOrderByTimestampAsc();
-      // Method to find the oldest message
-      Message findFirstByOrderByTimestampAsc();
+    // Method to find the oldest message
+    Message findFirstByOrderByTimestampAsc();
 }

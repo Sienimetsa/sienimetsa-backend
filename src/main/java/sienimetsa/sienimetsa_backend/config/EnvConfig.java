@@ -1,8 +1,9 @@
 package sienimetsa.sienimetsa_backend.config;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import io.github.cdimascio.dotenv.Dotenv;
 
 @Configuration
 public class EnvConfig {
@@ -10,7 +11,9 @@ public class EnvConfig {
     @Bean
     public Dotenv dotenv() {
         return Dotenv.configure()
-            .directory("/etc/secrets") // Renderin tallennuspolku
-            .load();
+                .ignoreIfMissing()
+                .ignoreIfMalformed()
+                .load();
     }
+    
 }

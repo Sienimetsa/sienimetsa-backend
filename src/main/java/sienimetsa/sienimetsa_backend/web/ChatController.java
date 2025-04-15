@@ -27,7 +27,6 @@ public class ChatController {
         if (messageDTO.getUsername() == null || messageDTO.getUsername().isEmpty()) {
             messageDTO.setUsername("Anonymous");
         }
-
         // Convert MessageDTO to Message entity
         Message message = new Message();
         message.setUsername(messageDTO.getUsername());

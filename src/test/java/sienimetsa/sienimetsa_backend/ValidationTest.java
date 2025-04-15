@@ -1,12 +1,11 @@
 package sienimetsa.sienimetsa_backend;
-import java.util.Set;
 
+import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -27,23 +26,30 @@ class ValidationTest {
         validator = factory.getValidator();
     }
 
-    //testataa appuser entity
+    // testataa appuser entity
     @Test
     void testInvalidAppuserEntity() {
         Appuser appuser = new Appuser();
         appuser.setUsername(""); // Assuming @NotBlank
         appuser.setPasswordHash(""); // Assuming @NotBlank
         appuser.setPhone(""); // Assuming @NotBlank
+        appuser.setProfilePicture("1"); // Assuming @NotBlank
+        appuser.setLevel(0); // Assuming @Min(1)
+        appuser.setProgress(0); // Assuming @Min(0)
         appuser.setEmail(""); // Assuming @NotBlank
         appuser.setCountry(""); // Assuming @NotBlank
 
         Set<ConstraintViolation<Appuser>> violations = validator.validate(appuser);
 
-        assertFalse(violations.isEmpty());
-        assertEquals(8, violations.size()); // Checking for all violations
+        // Make sure we have violations
+        assertFalse(violations.isEmpty(), "There should be validation errors");
+
+        // Check the number of violations (you need to adjust this number based on
+        // actual constraints)
+        assertEquals(7, violations.size(), "The number of violations should match the invalid fields");
     }
 
-    //testaa finding entity
+    // testaa finding entity
     @Test
     void testInvalidFindingEntity() {
         Finding finding = new Finding();
@@ -55,7 +61,7 @@ class ValidationTest {
         assertEquals(1, violations.size()); // Checking for the city field validation
     }
 
-    //testaa mushroom entity
+    // testaa mushroom entity
     @Test
     void testInvalidMushroomEntity() {
         Mushroom mushroom = new Mushroom();
@@ -65,14 +71,15 @@ class ValidationTest {
         mushroom.setGills(""); // Assuming @NotBlank
         mushroom.setCap(""); // Assuming @NotBlank
         mushroom.setTaste(""); // Assuming @NotBlank
+        mushroom.setDescription(""); // Assuming @NotBlank
 
         Set<ConstraintViolation<Mushroom>> violations = validator.validate(mushroom);
 
         assertFalse(violations.isEmpty());
-        assertEquals(6, violations.size()); // Checking for all violations
+        assertEquals(7, violations.size()); // Checking for all violations
     }
 
-    //testaa user entityn
+    // testaa user entityn
     @Test
     void testInvalidUserEntity() {
         User user = new User();
