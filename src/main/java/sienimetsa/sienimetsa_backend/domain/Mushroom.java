@@ -151,7 +151,4 @@ public class Mushroom {
                 + toxicity_level + ", color=" + color + ", gills=" + gills + ", cap=" + cap + ", taste=" + taste
                 + ", description=" + description + "]";
     }
-
-    
-
 }
