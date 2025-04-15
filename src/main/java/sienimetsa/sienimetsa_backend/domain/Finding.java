@@ -116,5 +116,4 @@ public class Finding {
         return "Finding [f_id=" + f_id + ", appuser=" + appuser + ", mushroom=" + mushroom + ", f_time=" + f_time
                 + ", city=" + city + ", notes=" + notes + ", imageURL=" + imageURL + "]";
     }
-
 }
