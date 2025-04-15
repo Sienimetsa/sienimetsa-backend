@@ -17,8 +17,20 @@ public class ChatService {
     public List<Message> getChatHistory() {
         return repository.findAllByOrderByTimestampAsc();
     }
-    //saves messages
-    public Message saveMessage(Message message) {
-        return repository.save(message);
+      // Saves messages and deletes the oldest one if the total exceeds 100
+      public Message saveMessage(Message message) {
+        Message savedMessage = repository.save(message);
+
+        // Check if the total number of messages exceeds 100
+        long messageCount = repository.count();
+        if (messageCount > 100) {
+            // Find the oldest message and delete it
+            Message oldestMessage = repository.findFirstByOrderByTimestampAsc();
+            if (oldestMessage != null) {
+                repository.delete(oldestMessage);
+            }
+        }
+
+        return savedMessage;
     }
 }
