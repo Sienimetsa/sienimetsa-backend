@@ -71,8 +71,14 @@ public class AuthController {
      */
     @PostMapping("/mobile/signup")
     public ResponseEntity<?> signup(@RequestBody MobileSignupRequestDTO signupRequest) {
-        String message = appuserSignUpService.registerNewUser(signupRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(message);
+        try {
+            String message = appuserSignUpService.registerNewUser(signupRequest);
+            return ResponseEntity.status(HttpStatus.CREATED).body(message);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred during registration");
+        }
     }
 
     /**

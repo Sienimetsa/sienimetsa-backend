@@ -21,13 +21,12 @@ public class AppuserSignUpServiceImpl {
     // Method to register a new user
      public String registerNewUser(MobileSignupRequestDTO signupRequestDTO) {
         
-        // Check if the email already exists
-        if (appuserRepository.findByEmail(signupRequestDTO.getEmail()).isPresent()) {
-            return "Email is already taken!";
+        if (appuserRepository.existsByUsername(signupRequestDTO.getUsername())) {
+            throw new IllegalArgumentException("Username is already taken!");
         }
-        // Check if the username already exists
-        if (appuserRepository.findByUsername(signupRequestDTO.getUsername()).isPresent()) {
-            return "Username is already taken!";
+    
+        if (appuserRepository.existsByEmail(signupRequestDTO.getEmail())) {
+            throw new IllegalArgumentException("Email is already taken!");
         }
 
         // Create new Appuser object from DTO
