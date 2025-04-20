@@ -60,8 +60,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/mobile/signup", "/mobile/login").permitAll()
                         .requestMatchers("/apu/**").permitAll()
-                        .requestMatchers("/gdpr/pdf/**").permitAll()
                         .requestMatchers("/images/**").permitAll()
+                        .requestMatchers("/gdpr/pdf/**").authenticated()
                         .anyRequest().authenticated())
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .formLogin(form -> form.disable())
