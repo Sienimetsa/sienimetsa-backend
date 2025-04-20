@@ -1,10 +1,10 @@
 package sienimetsa.sienimetsa_backend.web;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,10 +21,12 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import jakarta.servlet.http.HttpServletRequest;
 import sienimetsa.sienimetsa_backend.domain.Appuser;
 import sienimetsa.sienimetsa_backend.domain.AppuserRepository;
 import sienimetsa.sienimetsa_backend.domain.Finding;
 import sienimetsa.sienimetsa_backend.domain.FindingRepository;
+import sienimetsa.sienimetsa_backend.jwt.JwtUtil;
 
 @RestController
 @RequestMapping("/gdpr")
@@ -32,9 +34,12 @@ public class GDPRController {
 
     @Autowired
     private AppuserRepository appuserRepository;
+    private static final Logger logger = LoggerFactory.getLogger(GDPRController.class);
 
     @Autowired
     private FindingRepository findingRepository;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     /**
      * Endpoint to generate and return a PDF of user information.
@@ -42,13 +47,26 @@ public class GDPRController {
      * @param userId The ID of the user.
      * @return A PDF file containing the user's information.
      */
-    @GetMapping("/pdf/{userId}")
-    public ResponseEntity<byte[]> getUserInfoPdf(@PathVariable Long userId) {
-        Optional<Appuser> userOptional = appuserRepository.findById(userId);
+@GetMapping("/pdf/{userId}")
+public ResponseEntity<byte[]> getUserInfoPdf(@PathVariable Long userId, HttpServletRequest request) {
+    String authorizationHeader = request.getHeader("Authorization");
+    if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+    }
 
-        if (userOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+    String token = authorizationHeader.substring(7);
+    Long authenticatedUId = jwtUtil.extractUId(token);
+
+    if (!authenticatedUId.equals(userId)) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+    }
+
+    // Retrieve the requested user's data
+    Optional<Appuser> userOptional = appuserRepository.findById(userId);
+    if (userOptional.isEmpty()) {
+        logger.warn("No user found with ID: {}", userId);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
 
         Appuser user = userOptional.get();
 
