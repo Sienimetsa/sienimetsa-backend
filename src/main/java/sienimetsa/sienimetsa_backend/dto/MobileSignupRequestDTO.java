@@ -22,6 +22,9 @@ public class MobileSignupRequestDTO {
     @NotBlank(message = "Country is required")
     private String country;
 
+    private boolean dryRun;
+
+
     public MobileSignupRequestDTO() {}
 
     public MobileSignupRequestDTO(String username, String password, String phone, String email, String country) {
@@ -70,5 +73,13 @@ public class MobileSignupRequestDTO {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+    
+    public boolean isDryRun() {
+        return dryRun;
+    }
+
+    public void setDryRun(boolean dryRun) {
+        this.dryRun = dryRun;
     }
 }

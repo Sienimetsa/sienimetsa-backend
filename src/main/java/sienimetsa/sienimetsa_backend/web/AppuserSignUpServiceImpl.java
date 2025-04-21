@@ -19,8 +19,21 @@ public class AppuserSignUpServiceImpl {
     }
 
     // Method to register a new user
-     public String registerNewUser(MobileSignupRequestDTO signupRequestDTO) {
+     public String registerNewUser(MobileSignupRequestDTO signupRequestDTO ) {
+        if (signupRequestDTO.isDryRun()) {
+            // Only validate input and return a success message without creating the user
+            if (appuserRepository.existsByUsername(signupRequestDTO.getUsername())) {
+                throw new IllegalArgumentException("Username is already taken!");
+            }
+    
+            if (appuserRepository.existsByEmail(signupRequestDTO.getEmail())) {
+                throw new IllegalArgumentException("Email is already taken!");
+            }
+    
+            return "Validation passed";  // Return validation message
+        }
         
+        // Actual user creation logic if dryRun is false
         if (appuserRepository.existsByUsername(signupRequestDTO.getUsername())) {
             throw new IllegalArgumentException("Username is already taken!");
         }
@@ -28,6 +41,7 @@ public class AppuserSignUpServiceImpl {
         if (appuserRepository.existsByEmail(signupRequestDTO.getEmail())) {
             throw new IllegalArgumentException("Email is already taken!");
         }
+    
 
         // Create new Appuser object from DTO
         Appuser newUser = new Appuser();
