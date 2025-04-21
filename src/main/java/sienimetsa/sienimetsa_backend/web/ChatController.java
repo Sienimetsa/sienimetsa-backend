@@ -4,29 +4,39 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import sienimetsa.sienimetsa_backend.dto.MessageDTO;
+import sienimetsa.sienimetsa_backend.domain.Message;
 
 import java.time.LocalDateTime;
 
 @Controller
 public class ChatController {
 
+    private final ChatService chatService;
+
+    public ChatController(ChatService chatService) {
+        this.chatService = chatService;
+    }
+
     @MessageMapping("/send")
     @SendTo("/topic/publicChat")
-    public MessageDTO sendMessage(MessageDTO message) {
+    public MessageDTO sendMessage(MessageDTO messageDTO) {
 
-        // Message output to console
-        System.out.println("Received message: " + message);
-        System.out.println("Username: " + message.getUsername());
-        System.out.println("Text: " + message.getText());
-        
-        if (message.getTimestamp() == null) {
-            message.setTimestamp(LocalDateTime.now());
+        if (messageDTO.getTimestamp() == null) {
+            messageDTO.setTimestamp(LocalDateTime.now());
         }
-    
-        if (message.getUsername() == null || message.getUsername().isEmpty()) {
-            message.setUsername("Anonymous");
+        if (messageDTO.getUsername() == null || messageDTO.getUsername().isEmpty()) {
+            messageDTO.setUsername("Anonymous");
         }
-    
-        return message;
+        // Convert MessageDTO to Message entity
+        Message message = new Message();
+        message.setUsername(messageDTO.getUsername());
+        message.setText(messageDTO.getText());
+        message.setTimestamp(messageDTO.getTimestamp());
+
+        // Save the message to the database
+        chatService.saveMessage(message);
+
+        // Return the DTO for broadcasting
+        return messageDTO;
     }
 }
