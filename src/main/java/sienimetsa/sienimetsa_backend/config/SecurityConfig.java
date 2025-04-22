@@ -1,5 +1,8 @@
 package sienimetsa.sienimetsa_backend.config;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -18,13 +21,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 import sienimetsa.sienimetsa_backend.jwt.JwtAuthenticationFilter;
 import sienimetsa.sienimetsa_backend.jwt.JwtUtil;
 import sienimetsa.sienimetsa_backend.web.AppuserService;
 import sienimetsa.sienimetsa_backend.web.UserDetailServiceImpl;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
@@ -56,7 +57,6 @@ public class SecurityConfig {
                 .securityMatcher("/mobile/**", "/apu/**", "/api/**", "/buckets/all/**", "buckets/upload/**", "/images/**","/gdpr/**")
 
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/mobile/signup", "/mobile/login").permitAll()
                         .requestMatchers("/apu/**").permitAll()
