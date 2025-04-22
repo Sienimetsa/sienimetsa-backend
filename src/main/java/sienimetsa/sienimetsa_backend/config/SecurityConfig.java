@@ -57,6 +57,7 @@ public class SecurityConfig {
                 .securityMatcher("/mobile/**", "/apu/**", "/api/**", "/buckets/all/**", "buckets/upload/**", "/images/**","/gdpr/**")
 
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/mobile/signup", "/mobile/login").permitAll()
                         .requestMatchers("/apu/**").permitAll()
