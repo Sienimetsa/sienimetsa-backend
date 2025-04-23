@@ -1,6 +1,8 @@
 package sienimetsa.sienimetsa_backend.domain;
 
+import java.util.List;
 import java.util.Optional;
+
 import org.springframework.data.repository.CrudRepository;
 
 public interface AppuserRepository extends CrudRepository<Appuser, Long> {
@@ -16,6 +18,8 @@ public interface AppuserRepository extends CrudRepository<Appuser, Long> {
 
     // Find a user by username
     Optional<Appuser> findByUsername(String username);
+
+    List<Appuser> findByUsernameIn(List<String> usernames);
 
     
 }
