@@ -1,5 +1,6 @@
 package sienimetsa.sienimetsa_backend.web;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class BucketController {
             String fileUrl = awsUploadService.uploadImage(file);
             
             return new ResponseEntity<>("File uploaded successfully. URL: " + fileUrl, HttpStatus.OK);
-        } catch (Exception e) {
+        } catch (IOException e) {
             return new ResponseEntity<>("Failed to upload file: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
