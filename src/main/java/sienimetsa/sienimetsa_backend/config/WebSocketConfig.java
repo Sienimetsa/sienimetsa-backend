@@ -1,14 +1,15 @@
 package sienimetsa.sienimetsa_backend.config;
 
+import java.util.Map;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.server.HandshakeInterceptor;
-import sienimetsa.sienimetsa_backend.jwt.JwtUtil;
 
-import java.util.Map;
+import sienimetsa.sienimetsa_backend.jwt.JwtUtil;
 
 @Configuration
 @EnableWebSocketMessageBroker
@@ -83,7 +84,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                             org.springframework.http.server.ServerHttpRequest request,
                             org.springframework.http.server.ServerHttpResponse response,
                             org.springframework.web.socket.WebSocketHandler wsHandler,
-                            Exception exception) {
+                            @org.springframework.lang.Nullable Exception exception) {
                     }
                 });
 

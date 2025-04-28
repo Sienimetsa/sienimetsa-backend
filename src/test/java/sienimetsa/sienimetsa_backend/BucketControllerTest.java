@@ -1,20 +1,22 @@
 package sienimetsa.sienimetsa_backend;
 
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
-import org.junit.jupiter.api.extension.ExtendWith;
+
 import sienimetsa.sienimetsa_backend.service.AwsUploadService;
 import sienimetsa.sienimetsa_backend.web.BucketController;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -70,8 +72,12 @@ public class BucketControllerTest {
         ResponseEntity<String> response = bucketController.uploadImage(file);
         //Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertTrue(response.getBody().contains("File uploaded successfully"));
-        assertTrue(response.getBody().contains(EXPECTED_URL));
+        String responseBody = response.getBody();
+        assertTrue(responseBody != null, "Response body should not be null");
+        if (responseBody != null) {
+            assertTrue(responseBody.contains("File uploaded successfully"));
+            assertTrue(responseBody.contains(EXPECTED_URL));
+        }
         verify(awsUploadService, times(1)).uploadImage(file);
     }
 
@@ -84,8 +90,12 @@ public class BucketControllerTest {
         ResponseEntity<String> response = bucketController.uploadImage(file);
         //Assert
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertTrue(response.getBody().contains("Failed to upload file"));
-        assertTrue(response.getBody().contains(ERROR_MESSAGE));
+        String responseBody = response.getBody();
+        assertTrue(responseBody != null, "Response body should not be null");
+        if (responseBody != null) {
+            assertTrue(responseBody.contains("Failed to upload file"));
+            assertTrue(responseBody.contains(ERROR_MESSAGE));
+        }
         verify(awsUploadService, times(1)).uploadImage(file);
     }
 }
